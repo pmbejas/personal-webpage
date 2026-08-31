@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============ Temas de color del sitio ============ */
+/* Los valores RGB van separados por espacios (sin comas): la sintaxis
+   moderna rgb(r g b / a) no admite comas mezcladas con slash de alpha.
+   Azul (por defecto) */
+:root,
+[data-tema="azul"] {
+  --tema-acento-claro-rgb: 96 165 250;
+  --tema-acento-rgb: 59 130 246;
+  --tema-acento-oscuro-rgb: 37 99 235;
+  --tema-acento-profundo-rgb: 30 58 138;
+  --tema-texto-sobre: #ffffff;
+}
+
+/* Verde menta */
+[data-tema="verde"] {
+  --tema-acento-claro-rgb: 110 231 183;
+  --tema-acento-rgb: 52 211 153;
+  --tema-acento-oscuro-rgb: 5 150 105;
+  --tema-acento-profundo-rgb: 4 71 54;
+  --tema-texto-sobre: #ffffff;
+}
+
+/* Naranja pastel (durazno/apricot suaves) */
+[data-tema="naranja"] {
+  --tema-acento-claro-rgb: 253 217 180;
+  --tema-acento-rgb: 244 173 117;
+  --tema-acento-oscuro-rgb: 231 145 80;
+  --tema-acento-profundo-rgb: 122 68 34;
+  --tema-texto-sobre: #2e1d0e;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #070B14;
+    color: #F8FAFC;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Estilos para la barra de desplazamiento */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #070B14;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1E293B;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+  }
+
+  /* Respetar la preferencia de movimiento reducido también en animaciones CSS */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .animate-pulse {
+      animation: none;
+    }
+  }
+}
+

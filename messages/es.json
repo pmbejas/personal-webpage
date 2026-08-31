@@ -1,0 +1,158 @@
+{
+  "navegacion": {
+    "inicio": "Inicio",
+    "sobreMi": "Sobre Mí",
+    "servicios": "Servicios",
+    "proyectos": "Proyectos",
+    "blog": "Blog",
+    "contacto": "Contacto",
+    "contratame": "Contrátame",
+    "seleccionarIdioma": "Seleccionar idioma",
+    "abrirMenu": "Abrir menú",
+    "cerrarMenu": "Cerrar menú"
+  },
+  "hero": {
+    "saludo": "Hola, soy",
+    "nombre": "Pablo Bejas",
+    "rol": "Full Stack Developer",
+    "descripcion": "Construyo experiencias digitales excepcionales y aplicaciones escalables con código limpio y diseño de alto impacto.",
+    "verProyectos": "Ver mis proyectos",
+    "contactarme": "Contactarme",
+    "empresasConfianza": "Tecnologías y empresas de confianza"
+  },
+  "sobreMi": {
+    "etiqueta": "SOBRE MÍ",
+    "titulo": "Creando soluciones que generan impacto",
+    "descripcion": "Soy un apasionado desarrollador Full Stack especializado en construir aplicaciones web modernas, seguras y escalables. Con un sólido ojo para el diseño visual y un compromiso absoluto con el código limpio y mantenible, ayudo a empresas y startups a transformar ideas complejas en productos digitales de éxito.",
+    "aniosExperiencia": "5+ Años de Experiencia",
+    "disponibleFreelance": "Disponible para Freelance",
+    "proyectosCompletados": "50+ Proyectos Realizados",
+    "clientesGlobales": "Clientes Internacionales",
+    "descargarCv": "Descargar CV",
+    "etiquetaRetrato": "FULL STACK DEV"
+  },
+  "contacto": {
+    "ubicacion": "Ubicación",
+    "valorUbicacion": "Tucumán, Argentina / Remoto",
+    "correo": "Correo Electrónico",
+    "valorCorreo": "pmwebdeveloper79@gmail.com",
+    "telefono": "Teléfono",
+    "valorTelefono": "+54 9 381 463-6143",
+    "idiomas": "Idiomas",
+    "valorIdiomas": "Español e Inglés"
+  },
+  "servicios": {
+    "etiqueta": "MIS SERVICIOS",
+    "titulo": "¿Qué puedo hacer por ti?",
+    "desarrolloWeb": {
+      "titulo": "Desarrollo Web",
+      "descripcion": "Sitios y aplicaciones web a medida con arquitectura moderna, escalable y código limpio."
+    },
+    "disenioResponsivo": {
+      "titulo": "Diseño Responsivo",
+      "descripcion": "Interfaces adaptativas mobile-first que se visualizan a la perfección en cualquier resolución."
+    },
+    "optimizacionRendimiento": {
+      "titulo": "Optimización de Rendimiento",
+      "descripcion": "Máxima velocidad de carga, mejores puntuaciones en Google Core Web Vitals y optimización SEO."
+    },
+    "mantenimientoWeb": {
+      "titulo": "Mantenimiento Web",
+      "descripcion": "Soporte técnico continuo, actualizaciones y monitoreo preventivo para máxima estabilidad."
+    }
+  },
+  "proyectos": {
+    "etiqueta": "PROYECTOS DESTACADOS",
+    "titulo": "Proyectos Destacados",
+    "verTodos": "Ver todos los proyectos",
+    "verDemo": "Demo",
+    "verCodigo": "Código",
+    "verProyecto": "Ver proyecto",
+    "etiquetaStack": "Stack tecnológico",
+    "etiquetaCapacidades": "Capacidades principales",
+    "etiquetaImpacto": "Impacto",
+    "todosLosProyectos": "Catálogo Completo de Proyectos",
+    "subtituloCatalogo": "Explora mi trabajo en aplicaciones web, sistemas institucionales, plataformas de e-commerce y proyectos interactivos.",
+    "volverInicio": "Volver al inicio",
+    "sinResultados": "No se encontraron proyectos en esta categoría.",
+    "filtros": {
+      "todos": "Todos",
+      "sistemas": "Sistemas Institucionales",
+      "web": "Aplicaciones Web",
+      "outdoor": "Outdoor & Geolocalización",
+      "ecommerce": "E-Commerce"
+    },
+    "camaraFederalTucuman": {
+      "titulo": "Cámara Federal de Tucumán",
+      "descripcion": "Website institucional y sistema avanzado de búsqueda y consulta de jurisprudencia judicial.",
+      "impacto": "Búsqueda de jurisprudencia en segundos",
+      "capacidades": [
+        "Motor de búsqueda y filtros avanzados",
+        "Gestión de contenido institucional",
+        "Optimización de performance y SEO"
+      ]
+    },
+    "finisUtn": {
+      "titulo": "Finis UTN",
+      "descripcion": "Plataforma académica integral para el control, gestión y seguimiento de Proyectos Finales de la UTN.",
+      "impacto": "Gestión académica integral",
+      "capacidades": [
+        "Seguimiento de proyectos finales",
+        "Control de usuarios y roles",
+        "Reportes y métricas en tiempo real"
+      ]
+    },
+    "guiaEscaladaTucuman": {
+      "titulo": "Guía de Escalada Tucumán",
+      "descripcion": "Portal y guía interactiva con catálogo de sectores, vías, mapas y topos de escalada en roca en Tucumán.",
+      "impacto": "Cartografía digital de la escalada",
+      "capacidades": [
+        "Mapa interactivo de sectores",
+        "Catálogo de vías y topos",
+        "Contenido 100% administrable"
+      ]
+    },
+    "plataformaEcommerce": {
+      "titulo": "Plataforma E-Commerce",
+      "descripcion": "Tienda en línea de alto rendimiento con procesamiento de pagos y panel administrativo modular.",
+      "impacto": "Ventas online de alto rendimiento",
+      "capacidades": [
+        "Procesamiento de pagos integrado",
+        "Panel administrativo modular",
+        "Catálogo y stock en tiempo real"
+      ]
+    },
+    "panelEmpresarial": {
+      "titulo": "Panel de Control Analítico",
+      "descripcion": "Dashboard de métricas empresariales con gráficos interactivos y control de accesos.",
+      "impacto": "Decisiones basadas en datos",
+      "capacidades": [
+        "Gráficos interactivos",
+        "Métricas empresariales en tiempo real",
+        "Control de accesos por rol"
+      ]
+    },
+    "sistemaTurnos": {
+      "titulo": "Sistema de Gestión de Turnos",
+      "descripcion": "Aplicación para reserva automática de citas, notificaciones por email y gestión de agendas.",
+      "impacto": "Agendas sin fricción",
+      "capacidades": [
+        "Reserva de turnos automática",
+        "Notificaciones por email",
+        "Gestión de agendas y disponibilidad"
+      ]
+    }
+  },
+  "bannerContacto": {
+    "titulo": "¿Trabajamos juntos?",
+    "descripcion": "¿Tienes una idea o proyecto en mente? Me encantaría colaborar contigo para hacerlo realidad.",
+    "boton": "Ponerse en contacto"
+  },
+  "piePagina": {
+    "rol": "Full Stack Developer",
+    "derechos": "© 2026 Pablo Bejas. Todos los derechos reservados.",
+    "linkedin": "Perfil de LinkedIn",
+    "github": "Perfil de GitHub",
+    "twitter": "Perfil de Twitter"
+  }
+}

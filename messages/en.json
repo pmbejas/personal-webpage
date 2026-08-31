@@ -1,0 +1,158 @@
+{
+  "navegacion": {
+    "inicio": "Home",
+    "sobreMi": "About",
+    "servicios": "Services",
+    "proyectos": "Projects",
+    "blog": "Blog",
+    "contacto": "Contact",
+    "contratame": "Hire Me",
+    "seleccionarIdioma": "Select language",
+    "abrirMenu": "Open menu",
+    "cerrarMenu": "Close menu"
+  },
+  "hero": {
+    "saludo": "Hello, I'm",
+    "nombre": "Pablo Bejas",
+    "rol": "Full Stack Developer",
+    "descripcion": "I build exceptional digital experiences and scalable web applications with clean code and high-impact design.",
+    "verProyectos": "View My Work",
+    "contactarme": "Contact Me",
+    "empresasConfianza": "Trusted by modern companies and technologies"
+  },
+  "sobreMi": {
+    "etiqueta": "ABOUT ME",
+    "titulo": "Building Solutions That Make an Impact",
+    "descripcion": "I'm a passionate Full Stack Developer specialized in building modern, scalable, and secure web applications. With a sharp eye for visual aesthetics and a solid commitment to clean, maintainable code, I help businesses bring their ideas to life.",
+    "aniosExperiencia": "5+ Years of Experience",
+    "disponibleFreelance": "Available for Freelance",
+    "proyectosCompletados": "50+ Projects Completed",
+    "clientesGlobales": "Clients Worldwide",
+    "descargarCv": "Download CV",
+    "etiquetaRetrato": "FULL STACK DEV"
+  },
+  "contacto": {
+    "ubicacion": "Location",
+    "valorUbicacion": "Tucumán, Argentina / Remote",
+    "correo": "Email",
+    "valorCorreo": "pmwebdeveloper79@gmail.com",
+    "telefono": "Phone",
+    "valorTelefono": "+54 9 381 463-6143",
+    "idiomas": "Languages",
+    "valorIdiomas": "Spanish and English"
+  },
+  "servicios": {
+    "etiqueta": "MY SERVICES",
+    "titulo": "What I Can Do For You",
+    "desarrolloWeb": {
+      "titulo": "Web Development",
+      "descripcion": "Custom websites and scalable web applications built with the latest modern technologies."
+    },
+    "disenioResponsivo": {
+      "titulo": "Responsive Design",
+      "descripcion": "Mobile-first designs and adaptive interfaces that look flawless on all device screen sizes."
+    },
+    "optimizacionRendimiento": {
+      "titulo": "Performance Optimization",
+      "descripcion": "Boost website speed, Core Web Vitals, and SEO ranking for exceptional user experience."
+    },
+    "mantenimientoWeb": {
+      "titulo": "Website Maintenance",
+      "descripcion": "Ongoing technical support, proactive monitoring, and updates to keep your systems running smoothly."
+    }
+  },
+  "proyectos": {
+    "etiqueta": "FEATURED PROJECTS",
+    "titulo": "Featured Projects",
+    "verTodos": "View All Projects",
+    "verDemo": "Live Demo",
+    "verCodigo": "Source Code",
+    "verProyecto": "View Project",
+    "etiquetaStack": "Engineering Stack",
+    "etiquetaCapacidades": "Core Capabilities",
+    "etiquetaImpacto": "Impact",
+    "todosLosProyectos": "Full Projects Catalog",
+    "subtituloCatalogo": "Explore my portfolio of web applications, institutional software, e-commerce stores, and interactive tools.",
+    "volverInicio": "Back to home",
+    "sinResultados": "No projects found in this category.",
+    "filtros": {
+      "todos": "All",
+      "sistemas": "Institutional Systems",
+      "web": "Web Applications",
+      "outdoor": "Outdoor & Maps",
+      "ecommerce": "E-Commerce"
+    },
+    "camaraFederalTucuman": {
+      "titulo": "Federal Chamber of Appeals of Tucumán",
+      "descripcion": "Institutional portal and advanced jurisprudence search engine for federal court rulings.",
+      "impacto": "Case law search in seconds",
+      "capacidades": [
+        "Advanced search engine and filters",
+        "Institutional content management",
+        "Performance and SEO optimization"
+      ]
+    },
+    "finisUtn": {
+      "titulo": "Finis UTN",
+      "descripcion": "Academic platform for managing, tracking, and evaluating Final Degree Projects at UTN.",
+      "impacto": "End-to-end academic management",
+      "capacidades": [
+        "Final project tracking",
+        "User and role management",
+        "Real-time reports and metrics"
+      ]
+    },
+    "guiaEscaladaTucuman": {
+      "titulo": "Tucumán Climbing Guide",
+      "descripcion": "Interactive outdoor portal featuring sectors, climbing routes, maps, and topo guides for rock climbing in Tucumán.",
+      "impacto": "Digital cartography for climbing",
+      "capacidades": [
+        "Interactive sector map",
+        "Route and topo catalog",
+        "Fully manageable content"
+      ]
+    },
+    "plataformaEcommerce": {
+      "titulo": "E-Commerce Platform",
+      "descripcion": "High-performance online storefront with integrated payment gateway and modular admin dashboard.",
+      "impacto": "High-performance online sales",
+      "capacidades": [
+        "Integrated payment processing",
+        "Modular admin dashboard",
+        "Real-time catalog and inventory"
+      ]
+    },
+    "panelEmpresarial": {
+      "titulo": "Business Analytics Dashboard",
+      "descripcion": "Real-time KPI dashboard featuring interactive data visualizations and role-based permissions.",
+      "impacto": "Data-driven decisions",
+      "capacidades": [
+        "Interactive charts",
+        "Real-time business metrics",
+        "Role-based access control"
+      ]
+    },
+    "sistemaTurnos": {
+      "titulo": "Appointment Scheduling System",
+      "descripcion": "Automated online booking application with email reminders and calendar synchronization.",
+      "impacto": "Frictionless scheduling",
+      "capacidades": [
+        "Automated appointment booking",
+        "Email notifications",
+        "Calendar and availability management"
+      ]
+    }
+  },
+  "bannerContacto": {
+    "titulo": "Let's Work Together",
+    "descripcion": "Have a project in mind? I'd love to hear about it. Let's create something amazing together.",
+    "boton": "Get In Touch"
+  },
+  "piePagina": {
+    "rol": "Full Stack Developer",
+    "derechos": "© 2026 Pablo Bejas. All rights reserved.",
+    "linkedin": "LinkedIn Profile",
+    "github": "GitHub Profile",
+    "twitter": "Twitter Profile"
+  }
+}
