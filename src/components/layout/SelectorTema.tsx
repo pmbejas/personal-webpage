@@ -38,7 +38,7 @@ export function SelectorTema() {
 
   return (
     <div
-      className="inline-flex items-center gap-1.5 rounded-full bg-slate-900/80 border border-slate-800 px-2.5 py-1"
+      className="inline-flex items-center gap-2.5 sm:gap-2 rounded-full bg-slate-900/80 border border-slate-800 px-3 py-1.5 sm:px-2.5 sm:py-1 shadow-sm"
       role="group"
       aria-label="Seleccionar tema de color"
     >
@@ -49,10 +49,10 @@ export function SelectorTema() {
           onClick={() => aplicarTema(tema.valor)}
           aria-label={`Tema ${tema.nombre}`}
           aria-pressed={temaActivo === tema.valor}
-          className={`h-4 w-4 rounded-full cursor-pointer transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500/60 ${
+          className={`h-5 w-5 sm:h-4 sm:w-4 rounded-full cursor-pointer transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500/60 ${
             temaActivo === tema.valor
-              ? "ring-2 ring-white/80 ring-offset-2 ring-offset-slate-900"
-              : ""
+              ? "ring-2 ring-white/90 ring-offset-2 ring-offset-slate-900 scale-105"
+              : "opacity-75 hover:opacity-100"
           }`}
           style={{ background: tema.gradiente }}
         />

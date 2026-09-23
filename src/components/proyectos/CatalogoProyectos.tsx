@@ -69,7 +69,7 @@ export function CatalogoProyectos() {
           </div>
           {proyectosFiltrados.map((proyecto, indice) => (
             <Fragment key={proyecto.identificador}>
-              <section className="min-h-screen flex items-center py-16">
+              <section className="flex items-center py-8 md:py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                   <FilaProyectoDestacado proyecto={proyecto} indice={indice} />
                 </div>

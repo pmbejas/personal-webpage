@@ -37,15 +37,18 @@ const configuracionTailwind: Config = {
         sans: ["var(--font-inter)", "sans-serif"],
       },
       /* Animación del divisor "línea de escaneo": el haz recorre la pista
-         de punta a punta (opción C de la demo de divisores) */
+         estrictamente dentro de los topes (de 0% a calc(100% - 72px)),
+         apareciendo y desvaneciéndose suavemente en los extremos */
       keyframes: {
         barrido: {
-          from: { left: "-15%" },
-          to: { left: "100%" },
+          "0%": { left: "0%", opacity: "0" },
+          "12%": { opacity: "1" },
+          "88%": { opacity: "1" },
+          "100%": { left: "calc(100% - 72px)", opacity: "0" },
         },
       },
       animation: {
-        barrido: "barrido 5.5s linear infinite",
+        barrido: "barrido 5.5s ease-in-out infinite",
       },
     },
   },

@@ -54,6 +54,7 @@ export function CuboCodigo() {
     let objetivoY = 0;
     let modoAutomatico = true;
     let idAnimacion = 0;
+    let estaEnPantalla = true;
 
     const manejarMouseMove = (evento: MouseEvent) => {
       const rect = zonaInteractiva.getBoundingClientRect();
@@ -69,6 +70,11 @@ export function CuboCodigo() {
     };
 
     const animar = (momento: number) => {
+      if (!estaEnPantalla) {
+        idAnimacion = 0;
+        return;
+      }
+
       if (modoAutomatico) {
         // Movimiento continuo: giro constante en Y + oscilación suave en X
         objetivoY += VELOCIDAD_GIRO_Y;
@@ -85,12 +91,27 @@ export function CuboCodigo() {
       idAnimacion = requestAnimationFrame(animar);
     };
 
+    // Pausar el renderizado 3D cuando el cubo no esté a la vista para ahorrar GPU y batería
+    const observadorVisibilidad = new IntersectionObserver(
+      (entradas) => {
+        entradas.forEach((entrada) => {
+          estaEnPantalla = entrada.isIntersecting;
+          if (estaEnPantalla && !idAnimacion) {
+            idAnimacion = requestAnimationFrame(animar);
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    observadorVisibilidad.observe(zonaInteractiva);
+
     zonaInteractiva.addEventListener("mousemove", manejarMouseMove);
     zonaInteractiva.addEventListener("mouseleave", manejarMouseLeave);
     idAnimacion = requestAnimationFrame(animar);
 
     return () => {
       cancelAnimationFrame(idAnimacion);
+      observadorVisibilidad.disconnect();
       zonaInteractiva.removeEventListener("mousemove", manejarMouseMove);
       zonaInteractiva.removeEventListener("mouseleave", manejarMouseLeave);
     };
@@ -174,8 +195,8 @@ export function CuboCodigo() {
         </div>
       </div>
 
-      {/* Sombra de piso con pulso para el efecto de objeto flotante */}
-      <div className="animate-pulse mt-7 h-7 w-52 rounded-full bg-[radial-gradient(ellipse,rgba(37,99,235,0.35),transparent_70%)] blur-md" />
+      {/* Sombra de piso con pulso y color acorde al tema activo */}
+      <div className="animate-pulse mt-7 h-7 w-52 rounded-full bg-[radial-gradient(ellipse,rgb(var(--tema-acento-oscuro-rgb)/0.35),transparent_70%)] blur-md" />
     </div>
   );
 }

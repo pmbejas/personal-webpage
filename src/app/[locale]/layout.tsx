@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import { getMessages, setRequestLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ruteo } from "@/i18n/routing";
 import { FondoAnimado } from "@/components/animacion/FondoAnimado";
+import { BordePantalla } from "@/components/animacion/BordePantalla";
 import "../globals.css";
 
 const inter = Inter({
@@ -18,20 +19,55 @@ export function generateStaticParams() {
   return ruteo.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: "Pablo Bejas | Full Stack Developer",
-  description:
-    "Sitio web personal y portafolio de Pablo Bejas, desarrollador Full Stack. Creación de aplicaciones web modernas, rápidas y escalables.",
-  keywords: [
-    "Pablo Bejas",
-    "Full Stack Developer",
-    "Desarrollador Web",
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Tailwind CSS",
-  ],
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadatos.inicio" });
+
+  return {
+    title: t("titulo"),
+    description: t("descripcion"),
+    keywords: [
+      "Pablo Bejas",
+      "Full Stack Developer",
+      "Desarrollador Web",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Node.js",
+      "PostgreSQL",
+    ],
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        es: "/es",
+        en: "/en",
+        pt: "/pt",
+      },
+    },
+    openGraph: {
+      title: t("titulo"),
+      description: t("descripcion"),
+      locale: locale === "en" ? "en_US" : locale === "pt" ? "pt_BR" : "es_ES",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("titulo"),
+      description: t("descripcion"),
+    },
+    icons: {
+      icon: [
+        { url: "/favicon.svg", type: "image/svg+xml" },
+      ],
+      apple: "/favicon.svg",
+    },
+  };
+}
 
 export default async function LayoutLocalizado({
   children,
@@ -67,7 +103,9 @@ export default async function LayoutLocalizado({
           <MotionConfig reducedMotion="user">
             {/* Capa de fondo animado fija detrás de todo el contenido de la página */}
             <FondoAnimado />
-            <div className="relative z-10 flex flex-col min-h-screen">
+            {/* Marco perimetral sutil en los 4 bordes de la pantalla con respiración de 6s */}
+            <BordePantalla />
+            <div className="relative z-10 flex flex-col min-h-screen overflow-x-hidden w-full max-w-full">
               {children}
             </div>
           </MotionConfig>

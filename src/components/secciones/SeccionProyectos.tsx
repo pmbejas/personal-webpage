@@ -20,11 +20,11 @@ export function SeccionProyectos() {
   const proyectosDestacados = LISTA_PROYECTOS.filter((p) => p.destacado);
 
   return (
-    <section id="proyectos" className="py-20 md:py-28 relative">
+    <section id="proyectos" className="py-10 md:py-14 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Encabezado con título a la izquierda y enlace a la derecha */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 md:mb-24 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 md:mb-12 gap-4">
           <div>
             <motion.span
               initial={{ opacity: 0, y: 15 }}

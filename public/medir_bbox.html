@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body style="background: #111; color: white; font-family: 'Plus Jakarta Sans', sans-serif;">
+  <div id="resultado"></div>
+  <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 100" style="display: block;">
+    <g id="texto-1">
+      <text x="0" y="45" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="34" font-weight="800" letter-spacing="-0.02em">Pablo Bejas</text>
+    </g>
+    <g id="texto-2">
+      <text x="0" y="68" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12.5" font-weight="700" letter-spacing="0.16em">FULL STACK DEVELOPER</text>
+    </g>
+  </svg>
+  <script>
+    document.fonts.ready.then(() => {
+      const b1 = document.getElementById('texto-1').getBBox();
+      const b2 = document.getElementById('texto-2').getBBox();
+      document.getElementById('resultado').textContent = JSON.stringify({
+        pabloBejasWidth: b1.width,
+        fullStackWidth: b2.width
+      });
+    });
+  </script>
+</body>
+</html>

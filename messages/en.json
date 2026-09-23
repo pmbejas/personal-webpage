@@ -29,7 +29,18 @@
     "proyectosCompletados": "50+ Projects Completed",
     "clientesGlobales": "Clients Worldwide",
     "descargarCv": "Download CV",
-    "etiquetaRetrato": "FULL STACK DEV"
+    "etiquetaRetrato": "FULL STACK DEV",
+    "altFoto": "Pablo Bejas, Full Stack Developer"
+  },
+  "metadatos": {
+    "inicio": {
+      "titulo": "Pablo Bejas | Full Stack Developer",
+      "descripcion": "Personal website and portfolio of Pablo Bejas, Full Stack Developer. Building modern, fast, and scalable web applications."
+    },
+    "proyectos": {
+      "titulo": "Projects | Pablo Bejas - Full Stack Developer",
+      "descripcion": "Complete portfolio of projects developed by Pablo Bejas: institutional systems, web applications, e-commerce platforms, and interactive maps."
+    }
   },
   "contacto": {
     "ubicacion": "Location",
@@ -39,7 +50,13 @@
     "telefono": "Phone",
     "valorTelefono": "+54 9 381 463-6143",
     "idiomas": "Languages",
-    "valorIdiomas": "Spanish and English"
+    "valorIdiomas": "Spanish and English",
+    "linkedin": "LinkedIn",
+    "valorLinkedin": "pablomartinbejas",
+    "instagram": "Instagram",
+    "valorInstagram": "@pablomartin2206",
+    "llamar": "Call",
+    "whatsapp": "WhatsApp"
   },
   "servicios": {
     "etiqueta": "MY SERVICES",
@@ -145,7 +162,7 @@
   },
   "bannerContacto": {
     "titulo": "Let's Work Together",
-    "descripcion": "Have a project in mind? I'd love to hear about it. Let's create something amazing together.",
+    "descripcion": "Have an idea, proposal, or project in mind? I'd love to collaborate with you to bring it to life. Feel free to connect directly through any of the channels available on my contact card below.",
     "boton": "Get In Touch"
   },
   "piePagina": {
@@ -153,6 +170,6 @@
     "derechos": "© 2026 Pablo Bejas. All rights reserved.",
     "linkedin": "LinkedIn Profile",
     "github": "GitHub Profile",
-    "twitter": "Twitter Profile"
+    "instagram": "Instagram Profile"
   }
 }

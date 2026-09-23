@@ -12,16 +12,18 @@ export const REDES_SOCIALES: EnlaceRedSocial[] = [
     icono: "github",
   },
   {
-    nombre: "Twitter",
-    url: "https://twitter.com",
-    icono: "twitter",
+    nombre: "Instagram",
+    url: "https://www.instagram.com/pablomartin2206/",
+    icono: "instagram",
   },
 ];
 
 export const EMPRESAS_TECNOLOGIAS = [
-  { nombre: "Shopify", icono: "ShoppingBag" },
-  { nombre: "Google", icono: "Chrome" },
-  { nombre: "Airbnb", icono: "Home" },
-  { nombre: "Microsoft", icono: "Layers" },
+  { nombre: "Next.js" },
+  { nombre: "React" },
+  { nombre: "TypeScript" },
+  { nombre: "Node.js" },
+  { nombre: "PostgreSQL" },
+  { nombre: "Tailwind CSS" },
 ];
 

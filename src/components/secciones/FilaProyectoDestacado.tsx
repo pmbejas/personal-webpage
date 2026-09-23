@@ -40,19 +40,61 @@ export function FilaProyectoDestacado({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5 }}
-      className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center"
+      className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-14 items-center"
     >
-      {/* Columna de información (alterna de lado según la fila) */}
-      <div className={columnasInvertidas ? "lg:order-2" : ""}>
-        {/* Categoría del proyecto */}
+      {/* 1. Encabezado visible exclusivamente en dispositivos móviles */}
+      <div className="w-full block lg:hidden">
         <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">
           {categoria}
         </span>
-
-        {/* Título display estilo showcase */}
-        <h3 className="mt-3 text-3xl sm:text-4xl font-extrabold italic tracking-tight text-white leading-tight">
+        <h3 className="mt-2 text-2xl sm:text-3xl font-extrabold italic tracking-tight text-white leading-tight">
           {titulo}
         </h3>
+      </div>
+
+      {/* 2. Columna visual: captura + tarjeta flotante de impacto (en móvil va inmediatamente tras el título) */}
+      <div
+        className={`relative w-full ${
+          columnasInvertidas ? "lg:order-1" : "lg:order-2"
+        }`}
+      >
+        <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-2xl shadow-black/40">
+          <Image
+            src={proyecto.imagenUrl}
+            alt={`Captura del proyecto ${titulo}`}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#070B14]/50 to-transparent" />
+        </div>
+
+        {/* Tarjeta flotante de impacto sobre la captura */}
+        <div className="absolute -bottom-6 right-4 lg:-right-6 max-w-[240px] rounded-2xl border border-slate-700/70 bg-slate-900/85 backdrop-blur-md px-5 py-4 shadow-xl shadow-black/40">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400">
+            {traducciones("etiquetaImpacto")}
+          </span>
+          <p className="mt-1 text-sm font-bold text-white leading-snug">
+            {impacto}
+          </p>
+        </div>
+      </div>
+
+      {/* 3. Columna de información y detalles */}
+      <div
+        className={`w-full ${
+          columnasInvertidas ? "lg:order-2" : "lg:order-1"
+        }`}
+      >
+        {/* Encabezado visible únicamente en pantallas de escritorio */}
+        <div className="hidden lg:block">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">
+            {categoria}
+          </span>
+          <h3 className="mt-3 text-3xl sm:text-4xl font-extrabold italic tracking-tight text-white leading-tight">
+            {titulo}
+          </h3>
+        </div>
 
         {/* Descripción como cita destacada */}
         <blockquote className="mt-5 border-l-2 border-blue-500/70 pl-4 text-slate-300 italic leading-relaxed">
@@ -98,59 +140,29 @@ export function FilaProyectoDestacado({
         {/* Botones de acción */}
         <div className="mt-8 flex flex-wrap items-center gap-4">
           {proyecto.enlaceDemo && (
-            <a
+            <Boton
               href={proyecto.enlaceDemo}
               target="_blank"
               rel="noopener noreferrer"
+              variante="primario"
+              tamanio="mediano"
+              iconoDerecha={<ArrowUpRight className="h-4 w-4" />}
             >
-              <Boton
-                variante="primario"
-                tamanio="mediano"
-                iconoDerecha={<ArrowUpRight className="h-4 w-4" />}
-              >
-                {traducciones("verProyecto")}
-              </Boton>
-            </a>
+              {traducciones("verProyecto")}
+            </Boton>
           )}
           {proyecto.enlaceRepositorio && (
-            <a
+            <Boton
               href={proyecto.enlaceRepositorio}
               target="_blank"
               rel="noopener noreferrer"
+              variante="borde"
+              tamanio="mediano"
+              iconoIzquierda={<Github className="h-4 w-4" />}
             >
-              <Boton
-                variante="borde"
-                tamanio="mediano"
-                iconoIzquierda={<Github className="h-4 w-4" />}
-              >
-                {traducciones("verCodigo")}
-              </Boton>
-            </a>
+              {traducciones("verCodigo")}
+            </Boton>
           )}
-        </div>
-      </div>
-
-      {/* Columna visual: captura + tarjeta flotante de impacto */}
-      <div className={`relative ${columnasInvertidas ? "lg:order-1" : ""}`}>
-        <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-2xl shadow-black/40">
-          <Image
-            src={proyecto.imagenUrl}
-            alt={`Captura del proyecto ${titulo}`}
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover object-top"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#070B14]/50 to-transparent" />
-        </div>
-
-        {/* Tarjeta flotante de impacto sobre la captura */}
-        <div className="absolute -bottom-6 right-4 lg:-right-6 max-w-[240px] rounded-2xl border border-slate-700/70 bg-slate-900/85 backdrop-blur-md px-5 py-4 shadow-xl shadow-black/40">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400">
-            {traducciones("etiquetaImpacto")}
-          </span>
-          <p className="mt-1 text-sm font-bold text-white leading-snug">
-            {impacto}
-          </p>
         </div>
       </div>
     </motion.article>

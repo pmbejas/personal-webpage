@@ -20,6 +20,7 @@ export function FondoAnimado() {
         src="/imagenes/fondo-cta.jpg"
         alt=""
         fill
+        priority
         sizes="100vw"
         className="object-cover object-center"
       />

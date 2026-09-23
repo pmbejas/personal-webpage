@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- 1. BASE: Engranaje exterior tecnológico con 8 dientes -->
+  <circle cx="50" cy="50" r="38" stroke="#38BDF8" stroke-width="4.5" stroke-dasharray="14 16" stroke-linecap="round" opacity="0.65" />
+  <circle cx="50" cy="50" r="44" stroke="#38BDF8" stroke-width="2" stroke-opacity="0.25" stroke-dasharray="3 6" />
+  
+  <!-- 2. MONOGRAMA PB (Reducido concéntricamente al 88% para máxima armonía) -->
+  <g id="monograma-pb" transform="translate(50 50) scale(0.88) translate(-50 -50)">
+    <!-- CAPA INFERIOR: Letra B (fondo) -->
+    <g id="capa-b">
+      <path d="M 36 30 H 52 C 59 30 63 34 63 41 C 63 48 59 51 52 51 H 36" stroke="#38BDF8" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M 46 51 H 55 C 62 51 66 55 66 62 C 66 69 62 72 55 72 H 36" stroke="#38BDF8" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+
+    <!-- CAPA SUPERIOR: Letra P (frente) con halo de corte limpio -->
+    <g id="capa-p">
+      <!-- Halo de separación para marcar la superposición sobre la B -->
+      <path d="M 36 26 V 74" stroke="#070B14" stroke-width="11" stroke-linecap="round" />
+      <path d="M 36 29 H 52 C 60 29 65 34 65 41 C 65 48 60 52 52 52 H 36" stroke="#070B14" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+      
+      <!-- Trazo de la P en blanco puro en primer plano -->
+      <path d="M 36 28 V 72" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" />
+      <path d="M 36 30 H 52 C 59 30 63 34 63 41 C 63 48 59 51 52 51 H 36" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+  </g>
+</svg>

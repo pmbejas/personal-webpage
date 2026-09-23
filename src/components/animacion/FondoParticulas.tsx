@@ -46,6 +46,30 @@ export function FondoParticulas({
     let idAnimacion = 0;
     const mouse = { x: -9999, y: -9999 };
 
+    let colorLineas = "59, 130, 246";
+    let colorPuntos = "96, 165, 250";
+
+    const actualizarColoresTema = () => {
+      try {
+        const estilosRaiz = getComputedStyle(document.documentElement);
+        const acentoRgb = estilosRaiz.getPropertyValue("--tema-acento-rgb").trim();
+        const acentoClaroRgb = estilosRaiz.getPropertyValue("--tema-acento-claro-rgb").trim();
+
+        if (acentoRgb) {
+          colorLineas = acentoRgb.split(/\s+/).join(", ");
+        }
+        if (acentoClaroRgb) {
+          colorPuntos = acentoClaroRgb.split(/\s+/).join(", ");
+        }
+
+        if (reducirMovimiento) {
+          pintarCuadro();
+        }
+      } catch {
+        // En caso de excepción, mantener los valores por defecto en azul
+      }
+    };
+
     const ajustarTamanio = () => {
       ancho = lienzo.width = lienzo.offsetWidth;
       alto = lienzo.height = lienzo.offsetHeight;
@@ -75,7 +99,7 @@ export function FondoParticulas({
       contexto.beginPath();
       contexto.moveTo(x1, y1);
       contexto.lineTo(x2, y2);
-      contexto.strokeStyle = `rgba(59,130,246,${opacidad})`;
+      contexto.strokeStyle = `rgba(${colorLineas}, ${opacidad})`;
       contexto.lineWidth = 1;
       contexto.stroke();
     };
@@ -93,7 +117,7 @@ export function FondoParticulas({
 
         contexto.beginPath();
         contexto.arc(particula.x, particula.y, particula.radio, 0, Math.PI * 2);
-        contexto.fillStyle = `rgba(96,165,250,${0.85 * multiplicadorOpacidad})`;
+        contexto.fillStyle = `rgba(${colorPuntos}, ${0.85 * multiplicadorOpacidad})`;
         contexto.fill();
       });
 
@@ -149,6 +173,7 @@ export function FondoParticulas({
 
     ajustarTamanio();
     crearParticulas();
+    actualizarColoresTema();
 
     if (reducirMovimiento) {
       // Usuarios con "reducir movimiento": un solo cuadro estático, sin bucle
@@ -159,11 +184,13 @@ export function FondoParticulas({
     }
 
     window.addEventListener("resize", manejarRedimension);
+    window.addEventListener("cambio-tema", actualizarColoresTema);
 
     return () => {
       cancelAnimationFrame(idAnimacion);
       document.removeEventListener("mousemove", manejarMouseMove);
       window.removeEventListener("resize", manejarRedimension);
+      window.removeEventListener("cambio-tema", actualizarColoresTema);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [multiplicadorOpacidad, cantidadMaxima]);

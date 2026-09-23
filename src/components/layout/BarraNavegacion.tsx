@@ -8,6 +8,7 @@ import { ENLACES_NAVEGACION } from "@/data/datosNavegacion";
 import { SelectorIdioma } from "./SelectorIdioma";
 import { SelectorTema } from "./SelectorTema";
 import { Boton } from "@/components/ui/Boton";
+import { LogotipoPB } from "@/components/ui/LogotipoPB";
 import { useDeteccionSeccionActiva } from "@/hooks/useDeteccionSeccionActiva";
 
 /* Mapeo entre el id de cada sección del DOM y su clave de navegación */
@@ -42,7 +43,8 @@ export function BarraNavegacion() {
       setConScroll(window.scrollY > 20);
     };
 
-    window.addEventListener("scroll", manejarScroll);
+    manejarScroll();
+    window.addEventListener("scroll", manejarScroll, { passive: true });
     return () => window.removeEventListener("scroll", manejarScroll);
   }, []);
 
@@ -67,20 +69,23 @@ export function BarraNavegacion() {
           {/* Logo / Nombre del desarrollador */}
           <Link
             href="/"
-            className="flex flex-col group"
+            className="flex items-center gap-3 group"
             aria-label="Ir a la página principal"
           >
-            <div className="flex items-center gap-1.5">
-              <span className="text-xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">
-                Pablo
-              </span>
-              <span className="text-xl font-bold tracking-tight text-blue-500">
-                Bejas
+            <LogotipoPB className="w-8 h-8 sm:w-9 sm:h-9 shrink-0 transition-transform duration-300 group-hover:scale-105" />
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5">
+                <span className="text-xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">
+                  Pablo
+                </span>
+                <span className="text-xl font-bold tracking-tight text-blue-500">
+                  Bejas
+                </span>
+              </div>
+              <span className="text-[10px] font-semibold tracking-widest text-slate-400 uppercase">
+                Full Stack Developer
               </span>
             </div>
-            <span className="text-[10px] font-semibold tracking-widest text-slate-400 uppercase">
-              Full Stack Developer
-            </span>
           </Link>
 
           {/* Enlaces en escritorio */}
@@ -107,15 +112,14 @@ export function BarraNavegacion() {
           <div className="hidden md:flex items-center gap-4">
             <SelectorIdioma />
             <SelectorTema />
-            <Link href="/#contacto">
-              <Boton
-                variante="primario"
-                tamanio="pequenio"
-                iconoDerecha={<ArrowUpRight className="h-3.5 w-3.5" />}
-              >
-                {traducciones("contratame")}
-              </Boton>
-            </Link>
+            <Boton
+              href="/#contacto"
+              variante="primario"
+              tamanio="pequenio"
+              iconoDerecha={<ArrowUpRight className="h-3.5 w-3.5" />}
+            >
+              {traducciones("contratame")}
+            </Boton>
           </div>
 
           {/* Botón de menú móvil */}
@@ -160,15 +164,15 @@ export function BarraNavegacion() {
               <SelectorTema />
             </div>
             <div className="pt-2">
-              <Link href="/#contacto" onClick={cerrarMenu} className="block w-full">
-                <Boton
-                  variante="primario"
-                  tamanio="mediano"
-                  className="w-full justify-center"
-                >
-                  {traducciones("contratame")}
-                </Boton>
-              </Link>
+              <Boton
+                href="/#contacto"
+                onClick={cerrarMenu}
+                variante="primario"
+                tamanio="mediano"
+                className="w-full justify-center"
+              >
+                {traducciones("contratame")}
+              </Boton>
             </div>
           </div>
         )}

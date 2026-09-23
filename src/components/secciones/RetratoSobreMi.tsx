@@ -55,7 +55,7 @@ export function RetratoSobreMi() {
       {/* Fotografía recortada (sin fondo) */}
       <Image
         src="/imagenes/pablo.png"
-        alt="Pablo Bejas, desarrollador Full Stack"
+        alt={traducciones("altFoto")}
         width={480}
         height={720}
         sizes="(max-width: 1024px) 320px, 380px"

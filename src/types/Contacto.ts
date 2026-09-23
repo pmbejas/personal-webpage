@@ -8,6 +8,6 @@ export interface InformacionContacto {
 export interface EnlaceRedSocial {
   nombre: string;
   url: string;
-  icono: "linkedin" | "github" | "twitter";
+  icono: "linkedin" | "github" | "instagram";
 }
 

@@ -12,11 +12,11 @@ export function SeccionServicios() {
   const traducciones = useTranslations("servicios");
 
   return (
-    <section id="servicios" className="py-20 md:py-28 relative">
+    <section id="servicios" className="py-10 md:py-14 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Encabezado de la Sección */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <motion.span
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}

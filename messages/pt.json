@@ -29,7 +29,18 @@
     "proyectosCompletados": "50+ Projetos Realizados",
     "clientesGlobales": "Clientes Internacionais",
     "descargarCv": "Baixar CV",
-    "etiquetaRetrato": "FULL STACK DEV"
+    "etiquetaRetrato": "FULL STACK DEV",
+    "altFoto": "Pablo Bejas, desenvolvedor Full Stack"
+  },
+  "metadatos": {
+    "inicio": {
+      "titulo": "Pablo Bejas | Full Stack Developer",
+      "descripcion": "Site pessoal e portfólio de Pablo Bejas, desenvolvedor Full Stack. Criação de aplicações web modernas, rápidas e escaláveis."
+    },
+    "proyectos": {
+      "titulo": "Projetos | Pablo Bejas - Full Stack Developer",
+      "descripcion": "Catálogo completo de projetos desenvolvidos por Pablo Bejas: sistemas institucionais, aplicações web, plataformas de e-commerce e mapas interativos."
+    }
   },
   "contacto": {
     "ubicacion": "Localização",
@@ -39,7 +50,13 @@
     "telefono": "Telefone",
     "valorTelefono": "+54 9 381 463-6143",
     "idiomas": "Idiomas",
-    "valorIdiomas": "Espanhol e Inglês"
+    "valorIdiomas": "Espanhol e Inglês",
+    "linkedin": "LinkedIn",
+    "valorLinkedin": "pablomartinbejas",
+    "instagram": "Instagram",
+    "valorInstagram": "@pablomartin2206",
+    "llamar": "Ligar",
+    "whatsapp": "WhatsApp"
   },
   "servicios": {
     "etiqueta": "MEUS SERVIÇOS",
@@ -145,7 +162,7 @@
   },
   "bannerContacto": {
     "titulo": "Vamos trabalhar juntos?",
-    "descripcion": "Tem um projeto ou ideia em mente? Adoraria conversar. Vamos construir algo incrível juntos.",
+    "descripcion": "Tem uma ideia, proposta ou projeto em mente? Adoraria colaborar com você para torná-la realidade. Entre em contato diretamente comigo através de qualquer um dos canais disponíveis no meu cartão abaixo.",
     "boton": "Entrar em contato"
   },
   "piePagina": {
@@ -153,6 +170,6 @@
     "derechos": "© 2026 Pablo Bejas. Todos os direitos reservados.",
     "linkedin": "Perfil no LinkedIn",
     "github": "Perfil no GitHub",
-    "twitter": "Perfil no Twitter"
+    "instagram": "Perfil no Instagram"
   }
 }

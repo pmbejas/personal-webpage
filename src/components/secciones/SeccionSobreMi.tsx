@@ -33,12 +33,12 @@ export function SeccionSobreMi() {
   ];
 
   return (
-    <section id="sobre-mi" className="py-20 md:py-28 relative">
+    <section id="sobre-mi" className="py-10 md:py-14 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* En móvil el orden del DOM es el orden visual: texto, retrato y
             cards de experiencia. En lg cada bloque se coloca explícitamente
             para reproducir el layout de escritorio original */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-x-16 lg:gap-y-0 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-x-16 lg:gap-y-0 items-center">
 
           {/* Bloque de Texto: etiqueta, título y descripción */}
           <motion.div
@@ -96,15 +96,16 @@ export function SeccionSobreMi() {
 
             {/* Botón Descargar CV */}
             <div className="mt-8">
-              <a href="/cv-pablo-bejas.pdf" target="_blank" rel="noopener noreferrer">
-                <Boton
-                  variante="primario"
-                  tamanio="mediano"
-                  iconoIzquierda={<Download className="h-4 w-4" />}
-                >
-                  {traducciones("descargarCv")}
-                </Boton>
-              </a>
+              <Boton
+                href="/cv-pablo-bejas.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                variante="primario"
+                tamanio="mediano"
+                iconoIzquierda={<Download className="h-4 w-4" />}
+              >
+                {traducciones("descargarCv")}
+              </Boton>
             </div>
           </motion.div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, ButtonHTMLAttributes, ReactNode } from "react";
+import { Link } from "@/i18n/routing";
 import { combinarClases } from "@/utils/utilidadesClases";
 
 export interface PropiedadesBoton extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -9,10 +10,14 @@ export interface PropiedadesBoton extends ButtonHTMLAttributes<HTMLButtonElement
   iconoIzquierda?: ReactNode;
   iconoDerecha?: ReactNode;
   estaCargando?: boolean;
+  href?: string;
+  target?: string;
+  rel?: string;
 }
 
 /**
  * Componente Boton reutilizable con soporte de variantes, tamaños e iconos accesibles.
+ * Permite actuar como botón nativo o como enlace semántico si recibe la propiedad href.
  */
 export const Boton = forwardRef<HTMLButtonElement, PropiedadesBoton>(
   (
@@ -25,6 +30,9 @@ export const Boton = forwardRef<HTMLButtonElement, PropiedadesBoton>(
       iconoDerecha,
       estaCargando = false,
       disabled,
+      href,
+      target,
+      rel,
       ...restoPropiedades
     },
     ref
@@ -49,18 +57,15 @@ export const Boton = forwardRef<HTMLButtonElement, PropiedadesBoton>(
       grande: "text-base px-7 py-3 gap-2.5",
     };
 
-    return (
-      <button
-        ref={ref}
-        disabled={disabled || estaCargando}
-        className={combinarClases(
-          estilosBase,
-          estilosVariante[variante],
-          estilosTamanio[tamanio],
-          className
-        )}
-        {...restoPropiedades}
-      >
+    const clasesFinales = combinarClases(
+      estilosBase,
+      estilosVariante[variante],
+      estilosTamanio[tamanio],
+      className
+    );
+
+    const contenidoBoton = (
+      <>
         {estaCargando ? (
           <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent mr-2" />
         ) : (
@@ -70,6 +75,46 @@ export const Boton = forwardRef<HTMLButtonElement, PropiedadesBoton>(
         {!estaCargando && iconoDerecha && (
           <span className="flex-shrink-0">{iconoDerecha}</span>
         )}
+      </>
+    );
+
+    // Si se pasa href, renderizar un enlace semántico para evitar anidar botón dentro de enlace
+    if (href) {
+      const esEnlaceExternoOAncla =
+        href.startsWith("http") ||
+        href.startsWith("mailto:") ||
+        href.startsWith("tel:") ||
+        href.startsWith("#") ||
+        href.endsWith(".pdf");
+
+      if (esEnlaceExternoOAncla) {
+        return (
+          <a
+            href={href}
+            target={target}
+            rel={target === "_blank" ? rel || "noopener noreferrer" : rel}
+            className={clasesFinales}
+          >
+            {contenidoBoton}
+          </a>
+        );
+      }
+
+      return (
+        <Link href={href} className={clasesFinales}>
+          {contenidoBoton}
+        </Link>
+      );
+    }
+
+    return (
+      <button
+        ref={ref}
+        disabled={disabled || estaCargando}
+        className={clasesFinales}
+        {...restoPropiedades}
+      >
+        {contenidoBoton}
       </button>
     );
   }

@@ -29,7 +29,18 @@
     "proyectosCompletados": "50+ Proyectos Realizados",
     "clientesGlobales": "Clientes Internacionales",
     "descargarCv": "Descargar CV",
-    "etiquetaRetrato": "FULL STACK DEV"
+    "etiquetaRetrato": "FULL STACK DEV",
+    "altFoto": "Pablo Bejas, desarrollador Full Stack"
+  },
+  "metadatos": {
+    "inicio": {
+      "titulo": "Pablo Bejas | Full Stack Developer",
+      "descripcion": "Sitio web personal y portafolio de Pablo Bejas, desarrollador Full Stack. Creación de aplicaciones web modernas, rápidas y escalables."
+    },
+    "proyectos": {
+      "titulo": "Proyectos | Pablo Bejas - Full Stack Developer",
+      "descripcion": "Catálogo completo de proyectos desarrollados por Pablo Bejas: sistemas institucionales, aplicaciones web, plataformas e-commerce y mapas interactivos."
+    }
   },
   "contacto": {
     "ubicacion": "Ubicación",
@@ -39,7 +50,13 @@
     "telefono": "Teléfono",
     "valorTelefono": "+54 9 381 463-6143",
     "idiomas": "Idiomas",
-    "valorIdiomas": "Español e Inglés"
+    "valorIdiomas": "Español e Inglés",
+    "linkedin": "LinkedIn",
+    "valorLinkedin": "pablomartinbejas",
+    "instagram": "Instagram",
+    "valorInstagram": "@pablomartin2206",
+    "llamar": "Llamar",
+    "whatsapp": "WhatsApp"
   },
   "servicios": {
     "etiqueta": "MIS SERVICIOS",
@@ -145,7 +162,7 @@
   },
   "bannerContacto": {
     "titulo": "¿Trabajamos juntos?",
-    "descripcion": "¿Tienes una idea o proyecto en mente? Me encantaría colaborar contigo para hacerlo realidad.",
+    "descripcion": "¿Tienes una idea, propuesta o proyecto en mente? Me encantaría colaborar contigo para hacerlo realidad. Puedes comunicarte directamente conmigo a través de cualquiera de los canales disponibles en mi tarjeta de contacto a continuación.",
     "boton": "Ponerse en contacto"
   },
   "piePagina": {
@@ -153,6 +170,6 @@
     "derechos": "© 2026 Pablo Bejas. Todos los derechos reservados.",
     "linkedin": "Perfil de LinkedIn",
     "github": "Perfil de GitHub",
-    "twitter": "Perfil de Twitter"
+    "instagram": "Perfil de Instagram"
   }
 }

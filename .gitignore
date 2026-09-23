@@ -1,3 +1,9 @@
+# Asistentes de IA y configuración local
+CLAUDE.md
+GEMINI.md
+AGENTS.md
+.claude/
+
 # Dependencias
 /node_modules
 /.pnp
