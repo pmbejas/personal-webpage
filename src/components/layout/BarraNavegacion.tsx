@@ -33,6 +33,18 @@ export function BarraNavegacion() {
   const claveSeccionVisible = CLAVE_POR_SECCION[seccionActiva] ?? "";
   const estaEnPaginaProyectos = rutaActual === "/proyectos";
 
+  const obtenerRutaEnlace = (enlaceHref: string) => {
+    if (estaEnPaginaProyectos) {
+      return enlaceHref;
+    }
+    if (enlaceHref.startsWith("/#")) {
+      return enlaceHref.substring(1);
+    }
+    return enlaceHref;
+  };
+
+  const rutaBotonContacto = estaEnPaginaProyectos ? "/#contacto" : "#contacto";
+
   const esEnlaceActivo = (claveTraduccion: string) =>
     estaEnPaginaProyectos
       ? claveTraduccion === "proyectos"
@@ -96,7 +108,7 @@ export function BarraNavegacion() {
             {ENLACES_NAVEGACION.map((enlace) => (
               <Link
                 key={enlace.claveTraduccion}
-                href={enlace.href}
+                href={obtenerRutaEnlace(enlace.href)}
                 className={`text-sm font-medium transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-500 after:scale-x-0 after:transition-transform ${
                   esEnlaceActivo(enlace.claveTraduccion)
                     ? "text-white after:scale-x-100"
@@ -113,7 +125,7 @@ export function BarraNavegacion() {
             <SelectorIdioma />
             <SelectorTema />
             <Boton
-              href="/#contacto"
+              href={rutaBotonContacto}
               variante="primario"
               tamanio="pequenio"
               iconoDerecha={<ArrowUpRight className="h-3.5 w-3.5" />}
@@ -147,7 +159,7 @@ export function BarraNavegacion() {
               {ENLACES_NAVEGACION.map((enlace) => (
                 <Link
                   key={enlace.claveTraduccion}
-                  href={enlace.href}
+                  href={obtenerRutaEnlace(enlace.href)}
                   onClick={cerrarMenu}
                   className={`text-sm font-medium py-1.5 transition-colors ${
                     esEnlaceActivo(enlace.claveTraduccion)
@@ -165,7 +177,7 @@ export function BarraNavegacion() {
             </div>
             <div className="pt-2">
               <Boton
-                href="/#contacto"
+                href={rutaBotonContacto}
                 onClick={cerrarMenu}
                 variante="primario"
                 tamanio="mediano"

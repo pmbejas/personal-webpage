@@ -42,7 +42,7 @@
   }
 
   body {
-    background-color: #070B14;
+    background-color: #1c171b;
     color: #F8FAFC;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
@@ -57,7 +57,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #070B14;
+    background: #1c171b;
   }
 
   ::-webkit-scrollbar-thumb {

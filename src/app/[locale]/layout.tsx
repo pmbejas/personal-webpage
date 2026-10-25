@@ -26,8 +26,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadatos.inicio" });
+  const urlBaseSitio = process.env.NEXT_PUBLIC_SITIO_URL || "https://pablodev.com";
 
   return {
+    metadataBase: new URL(urlBaseSitio),
     title: t("titulo"),
     description: t("descripcion"),
     keywords: [
@@ -97,7 +99,7 @@ export default async function LayoutLocalizado({
           }}
         />
       </head>
-      <body className="bg-[#070B14] text-slate-100 min-h-screen flex flex-col font-sans">
+      <body className="bg-[#1c171b] text-slate-100 min-h-screen flex flex-col font-sans">
         <NextIntlClientProvider locale={locale} messages={mensajes}>
           {/* Desactiva las animaciones cuando el usuario activa "reducir movimiento" en su sistema */}
           <MotionConfig reducedMotion="user">

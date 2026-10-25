@@ -27,9 +27,12 @@ export function FilaProyectoDestacado({
   const titulo = traducciones(`${proyecto.claveTraduccion}.titulo`);
   const descripcion = traducciones(`${proyecto.claveTraduccion}.descripcion`);
   const impacto = traducciones(`${proyecto.claveTraduccion}.impacto`);
-  const capacidades = traducciones.raw(
+  const datosCapacidades = traducciones.raw(
     `${proyecto.claveTraduccion}.capacidades`
-  ) as string[];
+  );
+  const capacidades = Array.isArray(datosCapacidades)
+    ? (datosCapacidades as string[])
+    : [];
   const categoria = traducciones(`filtros.${proyecto.categoria}`);
 
   const columnasInvertidas = indice % 2 === 1;

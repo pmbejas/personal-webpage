@@ -22,7 +22,7 @@ export function DivisorProyecto() {
       <span className="absolute -top-[3px] right-0 h-[9px] w-px bg-blue-500/50" />
 
       {/* Nodo central */}
-      <span className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border-[1.5px] border-blue-400 bg-[#0B1120] shadow-[0_0_10px_rgb(var(--tema-acento-claro-rgb)/0.6)]" />
+      <span className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border-[1.5px] border-blue-400 bg-[#1c171b] shadow-[0_0_10px_rgb(var(--tema-acento-claro-rgb)/0.6)]" />
     </div>
   );
 }

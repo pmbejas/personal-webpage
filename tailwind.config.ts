@@ -28,7 +28,7 @@ const configuracionTailwind: Config = {
           500: "rgb(var(--tema-acento-rgb) / <alpha-value>)",
         },
         fondo: {
-          oscuro: "#070B14",
+          oscuro: "#1c171b",
           tarjeta: "#0F172A",
           borde: "#1E293B",
         },

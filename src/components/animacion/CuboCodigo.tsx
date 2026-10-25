@@ -133,7 +133,7 @@ export function CuboCodigo() {
               <span className="text-sky-300">pablo</span> = {"{"}
             </span>
             <span className="pl-1">
-              rol: <span className="text-emerald-300">"Full Stack"</span>,
+              rol: <span className="text-emerald-300">&quot;Full Stack&quot;</span>,
             </span>
             <span className="pl-1">
               cafe: <span className="text-violet-400">true</span>,
@@ -146,13 +146,13 @@ export function CuboCodigo() {
             <BarraVentana />
             <span>stack: [</span>
             <span className="pl-1">
-              <span className="text-emerald-300">"React"</span>,
+              <span className="text-emerald-300">&quot;React&quot;</span>,
             </span>
             <span className="pl-1">
-              <span className="text-emerald-300">"Next.js"</span>,
+              <span className="text-emerald-300">&quot;Next.js&quot;</span>,
             </span>
             <span className="pl-1">
-              <span className="text-emerald-300">"Node"</span>]
+              <span className="text-emerald-300">&quot;Node&quot;</span>]
             </span>
           </div>
 
@@ -173,7 +173,7 @@ export function CuboCodigo() {
             <span className="pl-1">
               = <span className="text-violet-400">true</span> ✅
             </span>
-            <span className="text-slate-500">// escribime</span>
+            <span className="text-slate-500">{"// escribime"}</span>
           </div>
 
           {/* Arriba: componente JSX */}
@@ -190,7 +190,7 @@ export function CuboCodigo() {
           <div className={`${CLASE_BASE_CARA} [transform:rotateX(-90deg)_translateZ(88px)]`}>
             <BarraVentana />
             <span>git commit -m</span>
-            <span className="text-emerald-300">"nueva idea"</span>
+            <span className="text-emerald-300">&quot;nueva idea&quot;</span>
           </div>
         </div>
       </div>

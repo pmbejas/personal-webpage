@@ -69,13 +69,13 @@ export function LogotipoPB({ className = "w-9 h-9", tamano = 36 }: PropiedadesLo
           {/* Halo de separación que permite a la P pisar visualmente a la B */}
           <path
             d="M 36 26 V 74"
-            stroke="#070B14"
+            stroke="#1c171b"
             strokeWidth="11"
             strokeLinecap="round"
           />
           <path
             d="M 36 29 H 52 C 60 29 65 34 65 41 C 65 48 60 52 52 52 H 36"
-            stroke="#070B14"
+            stroke="#1c171b"
             strokeWidth="11"
             strokeLinecap="round"
             strokeLinejoin="round"

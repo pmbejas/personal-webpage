@@ -3,6 +3,7 @@ CLAUDE.md
 GEMINI.md
 AGENTS.md
 .claude/
+.temp_edge/
 
 # Dependencias
 /node_modules

@@ -171,6 +171,14 @@ export function FondoParticulas({
       crearParticulas();
     };
 
+    const manejarCambioVisibilidad = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(idAnimacion);
+      } else if (!reducirMovimiento) {
+        idAnimacion = requestAnimationFrame(animarCuadros);
+      }
+    };
+
     ajustarTamanio();
     crearParticulas();
     actualizarColoresTema();
@@ -185,14 +193,15 @@ export function FondoParticulas({
 
     window.addEventListener("resize", manejarRedimension);
     window.addEventListener("cambio-tema", actualizarColoresTema);
+    document.addEventListener("visibilitychange", manejarCambioVisibilidad);
 
     return () => {
       cancelAnimationFrame(idAnimacion);
       document.removeEventListener("mousemove", manejarMouseMove);
       window.removeEventListener("resize", manejarRedimension);
       window.removeEventListener("cambio-tema", actualizarColoresTema);
+      document.removeEventListener("visibilitychange", manejarCambioVisibilidad);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [multiplicadorOpacidad, cantidadMaxima]);
 
   return (

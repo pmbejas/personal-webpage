@@ -1,14 +1,14 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CategoriaProyecto } from "@/types/Proyecto";
+import { CategoriaFiltroProyecto } from "@/types/Proyecto";
 import { CATEGORIAS_FILTRO } from "@/data/datosProyectos";
 import { combinarClases } from "@/utils/utilidadesClases";
 
 export interface PropiedadesBarraFiltros {
-  categoriaActiva: CategoriaProyecto;
-  alSeleccionarCategoria: (categoria: CategoriaProyecto) => void;
-  conteoPorCategoria: Record<CategoriaProyecto, number>;
+  categoriaActiva: CategoriaFiltroProyecto;
+  alSeleccionarCategoria: (categoria: CategoriaFiltroProyecto) => void;
+  conteoPorCategoria: Record<CategoriaFiltroProyecto, number>;
 }
 
 /**
@@ -55,4 +55,3 @@ export function BarraFiltrosProyectos({
     </div>
   );
 }
-

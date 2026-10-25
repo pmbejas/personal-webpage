@@ -63,7 +63,7 @@ export function RetratoSobreMi() {
       />
 
       {/* Etiqueta de rol estilo consola */}
-      <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 font-mono text-[11px] font-semibold tracking-wide text-sky-300 bg-[#0B1120] border border-blue-500/45 rounded-md px-3.5 py-1.5 whitespace-nowrap">
+      <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 font-mono text-[11px] font-semibold tracking-wide text-sky-300 bg-[#1c171b] border border-blue-500/45 rounded-md px-3.5 py-1.5 whitespace-nowrap">
         {traducciones("etiquetaRetrato")}
       </span>
     </motion.div>

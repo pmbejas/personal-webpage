@@ -1,23 +1,26 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { LISTA_PROYECTOS } from "@/data/datosProyectos";
+import { servicioProyectos } from "@/services/ServicioProyectos";
 import { FilaProyectoDestacado } from "@/components/secciones/FilaProyectoDestacado";
 import { DivisorProyecto } from "@/components/ui/DivisorProyecto";
 
 /**
  * Sección de Proyectos Destacados en la Home: filas showcase alternadas con
  * el diseño de la imagen de referencia, y enlace al catálogo completo.
+ * Consume los datos a través de la capa de servicio (servicioProyectos).
  */
 export function SeccionProyectos() {
   const traducciones = useTranslations("proyectos");
 
-  // Mostrar únicamente los proyectos marcados como destacados en la página principal
-  const proyectosDestacados = LISTA_PROYECTOS.filter((p) => p.destacado);
+  const proyectosDestacados = useMemo(
+    () => servicioProyectos.obtenerDestacadosSincrono(),
+    []
+  );
 
   return (
     <section id="proyectos" className="py-10 md:py-14 relative">
@@ -61,10 +64,7 @@ export function SeccionProyectos() {
           </motion.div>
         </div>
 
-        {/* Filas showcase alternadas, separadas por la línea de escaneo:
-            un divisor al inicio, uno después de cada fila (queda entre
-            proyectos y al final). El ritmo vertical lo aportan los márgenes
-            del propio divisor */}
+        {/* Filas showcase alternadas, separadas por la línea de escaneo */}
         <div>
           <DivisorProyecto />
           {proyectosDestacados.map((proyecto, indice) => (

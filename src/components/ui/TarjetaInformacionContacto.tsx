@@ -12,10 +12,12 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { CONFIGURACION_CONTACTO } from "@/data/datosContacto";
 
 /**
  * Tarjeta horizontal de datos de contacto rápidos (ubicación, correo, teléfono
  * con botones de llamada y WhatsApp, LinkedIn, Instagram e idiomas).
+ * Consume los datos fijos desde CONFIGURACION_CONTACTO como fuente única de verdad.
  */
 export function TarjetaInformacionContacto() {
   const traducciones = useTranslations("contacto");
@@ -60,10 +62,10 @@ export function TarjetaInformacionContacto() {
               {traducciones("correo")}
             </span>
             <a
-              href={`mailto:${traducciones("valorCorreo")}`}
+              href={`mailto:${CONFIGURACION_CONTACTO.correo}`}
               className="text-sm font-semibold text-white hover:text-blue-400 transition-colors mt-1 break-all sm:break-normal"
             >
-              {traducciones("valorCorreo")}
+              {CONFIGURACION_CONTACTO.correo}
             </a>
           </div>
         </div>
@@ -79,14 +81,14 @@ export function TarjetaInformacionContacto() {
             </span>
             <div className="flex flex-wrap items-center gap-2 mt-1">
               <a
-                href={`tel:${traducciones("valorTelefono").replace(/\s+/g, "")}`}
+                href={`tel:${CONFIGURACION_CONTACTO.telefonoFormatoLlamada}`}
                 className="text-sm font-semibold text-white hover:text-blue-400 transition-colors"
               >
-                {traducciones("valorTelefono")}
+                {CONFIGURACION_CONTACTO.telefono}
               </a>
               <div className="flex items-center gap-1.5 ml-auto sm:ml-2">
                 <a
-                  href={`tel:${traducciones("valorTelefono").replace(/\s+/g, "")}`}
+                  href={`tel:${CONFIGURACION_CONTACTO.telefonoFormatoLlamada}`}
                   aria-label={traducciones("llamar")}
                   title={traducciones("llamar")}
                   className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-900/60 border border-blue-700/60 text-blue-300 hover:bg-blue-600 hover:text-white transition-colors"
@@ -94,7 +96,7 @@ export function TarjetaInformacionContacto() {
                   <PhoneCall className="h-3.5 w-3.5" />
                 </a>
                 <a
-                  href="https://wa.me/5493814636143"
+                  href={CONFIGURACION_CONTACTO.urlWhatsApp}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={traducciones("whatsapp")}
@@ -118,12 +120,12 @@ export function TarjetaInformacionContacto() {
               {traducciones("linkedin")}
             </span>
             <a
-              href="https://www.linkedin.com/in/pablomartinbejas/"
+              href={CONFIGURACION_CONTACTO.urlLinkedIn}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-semibold text-white hover:text-blue-400 transition-colors mt-1"
             >
-              {traducciones("valorLinkedin")}
+              {CONFIGURACION_CONTACTO.usuarioLinkedIn}
             </a>
           </div>
         </div>
@@ -138,12 +140,12 @@ export function TarjetaInformacionContacto() {
               {traducciones("instagram")}
             </span>
             <a
-              href="https://www.instagram.com/pablomartin2206/"
+              href={CONFIGURACION_CONTACTO.urlInstagram}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-semibold text-white hover:text-pink-400 transition-colors mt-1"
             >
-              {traducciones("valorInstagram")}
+              {CONFIGURACION_CONTACTO.usuarioInstagram}
             </a>
           </div>
         </div>
