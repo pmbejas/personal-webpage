@@ -39,7 +39,7 @@
     },
     "proyectos": {
       "titulo": "Projetos | Pablo Bejas - Full Stack Developer",
-      "descripcion": "Catálogo completo de projetos desenvolvidos por Pablo Bejas: sistemas institucionais, aplicações web, plataformas de e-commerce e mapas interativos."
+      "descripcion": "Catálogo completo de projetos desenvolvidos por Pablo Bejas: sistemas institucionais, aplicações web, software sob medida e mapas interativos."
     }
   },
   "contacto": {
@@ -90,7 +90,7 @@
     "etiquetaCapacidades": "Capacidades principais",
     "etiquetaImpacto": "Impacto",
     "todosLosProyectos": "Catálogo Completo de Projetos",
-    "subtituloCatalogo": "Explore meu portfólio de aplicações web, sistemas institucionais, plataformas de e-commerce e soluções digitais.",
+    "subtituloCatalogo": "Explore meu portfólio de aplicações web, sistemas institucionais, software sob medida e soluções digitais.",
     "volverInicio": "Voltar ao início",
     "sinResultados": "Nenhum projeto encontrado nesta categoria.",
     "filtros": {
@@ -130,24 +130,24 @@
         "Conteúdo 100% gerenciável"
       ]
     },
-    "plataformaEcommerce": {
-      "titulo": "Plataforma E-Commerce",
-      "descripcion": "Loja virtual de alta performance com gateway de pagamentos integrado e painel administrativo.",
-      "impacto": "Vendas online de alta performance",
+    "nuvenTech": {
+      "titulo": "Nuven",
+      "descripcion": "Plataforma web de software sob medida e consultoria tecnológica de alto impacto para empresas em escala.",
+      "impacto": "Transformação digital & software de alto desempenho",
       "capacidades": [
-        "Processamento de pagamentos integrado",
-        "Painel administrativo modular",
-        "Catálogo e estoque em tempo real"
+        "Arquitetura web moderna e design de ponta",
+        "Otimização de fluxos e processos de negócio",
+        "Implantação contínua na nuvem com Vercel"
       ]
     },
-    "panelEmpresarial": {
-      "titulo": "Painel de Controle Analítico",
-      "descripcion": "Dashboard com gráficos interativos e métricas de desempenho em tempo real.",
-      "impacto": "Decisões baseadas em dados",
+    "solucionesProyectables": {
+      "titulo": "Soluciones Proyectables",
+      "descripcion": "Site corporativo e catálogo técnico digital de argamassas projetáveis, revestimentos e soluções construtivas.",
+      "impacto": "Presença digital líder no setor da construção",
       "capacidades": [
-        "Gráficos interativos",
-        "Métricas empresariais em tempo real",
-        "Controle de acesso por perfil"
+        "Catálogo técnico interativo de produtos",
+        "Arquitetura responsiva e otimização SEO",
+        "Canal direto de consultoria e contato comercial"
       ]
     },
     "sistemaTurnos": {

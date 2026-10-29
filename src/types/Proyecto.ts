@@ -1,5 +1,5 @@
 /** Categorías reales a las que puede pertenecer un proyecto */
-export type CategoriaProyecto = "sistemas" | "web" | "outdoor" | "ecommerce";
+export type CategoriaProyecto = "sistemas" | "web" | "outdoor";
 
 /** Claves válidas para el filtrado en el catálogo (incluyendo la vista general 'todos') */
 export type CategoriaFiltroProyecto = "todos" | CategoriaProyecto;

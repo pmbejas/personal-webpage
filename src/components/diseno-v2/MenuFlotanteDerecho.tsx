@@ -158,8 +158,8 @@ export function MenuFlotanteDerecho() {
   };
 
   return (
-    <div className="fixed bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 lg:bottom-auto lg:left-auto lg:right-4 xl:right-6 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-0 z-40 pointer-events-none max-w-[calc(100vw-1.5rem)]">
-      {/* Dock Principal de Navegación: Horizontal abajo en móvil, vertical a la derecha en escritorio */}
+    <div className="fixed top-3 sm:top-4 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:left-auto lg:right-4 xl:right-6 lg:translate-x-0 z-40 pointer-events-none max-w-[calc(100vw-1.5rem)]">
+      {/* Dock Principal de Navegación: Horizontal superior en móvil, vertical a la derecha en escritorio */}
       <nav
         aria-label="Navegación de secciones de la página"
         className="pointer-events-auto relative flex flex-row lg:flex-col items-center gap-0.5 sm:gap-1 p-1 sm:p-2 rounded-full bg-[#0c0a09]/90 backdrop-blur-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.7)]"
@@ -199,8 +199,8 @@ export function MenuFlotanteDerecho() {
                 }`}
               />
 
-              {/* Tooltip (hacia arriba en móvil, hacia la izquierda en desktop) */}
-              <span className="pointer-events-none absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 lg:top-1/2 lg:-translate-y-1/2 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-20">
+              {/* Tooltip (hacia abajo en móvil superior, hacia la izquierda en desktop) */}
+              <span className="pointer-events-none absolute top-full mt-2.5 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 -translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-20">
                 {seccion.etiqueta}
               </span>
             </a>
@@ -225,23 +225,23 @@ export function MenuFlotanteDerecho() {
           >
             <Settings className={`w-4 h-4 transition-transform duration-300 ${panelConfiguracionAbierto ? "rotate-90" : ""}`} />
 
-            {/* Tooltip (hacia arriba en móvil, hacia la izquierda en desktop) */}
+            {/* Tooltip (hacia abajo en móvil superior, hacia la izquierda en desktop) */}
             {!panelConfiguracionAbierto && (
-              <span className="pointer-events-none absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 lg:top-1/2 lg:-translate-y-1/2 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">
+              <span className="pointer-events-none absolute top-full mt-2.5 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 -translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">
                 Configuración
               </span>
             )}
           </button>
 
-          {/* Panel Desplegable de Ajustes (hacia arriba en móvil, hacia la izquierda en desktop) */}
+          {/* Panel Desplegable de Ajustes (hacia abajo en móvil superior, hacia la izquierda en desktop) */}
           <AnimatePresence>
             {panelConfiguracionAbierto && (
               <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
                 transition={{ duration: 0.18 }}
-                className="absolute bottom-full mb-3 right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 lg:bottom-0 lg:right-full lg:mr-3 lg:left-auto lg:translate-x-0 w-56 p-3.5 rounded-2xl bg-[#0c0a09]/95 backdrop-blur-2xl border border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col gap-3.5 z-50 text-left"
+                className="absolute top-full mt-3 right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 lg:top-auto lg:bottom-0 lg:right-full lg:mr-3 lg:left-auto lg:translate-x-0 w-56 p-3.5 rounded-2xl bg-[#0c0a09]/95 backdrop-blur-2xl border border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col gap-3.5 z-50 text-left"
               >
                 {/* Cabecera del panel */}
                 <div className="flex items-center justify-between pb-2 border-b border-white/10">
@@ -320,14 +320,14 @@ export function MenuFlotanteDerecho() {
         </div>
       </nav>
 
-      {/* Botón Flotante 'Volver al Inicio' (arriba del dock en móvil, abajo del dock en desktop) */}
-      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 lg:bottom-auto lg:top-full lg:left-1/2 lg:-translate-x-1/2 lg:mt-2.5 pointer-events-none">
+      {/* Botón Flotante 'Volver al Inicio' (debajo del dock tanto en móvil como en desktop) */}
+      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 lg:mt-2.5 pointer-events-none">
         <AnimatePresence>
           {mostrarBotonArriba && (
             <motion.button
-              initial={{ opacity: 0, scale: 0.7, y: 10 }}
+              initial={{ opacity: 0, scale: 0.7, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.7, y: 10 }}
+              exit={{ opacity: 0, scale: 0.7, y: -10 }}
               transition={{ duration: 0.2 }}
               type="button"
               onClick={volverAlInicio}
@@ -337,8 +337,8 @@ export function MenuFlotanteDerecho() {
             >
               <ArrowUp className="w-4 h-4 sm:w-4.5 sm:h-4.5 group-hover:-translate-y-0.5 transition-transform" />
 
-              {/* Tooltip (hacia arriba en móvil, hacia la izquierda en desktop) */}
-              <span className="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 lg:top-1/2 lg:-translate-y-1/2 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap">
+              {/* Tooltip (hacia abajo en móvil superior, hacia la izquierda en desktop) */}
+              <span className="pointer-events-none absolute top-full mt-2 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap">
                 Volver arriba
               </span>
             </motion.button>

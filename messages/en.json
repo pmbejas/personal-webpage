@@ -39,7 +39,7 @@
     },
     "proyectos": {
       "titulo": "Projects | Pablo Bejas - Full Stack Developer",
-      "descripcion": "Complete portfolio of projects developed by Pablo Bejas: institutional systems, web applications, e-commerce platforms, and interactive maps."
+      "descripcion": "Complete portfolio of projects developed by Pablo Bejas: enterprise systems, modern web apps, custom software, and interactive maps."
     }
   },
   "contacto": {
@@ -90,7 +90,7 @@
     "etiquetaCapacidades": "Core Capabilities",
     "etiquetaImpacto": "Impact",
     "todosLosProyectos": "Full Projects Catalog",
-    "subtituloCatalogo": "Explore my portfolio of web applications, institutional software, e-commerce stores, and interactive tools.",
+    "subtituloCatalogo": "Explore my portfolio of web applications, institutional software, custom software, and interactive tools.",
     "volverInicio": "Back to home",
     "sinResultados": "No projects found in this category.",
     "filtros": {
@@ -130,24 +130,24 @@
         "Fully manageable content"
       ]
     },
-    "plataformaEcommerce": {
-      "titulo": "E-Commerce Platform",
-      "descripcion": "High-performance online storefront with integrated payment gateway and modular admin dashboard.",
-      "impacto": "High-performance online sales",
+    "nuvenTech": {
+      "titulo": "Nuven",
+      "descripcion": "High-impact custom software development and technology consulting web platform for scaling businesses.",
+      "impacto": "Digital transformation & high-performance software",
       "capacidades": [
-        "Integrated payment processing",
-        "Modular admin dashboard",
-        "Real-time catalog and inventory"
+        "Modern web architecture & cutting-edge design",
+        "Business workflow and process optimization",
+        "Continuous cloud deployment with Vercel"
       ]
     },
-    "panelEmpresarial": {
-      "titulo": "Business Analytics Dashboard",
-      "descripcion": "Real-time KPI dashboard featuring interactive data visualizations and role-based permissions.",
-      "impacto": "Data-driven decisions",
+    "solucionesProyectables": {
+      "titulo": "Soluciones Proyectables",
+      "descripcion": "Corporate website and digital technical catalog for sprayable mortars, coatings, and modern construction solutions.",
+      "impacto": "Leading digital presence in the regional construction industry",
       "capacidades": [
-        "Interactive charts",
-        "Real-time business metrics",
-        "Role-based access control"
+        "Interactive technical product catalog",
+        "Responsive architecture and SEO optimization",
+        "Direct commercial consulting and contact channel"
       ]
     },
     "sistemaTurnos": {

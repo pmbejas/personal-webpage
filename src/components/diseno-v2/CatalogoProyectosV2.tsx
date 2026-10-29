@@ -12,7 +12,6 @@ const OPCIONES_FILTRO: { clave: CategoriaFiltroProyecto; etiqueta: string }[] = 
   { clave: "sistemas", etiqueta: "Sistemas & Gestión" },
   { clave: "web", etiqueta: "Web Apps" },
   { clave: "outdoor", etiqueta: "Outdoor & Mapas" },
-  { clave: "ecommerce", etiqueta: "E-Commerce" },
 ];
 
 /**

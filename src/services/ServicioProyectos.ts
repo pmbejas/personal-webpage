@@ -37,7 +37,6 @@ export class ServicioProyectos implements IServicioProyectos {
       sistemas: 0,
       web: 0,
       outdoor: 0,
-      ecommerce: 0,
     };
 
     LISTA_PROYECTOS.forEach((proyecto) => {
