@@ -21,14 +21,44 @@ const LISTA_PREGUNTAS: ElementoPregunta[] = [
       "Trabajo bajo metodologías ágiles con sprints bien definidos. Mantendremos reuniones periódicas de avance, demos funcionales en entornos de staging y acceso directo a un repositorio de código o tablero para que tengas visibilidad total en cada etapa.",
   },
   {
+    pregunta: "¿Cuánto tiempo suele demorar el desarrollo de una aplicación o sistema?",
+    respuesta:
+      "Depende de la complejidad y alcance. Un sitio web moderno o landing page optimizada suele estar listo en 1 a 2 semanas, mientras que un MVP o sistema de gestión a medida (.NET + Next.js) suele estructurarse en sprints quincenales a lo largo de 4 a 10 semanas con entregas continuas.",
+  },
+  {
     pregunta: "¿El software entregado cuenta con buenas prácticas y pruebas?",
     respuesta:
       "Absolutamente. Todo el código sigue principios SOLID, Clean Architecture y separación estricta en capas (Repository, Service, Controller). Incluyo pruebas en los puntos críticos y documentación técnica clara para facilitar su escalabilidad.",
   },
   {
+    pregunta: "¿Te encargas de la configuración del servidor, dominio y despliegue a producción?",
+    respuesta:
+      "Sí, entrego soluciones llave en mano. Configuro la infraestructura completa: vinculación de dominios, certificados SSL (HTTPS), bases de datos (PostgreSQL/SQL Server) y pipelines de despliegue automatizado en la nube (Vercel, Azure, VPS o contenedores Docker).",
+  },
+  {
+    pregunta: "¿Trabajas sobre proyectos ya existentes o únicamente desde cero?",
+    respuesta:
+      "Puedo tanto iniciar un desarrollo desde cero como sumarme a proyectos en marcha. Realizo auditorías de código, optimización de consultas en base de datos, refactorización de código heredado y modernización de arquitecturas monolíticas hacia APIs modernas.",
+  },
+  {
+    pregunta: "¿Qué sucede después de la entrega? ¿Ofreces garantía o soporte?",
+    respuesta:
+      "Todos los proyectos cuentan con un período de garantía post-lanzamiento (de 15 a 30 días) para resolver cualquier ajuste o inconsistencia sin costo adicional. Además, ofrezco esquemas de mantenimiento mensual y soporte evolutivo para acompañar el crecimiento de tu negocio.",
+  },
+  {
+    pregunta: "¿El código fuente y los accesos quedan en mi poder?",
+    respuesta:
+      "El 100% de la propiedad intelectual, repositorios de código (GitHub/GitLab), accesos a servidores y credenciales de despliegue te pertenecen exclusivamente a ti o a tu empresa desde el momento en que se completa la entrega.",
+  },
+  {
     pregunta: "¿Qué modalidades de contratación ofreces?",
     respuesta:
       "Ofrezco colaboración tanto por proyecto cerrado (con alcance, hitos y entregables detallados desde el inicio) como por asignación de horas o sprints para desarrollo evolutivo y consultoría técnica de arquitectura.",
+  },
+  {
+    pregunta: "¿Cómo se coordinan los pagos y la facturación?",
+    respuesta:
+      "Trabajo con hitos de pago transparentes (habitualmente 50% anticipo y 50% contra entrega aprobada, o por entrega de sprint quincenal). Emito factura fiscal y acepto transferencias bancarias locales e internacionales para clientes del exterior.",
   },
 ];
 
