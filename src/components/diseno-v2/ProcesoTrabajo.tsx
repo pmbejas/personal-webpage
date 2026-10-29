@@ -36,9 +36,9 @@ const PASOS_PROCESO: PasoMetodologia[] = [
 ];
 
 /**
- * Sección de proceso y metodología ágil de 3 pasos para la Versión 3 en azul eléctrico.
+ * Sección de proceso y metodología ágil de 3 pasos.
  */
-export function ProcesoTrabajoV3() {
+export function ProcesoTrabajo() {
   return (
     <section id="proceso" className="py-24 sm:py-32 relative bg-[#070606] overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">

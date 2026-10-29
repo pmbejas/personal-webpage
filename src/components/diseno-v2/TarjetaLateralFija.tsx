@@ -9,14 +9,12 @@ import { WordmarkLogo } from "@/components/layout/WordmarkLogo";
 import { IsotipoLogo } from "@/components/layout/IsotipoLogo";
 
 /**
- * Tarjeta Lateral Fija inspirada en el concepto arquitectónico de mojunsh.com.
+ * Tarjeta Lateral Fija con fotografía difusa y accesos directos.
  * Se mantiene sticky a la izquierda en pantallas de escritorio y actúa como
  * tarjeta de presentación principal fluida en dispositivos móviles.
  */
 export function TarjetaLateralFija() {
-  const traduccionesHero = useTranslations("hero");
   const traduccionesSobreMi = useTranslations("sobreMi");
-  const traduccionesContacto = useTranslations("contacto");
 
   return (
     <aside className="relative w-full h-[calc(100dvh-1.5rem)] min-h-[540px] sm:h-[calc(100dvh-3rem)] lg:min-h-0 lg:w-[380px] xl:w-[420px] lg:sticky lg:top-6 lg:self-start lg:h-[calc(100vh-3rem)] rounded-[32px] overflow-hidden bg-[#0c0a09]/95 border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.85)] flex flex-col justify-between p-6 sm:p-7 flex-shrink-0 group">
@@ -27,11 +25,11 @@ export function TarjetaLateralFija() {
           alt="Pablo Bejas"
           fill
           priority
-          className="object-cover object-top opacity-30 filter grayscale contrast-125 blur-[1.5px] scale-105 group-hover:scale-110 group-hover:opacity-40 transition-all duration-700"
+          className="object-cover object-top opacity-65 filter grayscale contrast-115 blur-[0.5px] scale-105 group-hover:scale-110 group-hover:opacity-80 transition-all duration-700"
           sizes="(max-width: 1024px) 100vw, 420px"
         />
         {/* Máscara de gradiente oscuro con resplandor cyan en la cabecera */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0a09] via-[#0c0a09]/80 to-[#0c0a09]/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0a09] via-[#0c0a09]/80 to-transparent" />
         <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-blue-600/15 blur-3xl" />
       </div>
 
@@ -69,7 +67,7 @@ export function TarjetaLateralFija() {
         </div>
       </div>
 
-      {/* 3. Insignia lateral vertical estilo Mojunsh (oculta en pantallas muy pequeñas, visible en desktop) */}
+      {/* 3. Insignia lateral vertical (oculta en pantallas muy pequeñas, visible en desktop) */}
       <div className="hidden lg:flex absolute left-3 top-1/2 -translate-y-1/2 -rotate-90 origin-left items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-[rgb(var(--tema-acento-claro-rgb))] bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-[rgb(var(--tema-acento-rgb)/0.3)] z-10 shadow-lg">
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[rgb(var(--tema-acento-claro-rgb))] opacity-75" />
@@ -89,12 +87,12 @@ export function TarjetaLateralFija() {
           <span>Disponible para Proyectos</span>
         </div>
 
-        {/* Isotipo y Wordmark en reemplazo del nombre grande (espaciado reducido a la mitad y centrado vertical) */}
-        <div className="flex items-center gap-2 sm:gap-2.5 mb-3">
-          <div className="relative h-20 sm:h-[84px] w-auto flex-shrink-0 flex items-center justify-center">
+        {/* Isotipo y Wordmark alineados sobre el borde inferior */}
+        <div className="flex items-end gap-2 sm:gap-2.5 mb-3">
+          <div className="relative h-20 sm:h-[84px] w-auto flex-shrink-0 flex items-end">
             <IsotipoLogo className="h-full w-auto" />
           </div>
-          <div className="h-10 sm:h-11 w-auto flex items-center">
+          <div className="relative flex items-end pb-0.5 sm:pb-1">
             <WordmarkLogo className="h-10 sm:h-11 w-auto drop-shadow-[0_4px_14px_rgba(0,0,0,0.7)]" />
           </div>
         </div>

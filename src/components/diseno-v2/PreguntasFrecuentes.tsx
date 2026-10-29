@@ -13,7 +13,7 @@ const LISTA_PREGUNTAS: ElementoPregunta[] = [
   {
     pregunta: "¿Qué tecnologías utilizas para el desarrollo Full Stack?",
     respuesta:
-      "Me especializo en el ecosistema Microsoft .NET (C#, ASP.NET Core Web API, EF Core, Dapper) para arquitecturas backend robustas y escalables, complementado con Next.js 15, TypeScript y Tailwind CSS en el frontend para interfaces modernas, ultrarrápidas y optimizadas para SEO.",
+      "Me especializo en el ecosistema Microsoft .NET (C#, ASP.NET Core Web API, EF Core, Dapper) para arquitecturas backend robustas y de alto rendimiento, complementado con Next.js 15, TypeScript y Tailwind CSS en el frontend para interfaces modernas, ultrarrápidas y optimizadas para SEO.",
   },
   {
     pregunta: "¿Cómo es el flujo de trabajo y la comunicación durante el proyecto?",
@@ -23,19 +23,19 @@ const LISTA_PREGUNTAS: ElementoPregunta[] = [
   {
     pregunta: "¿El software entregado cuenta con buenas prácticas y pruebas?",
     respuesta:
-      "Absolutamente. Todo el código sigue principios SOLID, Clean Architecture y separación estricta en capas (Repository, Service, Controller). Incluyo pruebas unitarias e integración en los puntos críticos y documentación técnica clara para facilitar su escalabilidad.",
+      "Absolutamente. Todo el código sigue principios SOLID, Clean Architecture y separación estricta en capas (Repository, Service, Controller). Incluyo pruebas en los puntos críticos y documentación técnica clara para facilitar su escalabilidad.",
   },
   {
     pregunta: "¿Qué modalidades de contratación ofreces?",
     respuesta:
-      "Ofrezco colaboración tanto por proyecto cerrado (con alcance, hitos y entregables detallados desde el inicio) como por asignación de horas/sprints para desarrollo evolutivo o consultoría de arquitectura de software.",
+      "Ofrezco colaboración tanto por proyecto cerrado (con alcance, hitos y entregables detallados desde el inicio) como por asignación de horas o sprints para desarrollo evolutivo y consultoría técnica de arquitectura.",
   },
 ];
 
 /**
- * Acordeón de preguntas frecuentes inspirado en la sección "Questions? We've got answers."
+ * Acordeón de preguntas frecuentes.
  */
-export const PreguntasFrecuentesV2: React.FC = () => {
+export function PreguntasFrecuentes() {
   const [indiceAbierto, setIndiceAbierto] = useState<number | null>(0);
 
   const alternarPregunta = (indice: number) => {
@@ -43,14 +43,14 @@ export const PreguntasFrecuentesV2: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-24 sm:py-32 relative bg-[#070606]">
+    <section id="faq" className="py-24 sm:py-32 relative bg-[#070606] overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Cabecera */}
         <div className="text-center max-w-xl mx-auto mb-16">
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-amber-400 bg-amber-500/10 border border-amber-500/20 mb-3">
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-sky-400 bg-sky-500/10 border border-sky-500/20 mb-3">
             Preguntas Frecuentes
           </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
             Respuestas directas y claras
           </h2>
           <p className="mt-3 text-neutral-400 text-sm sm:text-base">
@@ -65,18 +65,18 @@ export const PreguntasFrecuentesV2: React.FC = () => {
             return (
               <div
                 key={item.pregunta}
-                className="rounded-2xl bg-[#0c0a09]/90 border border-white/10 overflow-hidden transition-colors"
+                className="rounded-2xl bg-[#0c0a09]/90 border border-white/10 hover:border-sky-500/30 transition-colors overflow-hidden"
               >
                 <button
                   type="button"
                   onClick={() => alternarPregunta(index)}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none"
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none cursor-pointer"
                 >
                   <span className="text-sm sm:text-base font-semibold text-neutral-200 hover:text-white transition-colors">
                     {item.pregunta}
                   </span>
                   <ChevronDown
-                    className={`w-5 h-5 text-amber-400 shrink-0 transition-transform duration-300 ${
+                    className={`w-5 h-5 text-sky-400 shrink-0 transition-transform duration-300 ${
                       estaAbierto ? "rotate-180" : ""
                     }`}
                   />
@@ -103,4 +103,4 @@ export const PreguntasFrecuentesV2: React.FC = () => {
       </div>
     </section>
   );
-};
+}

@@ -15,10 +15,10 @@ import {
 import { CONFIGURACION_CONTACTO } from "@/data/datosContacto";
 
 /**
- * Sección final de Contacto y Llamada a la Acción para la Versión 3.
- * Integra el horizonte curvado de la V2 en azul eléctrico con las vías directas de contacto de la V1.
+ * Sección final de Contacto y Llamada a la Acción.
+ * Integra el horizonte curvado en azul eléctrico con las vías directas de contacto.
  */
-export function CtaContactoV3() {
+export function CtaContacto() {
   const traduccionesBanner = useTranslations("bannerContacto");
   const traduccionesContacto = useTranslations("contacto");
   const [copiado, setCopiado] = useState<boolean>(false);

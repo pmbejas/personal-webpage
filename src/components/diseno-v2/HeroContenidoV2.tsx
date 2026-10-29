@@ -3,7 +3,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Code2, Database } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { CuboCodigo } from "@/components/animacion/CuboCodigo";
 
 /**
@@ -36,7 +36,7 @@ export function HeroContenidoV2() {
             <span>Software Architecture & Full Stack</span>
           </div>
 
-          {/* Título Principal estilo Mojunsh con cápsulas refinadas y tipografía moderada */}
+          {/* Título Principal con cápsulas refinadas y tipografía moderna */}
           <h1 className="fuente-titular text-2xl sm:text-4xl xl:text-[3.25rem] font-normal text-white tracking-tight leading-[1.22]">
             Construyo{" "}
             <span className="inline-block bg-[rgb(var(--tema-acento-rgb))] text-black px-3.5 py-0.5 rounded-full font-medium align-middle shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.35)] my-0.5">
@@ -75,7 +75,7 @@ export function HeroContenidoV2() {
           <div className="md:col-span-5 flex flex-col gap-4 border-t md:border-t-0 md:border-l border-white/10 pt-4 md:pt-0 md:pl-6">
             <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
               <span className="text-3xl sm:text-4xl font-extrabold text-white font-mono block">
-                7+
+                5+
               </span>
               <span className="text-xs text-neutral-400 tracking-wider uppercase mt-1 block">
                 {traduccionesSobreMi("aniosExperiencia")}

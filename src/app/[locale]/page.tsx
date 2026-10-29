@@ -1,9 +1,10 @@
 import { setRequestLocale } from "next-intl/server";
-import { PaginaDisenoV3 } from "@/components/diseno-v3/PaginaDisenoV3";
+import { PaginaDisenoV2 } from "@/components/diseno-v2/PaginaDisenoV2";
 
 /**
  * Página de Inicio Oficial del Sitio Personal de Pablo Bejas.
- * Adopta la Versión 3 (La Fusión) como la versión definitiva y permanente.
+ * Adopta la Versión 2 (Arquitectura Split-Screen)
+ * como la versión definitiva, oficial y permanente del portafolio.
  */
 export default async function PaginaInicio({
   params,
@@ -13,5 +14,5 @@ export default async function PaginaInicio({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <PaginaDisenoV3 />;
+  return <PaginaDisenoV2 />;
 }

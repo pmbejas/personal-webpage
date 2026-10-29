@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 import { LISTA_TECNOLOGIAS_STACK } from "@/data/datosStack";
 
 /**
- * Cinta de Tecnologías optimizada para la Versión 3 con acentos en azul eléctrico.
+ * Cinta de Tecnologías con acentos en la paleta activa.
  */
-export function CintaStackV3() {
+export function CintaStack() {
   const traducciones = useTranslations("stack");
 
   return (

@@ -14,10 +14,10 @@ export interface PropiedadesWordmarkLogo {
 export function WordmarkLogo({ className = "h-8 w-auto" }: PropiedadesWordmarkLogo) {
   return (
     <svg
-      viewBox="0 0 460 76"
+      viewBox="0 0 460 92"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={`overflow-visible ${className}`}
       aria-label="Pablo Bejas"
     >
       <defs>
@@ -31,7 +31,7 @@ export function WordmarkLogo({ className = "h-8 w-auto" }: PropiedadesWordmarkLo
         `}</style>
       </defs>
 
-      <g transform="translate(0, 58)">
+      <g transform="translate(0, 66)">
         {/* Pablo Bejas */}
         <text className="fuente-titulo-wordmark" x="0" y="0">
           <tspan fill="#FFFFFF">Pablo </tspan>

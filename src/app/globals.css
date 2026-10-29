@@ -18,7 +18,7 @@
   --tema-texto-sobre: #ffffff;
 }
 
-/* Verde Mojunsh / Esmeralda */
+/* Verde Esmeralda */
 [data-tema="verde"] {
   --tema-acento-claro-rgb: 52 211 153;
   --tema-acento-rgb: 16 185 129;

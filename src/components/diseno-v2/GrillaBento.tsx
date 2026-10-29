@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 import { Cpu, Zap, ShieldCheck } from "lucide-react";
 
 /**
- * Grilla Bento 2x2 para la Versión 3 con estética azul eléctrico de alta gama.
+ * Grilla Bento 2x2 de alta gama.
  * Presenta 4 módulos con ilustraciones tecnológicas.
  */
-export function GrillaBentoV3() {
+export function GrillaBento() {
   const traducciones = useTranslations("bento");
 
   return (

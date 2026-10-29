@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface PropiedadesPreloader {
@@ -8,15 +9,15 @@ interface PropiedadesPreloader {
 }
 
 /**
- * Preloader cinemático minimalista y moderno con trazo láser ámbar y contador digital.
- * Proporciona una entrada estética de alto impacto antes de revelar el contenido.
+ * Preloader cinemático minimalista y moderno con el isotipo oficial del robot desarrollador,
+ * estética azul eléctrico / cyan y barra de progreso de carga.
  */
 export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinalizar }) => {
   const [progreso, setProgreso] = useState<number>(0);
   const [estaCompletado, setEstaCompletado] = useState<boolean>(false);
 
   useEffect(() => {
-    const duracionTotal = 1900;
+    const duracionTotal = 1800;
     const intervaloMs = 25;
     const pasos = duracionTotal / intervaloMs;
     let pasoActual = 0;
@@ -32,8 +33,8 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
           setEstaCompletado(true);
           setTimeout(() => {
             alFinalizar();
-          }, 600);
-        }, 300);
+          }, 500);
+        }, 250);
       }
     }, intervaloMs);
 
@@ -52,16 +53,16 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            y: -40,
+            y: -30,
             filter: "blur(14px)",
-            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+            transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
           }}
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#070606] text-white select-none overflow-hidden"
         >
-          {/* Resplandor radial de fondo */}
-          <div className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-amber-600/15 via-orange-500/10 to-transparent blur-[120px] pointer-events-none" />
+          {/* Resplandor radial de fondo azul cian */}
+          <div className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-blue-600/20 via-sky-500/10 to-transparent blur-[130px] pointer-events-none" />
 
-          {/* Botón sutil para saltar */}
+          {/* Botón para saltar intro */}
           <button
             onClick={saltarIntro}
             type="button"
@@ -70,73 +71,32 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
             Saltar intro ✕
           </button>
 
-          {/* Monograma central animado */}
+          {/* Isotipo oficial con halo de luz azul */}
           <div className="relative mb-8 flex items-center justify-center">
-            {/* Halo de luz tras el logo */}
             <motion.div
               animate={{
-                scale: [0.9, 1.15, 0.95],
-                opacity: [0.4, 0.8, 0.5],
+                scale: [0.92, 1.12, 0.96],
+                opacity: [0.5, 0.9, 0.6],
               }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute w-28 h-28 rounded-full bg-gradient-to-r from-amber-500/30 to-orange-500/30 blur-2xl"
+              className="absolute w-28 h-28 rounded-full bg-gradient-to-r from-blue-500/35 to-sky-400/35 blur-2xl"
             />
 
-            {/* SVG con trazo de vector animado */}
-            <svg
-              className="w-20 h-20 text-amber-500 drop-shadow-[0_0_25px_rgba(245,158,11,0.6)]"
-              viewBox="0 0 100 100"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <linearGradient id="gradienteAmbar" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#F59E0B" />
-                  <stop offset="50%" stopColor="#EA580C" />
-                  <stop offset="100%" stopColor="#D97706" />
-                </linearGradient>
-              </defs>
-
-              {/* Contorno exterior hexagonal / diamante suave */}
-              <motion.polygon
-                points="50,6 90,28 90,72 50,94 10,72 10,28"
-                stroke="url(#gradienteAmbar)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.4, ease: "easeInOut" }}
+            {/* Isotipo Dark renderizado */}
+            <div className="relative w-20 h-20 drop-shadow-[0_0_20px_rgba(56,189,248,0.7)] flex items-center justify-center">
+              <Image
+                src="/isotipo-dark.svg"
+                alt="Isotipo Pablo Bejas"
+                width={80}
+                height={80}
+                className="w-full h-full object-contain"
+                priority
               />
-
-              {/* Letra P estilizada */}
-              <motion.path
-                d="M 36 28 L 36 72 M 36 28 L 54 28 C 62 28 66 33 66 40 C 66 47 62 52 54 52 L 36 52"
-                stroke="url(#gradienteAmbar)"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: progreso / 100 }}
-                transition={{ duration: 0.2 }}
-              />
-
-              {/* Detalle interno de la B */}
-              <motion.path
-                d="M 52 52 L 58 52 C 65 52 69 57 69 62 C 69 68 65 72 57 72 L 48 72"
-                stroke="#FFFFFF"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: progreso > 50 ? (progreso - 50) / 50 : 0 }}
-                transition={{ duration: 0.2 }}
-              />
-            </svg>
+            </div>
           </div>
 
           {/* Textos de identificación */}
@@ -149,16 +109,16 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
             <h2 className="text-sm font-semibold tracking-[0.35em] uppercase text-neutral-200">
               Pablo Bejas
             </h2>
-            <p className="text-[11px] font-mono tracking-widest text-amber-400/90 mt-1 uppercase">
+            <p className="text-[11px] font-mono tracking-widest text-sky-400 mt-1 uppercase">
               Full Stack & Software Architecture
             </p>
           </motion.div>
 
-          {/* Barra de progreso y haz de luz */}
+          {/* Barra de progreso y haz de luz azul */}
           <div className="relative w-64 max-w-[80vw] mt-8">
             <div className="h-[2px] w-full bg-neutral-900 rounded-full overflow-hidden relative">
               <motion.div
-                className="h-full bg-gradient-to-r from-amber-600 via-orange-400 to-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.8)]"
+                className="h-full bg-gradient-to-r from-blue-600 via-sky-400 to-cyan-300 shadow-[0_0_12px_rgba(56,189,248,0.8)]"
                 style={{ width: `${progreso}%` }}
                 transition={{ ease: "easeOut" }}
               />
@@ -166,7 +126,7 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
 
             {/* Haz de luz horizontal expansivo */}
             <div
-              className="absolute -top-[5px] h-[12px] rounded-full bg-amber-400/30 blur-sm pointer-events-none transition-all duration-100"
+              className="absolute -top-[5px] h-[12px] rounded-full bg-sky-400/35 blur-sm pointer-events-none transition-all duration-100"
               style={{
                 left: `calc(${progreso}% - 15px)`,
                 width: "30px",
@@ -177,7 +137,7 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
 
           {/* Contador numérico de porcentaje */}
           <div className="mt-4 font-mono text-xs tracking-wider text-neutral-400 flex items-center gap-2">
-            <span className="text-amber-400 font-semibold">{progreso.toString().padStart(2, "0")}%</span>
+            <span className="text-sky-400 font-semibold">{progreso.toString().padStart(2, "0")}%</span>
             <span className="text-neutral-600">/</span>
             <span className="text-neutral-500 text-[10px] uppercase tracking-widest">Iniciando entorno</span>
           </div>

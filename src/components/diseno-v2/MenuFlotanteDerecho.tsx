@@ -54,7 +54,7 @@ const COLORES_TEMA: OpcionColorTema[] = [
 ];
 
 /**
- * Menú flotante lateral derecho estilo Dock minimalista inspirado en mojunsh.com.
+ * Menú flotante lateral derecho estilo Dock minimalista.
  * Integra:
  * - Botones de navegación por secciones con scrollspy e indicador activo.
  * - Botón de configuración que despliega opciones de idioma y paleta de colores.
@@ -158,11 +158,11 @@ export function MenuFlotanteDerecho() {
   };
 
   return (
-    <div className="fixed right-3 sm:right-6 top-1/2 -translate-y-1/2 z-40 pointer-events-none">
-      {/* Dock Principal de Navegación: Mantiene altura y posición vertical constante en todo momento */}
+    <div className="fixed bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 lg:bottom-auto lg:left-auto lg:right-4 xl:right-6 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-0 z-40 pointer-events-none max-w-[calc(100vw-1.5rem)]">
+      {/* Dock Principal de Navegación: Horizontal abajo en móvil, vertical a la derecha en escritorio */}
       <nav
         aria-label="Navegación de secciones de la página"
-        className="pointer-events-auto relative flex flex-col items-center gap-1 p-1.5 sm:p-2 rounded-full bg-[#0c0a09]/85 backdrop-blur-2xl border border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.6)]"
+        className="pointer-events-auto relative flex flex-row lg:flex-col items-center gap-0.5 sm:gap-1 p-1 sm:p-2 rounded-full bg-[#0c0a09]/90 backdrop-blur-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.7)]"
       >
         {/* Enlaces de secciones con ScrollSpy y deslizamiento suave continuo */}
         {SECCIONES_MENU.map((seccion) => {
@@ -173,19 +173,19 @@ export function MenuFlotanteDerecho() {
             <a
               key={seccion.identificador}
               href={`#${seccion.identificador}`}
-              className="group relative p-2.5 sm:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
+              className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
               aria-label={seccion.etiqueta}
             >
-              {/* Difuminado puro con resplandor glow (sin borde duro) animado fluidamente entre opciones */}
+              {/* Marcador activo con degradé radial etéreo que se difumina progresivamente hasta desaparecer */}
               {estaActiva && (
                 <motion.span
                   layoutId="resplandor-dock-activo"
-                  className="absolute inset-0 rounded-full bg-[rgb(var(--tema-acento-rgb)/0.22)] shadow-[0_0_22px_rgba(var(--tema-acento-rgb),0.55)] pointer-events-none"
+                  className="absolute inset-[-2px] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(var(--tema-acento-rgb),0.42)_0%,rgba(var(--tema-acento-rgb),0.18)_42%,rgba(var(--tema-acento-rgb),0.04)_68%,transparent_100%)] shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.35)]"
                   transition={{
                     type: "spring",
-                    stiffness: 300,
-                    damping: 28,
-                    mass: 0.8,
+                    stiffness: 320,
+                    damping: 26,
+                    mass: 0.7,
                   }}
                 />
               )}
@@ -199,16 +199,16 @@ export function MenuFlotanteDerecho() {
                 }`}
               />
 
-              {/* Tooltip lateral hacia la izquierda */}
-              <span className="pointer-events-none absolute right-full mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-20">
+              {/* Tooltip (hacia arriba en móvil, hacia la izquierda en desktop) */}
+              <span className="pointer-events-none absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 lg:top-1/2 lg:-translate-y-1/2 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-20">
                 {seccion.etiqueta}
               </span>
             </a>
           );
         })}
 
-        {/* Separador sutil */}
-        <div className="w-4 h-[1px] bg-white/10 my-1" />
+        {/* Separador sutil (vertical en móvil horizontal, horizontal en desktop vertical) */}
+        <div className="w-[1px] h-4 mx-0.5 sm:mx-1 lg:w-4 lg:h-[1px] lg:my-1 lg:mx-0 bg-white/10" />
 
         {/* Botón de Configuración (Idioma y Colores) */}
         <div className="relative" ref={contenedorConfigRef}>
@@ -217,7 +217,7 @@ export function MenuFlotanteDerecho() {
             onClick={() => setPanelConfiguracionAbierto(!panelConfiguracionAbierto)}
             className={`group relative p-2 sm:p-2.5 rounded-full transition-all flex items-center justify-center ${
               panelConfiguracionAbierto
-                ? "bg-[rgb(var(--tema-acento-rgb)/0.22)] text-[rgb(var(--tema-acento-claro-rgb))] shadow-[0_0_15px_rgba(var(--tema-acento-rgb),0.4)]"
+                ? "bg-[radial-gradient(circle,rgba(var(--tema-acento-rgb),0.38)_0%,rgba(var(--tema-acento-rgb),0.15)_45%,transparent_100%)] text-[rgb(var(--tema-acento-claro-rgb))] shadow-[0_0_15px_rgba(var(--tema-acento-rgb),0.35)]"
                 : "text-neutral-400 hover:text-white hover:bg-white/10"
             }`}
             aria-label="Abrir configuración de idioma y tema"
@@ -225,23 +225,23 @@ export function MenuFlotanteDerecho() {
           >
             <Settings className={`w-4 h-4 transition-transform duration-300 ${panelConfiguracionAbierto ? "rotate-90" : ""}`} />
 
-            {/* Tooltip lateral */}
+            {/* Tooltip (hacia arriba en móvil, hacia la izquierda en desktop) */}
             {!panelConfiguracionAbierto && (
-              <span className="pointer-events-none absolute right-full mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">
+              <span className="pointer-events-none absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 lg:top-1/2 lg:-translate-y-1/2 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">
                 Configuración
               </span>
             )}
           </button>
 
-          {/* Panel Desplegable de Ajustes hacia la izquierda */}
+          {/* Panel Desplegable de Ajustes (hacia arriba en móvil, hacia la izquierda en desktop) */}
           <AnimatePresence>
             {panelConfiguracionAbierto && (
               <motion.div
-                initial={{ opacity: 0, x: 10, scale: 0.95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: 10, scale: 0.95 }}
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
                 transition={{ duration: 0.18 }}
-                className="absolute right-full mr-3 bottom-0 w-56 p-3.5 rounded-2xl bg-[#0c0a09]/95 backdrop-blur-2xl border border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col gap-3.5 z-50 text-left"
+                className="absolute bottom-full mb-3 right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 lg:bottom-0 lg:right-full lg:mr-3 lg:left-auto lg:translate-x-0 w-56 p-3.5 rounded-2xl bg-[#0c0a09]/95 backdrop-blur-2xl border border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col gap-3.5 z-50 text-left"
               >
                 {/* Cabecera del panel */}
                 <div className="flex items-center justify-between pb-2 border-b border-white/10">
@@ -320,25 +320,25 @@ export function MenuFlotanteDerecho() {
         </div>
       </nav>
 
-      {/* Botón Flotante 'Volver al Inicio' anclado absolutamente debajo del dock sin alterar la altura del nav */}
-      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 pointer-events-none">
+      {/* Botón Flotante 'Volver al Inicio' (arriba del dock en móvil, abajo del dock en desktop) */}
+      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 lg:bottom-auto lg:top-full lg:left-1/2 lg:-translate-x-1/2 lg:mt-2.5 pointer-events-none">
         <AnimatePresence>
           {mostrarBotonArriba && (
             <motion.button
-              initial={{ opacity: 0, scale: 0.7, y: -10 }}
+              initial={{ opacity: 0, scale: 0.7, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.7, y: -10 }}
+              exit={{ opacity: 0, scale: 0.7, y: 10 }}
               transition={{ duration: 0.2 }}
               type="button"
               onClick={volverAlInicio}
-              className="pointer-events-auto group relative p-2.5 sm:p-3 rounded-full bg-[#0c0a09]/85 backdrop-blur-2xl border border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.6)] text-neutral-400 hover:text-[rgb(var(--tema-acento-claro-rgb))] hover:border-[rgb(var(--tema-acento-rgb)/0.4)] hover:scale-110 active:scale-95 transition-all flex items-center justify-center"
+              className="pointer-events-auto group relative p-2 sm:p-2.5 lg:p-3 rounded-full bg-[#0c0a09]/85 backdrop-blur-2xl border border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.6)] text-neutral-400 hover:text-[rgb(var(--tema-acento-claro-rgb))] hover:border-[rgb(var(--tema-acento-rgb)/0.4)] hover:scale-110 active:scale-95 transition-all flex items-center justify-center"
               aria-label="Volver al inicio de la página"
               title="Volver al inicio"
             >
               <ArrowUp className="w-4 h-4 sm:w-4.5 sm:h-4.5 group-hover:-translate-y-0.5 transition-transform" />
 
-              {/* Tooltip lateral hacia la izquierda */}
-              <span className="pointer-events-none absolute right-full mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">
+              {/* Tooltip (hacia arriba en móvil, hacia la izquierda en desktop) */}
+              <span className="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 lg:top-1/2 lg:-translate-y-1/2 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap">
                 Volver arriba
               </span>
             </motion.button>

@@ -2,15 +2,15 @@
 
 import React from "react";
 import { HeroContenidoV2 } from "./HeroContenidoV2";
-import { CintaStackV3 } from "@/components/diseno-v3/CintaStackV3";
-import { GrillaBentoV3 } from "@/components/diseno-v3/GrillaBentoV3";
-import { ProcesoTrabajoV3 } from "@/components/diseno-v3/ProcesoTrabajoV3";
-import { CatalogoProyectosV3 } from "@/components/diseno-v3/CatalogoProyectosV3";
-import { PreguntasFrecuentesV3 } from "@/components/diseno-v3/PreguntasFrecuentesV3";
-import { CtaContactoV3 } from "@/components/diseno-v3/CtaContactoV3";
+import { CintaStack } from "./CintaStack";
+import { GrillaBento } from "./GrillaBento";
+import { ProcesoTrabajo } from "./ProcesoTrabajo";
+import { CatalogoProyectosV2 } from "./CatalogoProyectosV2";
+import { PreguntasFrecuentes } from "./PreguntasFrecuentes";
+import { CtaContacto } from "./CtaContacto";
 
 /**
- * Columna de contenido central de la nueva Versión 2.
+ * Columna de contenido central de la versión oficial.
  * Aloja todas las secciones interactivas del portafolio en flujo de scroll suave.
  */
 export function CuerpoContenidoV2() {
@@ -20,22 +20,22 @@ export function CuerpoContenidoV2() {
       <HeroContenidoV2 />
 
       {/* 2. Cinta de Stack tecnológico */}
-      <CintaStackV3 />
+      <CintaStack />
 
       {/* 3. Servicios y Arquitectura en Grilla Bento 2x2 */}
-      <GrillaBentoV3 />
+      <GrillaBento />
 
       {/* 4. Metodología Ágil de Trabajo */}
-      <ProcesoTrabajoV3 />
+      <ProcesoTrabajo />
 
       {/* 5. Catálogo de Proyectos Interactivos */}
-      <CatalogoProyectosV3 />
+      <CatalogoProyectosV2 />
 
       {/* 6. Preguntas Frecuentes */}
-      <PreguntasFrecuentesV3 />
+      <PreguntasFrecuentes />
 
       {/* 7. Contacto y Vías Directas */}
-      <CtaContactoV3 />
+      <CtaContacto />
 
       {/* Pie de página sutil para la columna */}
       <footer className="pt-8 pb-12 border-t border-white/5 text-center text-xs text-neutral-500 font-mono">
