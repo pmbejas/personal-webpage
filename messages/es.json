@@ -82,8 +82,9 @@
     "etiqueta": "PROYECTOS DESTACADOS",
     "titulo": "Proyectos Destacados",
     "verTodos": "Ver todos los proyectos",
-    "verDemo": "Demo",
-    "verCodigo": "Código",
+    "verDemo": "Ver Demo Online",
+    "verCodigo": "Ver código en GitHub",
+    "proyectoPrivado": "Implementación Privada",
     "verProyecto": "Ver proyecto",
     "etiquetaStack": "Stack tecnológico",
     "etiquetaCapacidades": "Capacidades principales",
@@ -171,5 +172,44 @@
     "linkedin": "Perfil de LinkedIn",
     "github": "Perfil de GitHub",
     "instagram": "Perfil de Instagram"
+  },
+  "stack": {
+    "subtitulo": "Stack de desarrollo y arquitectura de alto rendimiento",
+    "backendRobusto": "Backend Robusto",
+    "appRouterSsr": "App Router / SSR",
+    "baseDatos": "Base de Datos",
+    "tipadoEstricto": "Tipado Estricto",
+    "contenedores": "Contenedores",
+    "disenoModerno": "Diseño Moderno",
+    "accesoDatos": "Acceso a Datos",
+    "buenasPracticas": "Buenas Prácticas"
+  },
+  "bento": {
+    "etiqueta": "¿Por qué trabajar conmigo?",
+    "titulo": "Ingeniería que transforma negocios",
+    "descripcion": "Combino arquitectura limpia, diseño moderno de alta conversión y código mantenible para generar resultados tangibles y medibles.",
+    "tarjeta1": {
+      "categoria": "01 / BACKEND",
+      "titulo": "Arquitectura & Herramientas",
+      "descripcion": "Desarrollo de servicios escalables con ASP.NET Core (.NET 9), Clean Architecture, Repository Pattern y PostgreSQL para garantizar estabilidad y alta concurrencia."
+    },
+    "tarjeta2": {
+      "categoria": "02 / FRONTEND",
+      "titulo": "Alto Rendimiento & UX",
+      "descripcion": "Experiencias fluidas construidas en Next.js 15, Tailwind CSS y Framer Motion con tiempos de carga inferiores a 1 segundo y puntuación máxima en Core Web Vitals."
+    },
+    "tarjeta3": {
+      "categoria": "03 / NEGOCIO",
+      "titulo": "Máximo Retorno & Eficiencia",
+      "descripcion": "Automatización de procesos operativos, reducción de costos en servidores y código limpio que ahorra cientos de horas en mantenimiento futuro.",
+      "metrica": "+120%",
+      "etiquetaMetrica": "Eficiencia de Procesos"
+    },
+    "tarjeta4": {
+      "categoria": "04 / CONFIANZA",
+      "titulo": "Transparencia & Entregas Claras",
+      "descripcion": "Sin tecnicismos oscuros ni sorpresas. Entregas continuas, comunicación honesta y código totalmente documentado para tu equipo.",
+      "insignia": "Garantía de calidad & testing"
+    }
   }
 }

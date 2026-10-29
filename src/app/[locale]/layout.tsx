@@ -1,17 +1,30 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Oswald, Montserrat } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ruteo } from "@/i18n/routing";
 import { FondoAnimado } from "@/components/animacion/FondoAnimado";
-import { BordePantalla } from "@/components/animacion/BordePantalla";
 import "../globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  variable: "--font-oswald",
+  weight: ["700"],
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  weight: ["800"],
   display: "swap",
 });
 
@@ -88,14 +101,16 @@ export default async function LayoutLocalizado({
   const mensajes = await getMessages();
 
   return (
-    <html lang={locale} className={`dark ${inter.variable}`} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`dark ${inter.variable} ${oswald.variable} ${montserrat.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        {/* Aplica el tema guardado antes del primer render para evitar un
-            parpadeo del color por defecto. Sin tema guardado no hace nada:
-            rigen las variables azules de :root en globals.css */}
+        {/* Garantiza la aplicación estricta del tema oficial azul */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var temaGuardado=localStorage.getItem("tema");if(temaGuardado==="azul"||temaGuardado==="verde"||temaGuardado==="naranja"){document.documentElement.setAttribute("data-tema",temaGuardado)}}catch(error){}`,
+            __html: `try{localStorage.setItem("tema","azul");document.documentElement.setAttribute("data-tema","azul")}catch(error){}`,
           }}
         />
       </head>
@@ -105,8 +120,6 @@ export default async function LayoutLocalizado({
           <MotionConfig reducedMotion="user">
             {/* Capa de fondo animado fija detrás de todo el contenido de la página */}
             <FondoAnimado />
-            {/* Marco perimetral sutil en los 4 bordes de la pantalla con respiración de 6s */}
-            <BordePantalla />
             <div className="relative z-10 flex flex-col min-h-screen overflow-x-hidden w-full max-w-full">
               {children}
             </div>

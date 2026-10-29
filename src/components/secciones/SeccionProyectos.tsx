@@ -1,18 +1,16 @@
 "use client";
 
-import { Fragment, useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { servicioProyectos } from "@/services/ServicioProyectos";
-import { FilaProyectoDestacado } from "@/components/secciones/FilaProyectoDestacado";
-import { DivisorProyecto } from "@/components/ui/DivisorProyecto";
+import { TarjetaProyecto } from "@/components/proyectos/TarjetaProyecto";
 
 /**
- * Sección de Proyectos Destacados en la Home: filas showcase alternadas con
- * el diseño de la imagen de referencia, y enlace al catálogo completo.
- * Consume los datos a través de la capa de servicio (servicioProyectos).
+ * Sección de Proyectos Destacados en la Home: cuadrícula limpia y moderna
+ * de tarjetas de proyectos (Estilo V2), sensible al tema de color activo.
  */
 export function SeccionProyectos() {
   const traducciones = useTranslations("proyectos");
@@ -23,17 +21,17 @@ export function SeccionProyectos() {
   );
 
   return (
-    <section id="proyectos" className="py-10 md:py-14 relative">
+    <section id="proyectos" className="py-14 md:py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Encabezado con título a la izquierda y enlace a la derecha */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 md:mb-12 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 md:mb-12 gap-4">
           <div>
             <motion.span
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-xs font-bold uppercase tracking-wider text-blue-400 block mb-2"
+              className="text-xs font-mono font-bold uppercase tracking-widest text-[rgb(var(--tema-acento-claro-rgb))] block mb-2"
             >
               {traducciones("etiqueta")}
             </motion.span>
@@ -42,7 +40,7 @@ export function SeccionProyectos() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.05 }}
-              className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight"
+              className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"
             >
               {traducciones("titulo")}
             </motion.h2>
@@ -56,7 +54,7 @@ export function SeccionProyectos() {
           >
             <Link
               href="/proyectos"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors group"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[rgb(var(--tema-acento-claro-rgb))] hover:underline transition-colors group"
             >
               <span>{traducciones("verTodos")}</span>
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -64,14 +62,14 @@ export function SeccionProyectos() {
           </motion.div>
         </div>
 
-        {/* Filas showcase alternadas, separadas por la línea de escaneo */}
-        <div>
-          <DivisorProyecto />
+        {/* Cuadrícula limpia de proyectos destacados */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {proyectosDestacados.map((proyecto, indice) => (
-            <Fragment key={proyecto.identificador}>
-              <FilaProyectoDestacado proyecto={proyecto} indice={indice} />
-              <DivisorProyecto />
-            </Fragment>
+            <TarjetaProyecto
+              key={proyecto.identificador}
+              proyecto={proyecto}
+              indice={indice}
+            />
           ))}
         </div>
 

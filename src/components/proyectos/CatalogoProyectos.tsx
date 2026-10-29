@@ -1,17 +1,16 @@
 "use client";
 
-import { Fragment, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { FolderGit2 } from "lucide-react";
 import { CategoriaFiltroProyecto } from "@/types/Proyecto";
 import { servicioProyectos } from "@/services/ServicioProyectos";
 import { BarraFiltrosProyectos } from "./BarraFiltrosProyectos";
-import { FilaProyectoDestacado } from "@/components/secciones/FilaProyectoDestacado";
-import { DivisorProyecto } from "@/components/ui/DivisorProyecto";
+import { TarjetaProyecto } from "./TarjetaProyecto";
 
 /**
- * Catálogo completo de proyectos: barra de filtros por categoría y una fila
- * showcase por proyecto, consumiendo los datos a través de servicioProyectos.
+ * Catálogo completo de proyectos: barra de filtros por categoría y cuadrícula
+ * limpia y moderna de tarjetas (Estilo V2) reactivas al tema activo.
  */
 export function CatalogoProyectos() {
   const [categoriaSeleccionada, setCategoriaSeleccionada] =
@@ -46,33 +45,27 @@ export function CatalogoProyectos() {
         />
       </div>
 
-      {/* Filas showcase separadas por la línea de escaneo */}
-      {proyectosFiltrados.length > 0 ? (
-        <Fragment>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <DivisorProyecto />
+      {/* Cuadrícula limpia de proyectos filtrados */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {proyectosFiltrados.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {proyectosFiltrados.map((proyecto, indice) => (
+              <TarjetaProyecto
+                key={proyecto.identificador}
+                proyecto={proyecto}
+                indice={indice}
+              />
+            ))}
           </div>
-          {proyectosFiltrados.map((proyecto, indice) => (
-            <Fragment key={proyecto.identificador}>
-              <section className="flex items-center py-8 md:py-12">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                  <FilaProyectoDestacado proyecto={proyecto} indice={indice} />
-                </div>
-              </section>
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <DivisorProyecto />
-              </div>
-            </Fragment>
-          ))}
-        </Fragment>
-      ) : (
-        <div className="py-16 text-center">
-          <FolderGit2 className="mx-auto h-12 w-12 text-slate-600 mb-3" />
-          <p className="text-slate-400 text-sm">
-            {traducciones("sinResultados")}
-          </p>
-        </div>
-      )}
+        ) : (
+          <div className="py-16 text-center">
+            <FolderGit2 className="mx-auto h-12 w-12 text-slate-600 mb-3" />
+            <p className="text-slate-400 text-sm">
+              {traducciones("sinResultados")}
+            </p>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

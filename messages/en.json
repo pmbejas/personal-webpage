@@ -83,7 +83,8 @@
     "titulo": "Featured Projects",
     "verTodos": "View All Projects",
     "verDemo": "Live Demo",
-    "verCodigo": "Source Code",
+    "verCodigo": "View Source Code",
+    "proyectoPrivado": "Private Implementation",
     "verProyecto": "View Project",
     "etiquetaStack": "Engineering Stack",
     "etiquetaCapacidades": "Core Capabilities",
@@ -171,5 +172,44 @@
     "linkedin": "LinkedIn Profile",
     "github": "GitHub Profile",
     "instagram": "Instagram Profile"
+  },
+  "stack": {
+    "subtitulo": "High-performance development and architecture stack",
+    "backendRobusto": "Robust Backend",
+    "appRouterSsr": "App Router / SSR",
+    "baseDatos": "Database",
+    "tipadoEstricto": "Strict Typing",
+    "contenedores": "Containers",
+    "disenoModerno": "Modern Design",
+    "accesoDatos": "Data Access",
+    "buenasPracticas": "Best Practices"
+  },
+  "bento": {
+    "etiqueta": "Why work with me?",
+    "titulo": "Engineering that transforms businesses",
+    "descripcion": "I combine clean architecture, modern high-converting design, and maintainable code to generate tangible, measurable results.",
+    "tarjeta1": {
+      "categoria": "01 / BACKEND",
+      "titulo": "Architecture & Tools",
+      "descripcion": "Development of scalable services with ASP.NET Core (.NET 9), Clean Architecture, Repository Pattern, and PostgreSQL to ensure stability and high concurrency."
+    },
+    "tarjeta2": {
+      "categoria": "02 / FRONTEND",
+      "titulo": "High Performance & UX",
+      "descripcion": "Fluid experiences built in Next.js 15, Tailwind CSS, and Framer Motion with sub-second load times and top scores in Core Web Vitals."
+    },
+    "tarjeta3": {
+      "categoria": "03 / BUSINESS",
+      "titulo": "Maximum ROI & Efficiency",
+      "descripcion": "Operational process automation, server cost reductions, and clean code that saves hundreds of hours in future maintenance.",
+      "metrica": "+120%",
+      "etiquetaMetrica": "Process Efficiency"
+    },
+    "tarjeta4": {
+      "categoria": "04 / TRUST",
+      "titulo": "Transparency & Clear Deliveries",
+      "descripcion": "No obscure jargon or surprises. Continuous delivery, honest communication, and fully documented code for your team.",
+      "insignia": "Quality assurance & testing"
+    }
   }
 }

@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-type TemaDisponible = "azul" | "verde" | "naranja";
+type TemaDisponible = "azul" | "verde" | "naranja" | "ambar";
 
 /* Temas disponibles con el gradiente de cada swatch */
 const TEMAS_DISPONIBLES: { valor: TemaDisponible; nombre: string; gradiente: string }[] = [
   { valor: "azul", nombre: "Azul", gradiente: "linear-gradient(135deg,#2563EB,#60A5FA)" },
   { valor: "verde", nombre: "Verde menta", gradiente: "linear-gradient(135deg,#059669,#6EE7B7)" },
   { valor: "naranja", nombre: "Naranja pastel", gradiente: "linear-gradient(135deg,#E79150,#FDD9B4)" },
+  { valor: "ambar", nombre: "Ámbar ardiente", gradiente: "linear-gradient(135deg,#D97706,#F59E0B,#FDE68A)" },
 ];
 
 const CLAVE_ALMACENAMIENTO = "tema";

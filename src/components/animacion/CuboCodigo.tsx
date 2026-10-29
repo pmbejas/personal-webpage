@@ -3,16 +3,14 @@
 import { useEffect, useRef } from "react";
 
 /* Constantes del movimiento del cubo */
-const AMPLITUD_MOUSE = 38; // grados máximos de inclinación con el cursor
-const VELOCIDAD_GIRO_Y = 0.16; // grados por cuadro (~10°/seg, lento y constante)
-const CENTRO_OSCILACION_X = -14; // inclinación central del vaivén en X
-const AMPLITUD_OSCILACION_X = 16; // grados del vaivén en X
-const FRECUENCIA_OSCILACION = 0.00022; // rapidez del vaivén (rad/ms)
-const FACTOR_SUAVIZADO = 0.05; // factor de interpolación (menor = más suave)
+const SENSIBILIDAD_ARRASTRE = 0.42; // Grados por píxel de movimiento
+const VELOCIDAD_GIRO_AUTOMATICO_Y = 0.22; // Velocidad de rotación automática suave (~13°/seg)
+const FRICCION_INERCIA = 0.93; // Factor de amortiguación del impulso al soltar
+const LIMITE_INCLINACION_X = 72; // Límite máximo para evitar volteo invertido en X
 
 /* Clases base de cada cara del cubo (posición 3D + estilo de mini ventana de código) */
 const CLASE_BASE_CARA =
-  "absolute inset-0 flex flex-col rounded-xl border border-blue-500/45 bg-[rgba(10,15,28,0.9)] p-3 text-left font-mono text-[9px] leading-relaxed text-slate-300 overflow-hidden";
+  "absolute inset-0 flex flex-col rounded-xl border border-[rgb(var(--tema-acento-rgb)/0.45)] bg-[rgba(10,15,28,0.92)] p-3 text-left font-mono text-[9px] leading-relaxed text-slate-300 overflow-hidden shadow-[0_0_15px_rgb(var(--tema-acento-rgb)/0.1)] select-none";
 
 /* Barra de puntitos estilo ventana Mac que encabeza cada cara */
 const BarraVentana = () => (
@@ -24,10 +22,9 @@ const BarraVentana = () => (
 );
 
 /**
- * Cubo 3D con mini ventanas de código en cada cara. En reposo gira de forma
- * continua y lenta (giro constante en Y + oscilación tipo péndulo en X); con
- * el mouse encima se inclina siguiendo el cursor en tiempo real, y al salir
- * retoma el flujo automático sin saltos.
+ * Cubo 3D con mini ventanas de código interactivo.
+ * Permite rotación completa de 360° mediante arrastre (drag) con física de inercia
+ * y reanudación automática continua sin reiniciar su orientación en ningún momento.
  */
 export function CuboCodigo() {
   const referenciaCubo = useRef<HTMLDivElement>(null);
@@ -41,57 +38,122 @@ export function CuboCodigo() {
     ).matches;
 
     if (reducirMovimiento) {
-      // Usuarios con "reducir movimiento": cubo estático en una postura legible
       cubo.style.transform = "rotateX(-14deg) rotateY(25deg)";
       return;
     }
 
     const zonaInteractiva = cubo.closest<HTMLElement>(".zona-cubo") ?? cubo;
 
-    let rotX = CENTRO_OSCILACION_X;
-    let rotY = 0;
-    let objetivoX = CENTRO_OSCILACION_X;
-    let objetivoY = 0;
-    let modoAutomatico = true;
+    // Estados angulares acumulativos (nunca se resetean)
+    let rotX = -14;
+    let rotY = 25;
+    let velocidadX = 0;
+    let velocidadY = VELOCIDAD_GIRO_AUTOMATICO_Y;
+
+    let estaArrastrando = false;
+    let ultimoCursorX = 0;
+    let ultimoCursorY = 0;
     let idAnimacion = 0;
     let estaEnPantalla = true;
 
-    const manejarMouseMove = (evento: MouseEvent) => {
-      const rect = zonaInteractiva.getBoundingClientRect();
-      const relativoX = (evento.clientX - rect.left) / rect.width - 0.5;
-      const relativoY = (evento.clientY - rect.top) / rect.height - 0.5;
-      objetivoY = relativoX * AMPLITUD_MOUSE * 2;
-      objetivoX = -relativoY * AMPLITUD_MOUSE * 2;
-      modoAutomatico = false;
+    // --- Manejo de eventos de arrastre (Mouse & Touch) ---
+    const iniciarArrastre = (clienteX: number, clienteY: number) => {
+      estaArrastrando = true;
+      ultimoCursorX = clienteX;
+      ultimoCursorY = clienteY;
+      velocidadX = 0;
+      velocidadY = 0;
+      zonaInteractiva.classList.add("cursor-grabbing");
+      zonaInteractiva.classList.remove("cursor-grab");
     };
 
-    const manejarMouseLeave = () => {
-      modoAutomatico = true;
+    const moverArrastre = (clienteX: number, clienteY: number) => {
+      if (!estaArrastrando) return;
+
+      const deltaX = clienteX - ultimoCursorX;
+      const deltaY = clienteY - ultimoCursorY;
+      ultimoCursorX = clienteX;
+      ultimoCursorY = clienteY;
+
+      // Actualizar rotaciones sumando el desplazamiento diferencial
+      rotY += deltaX * SENSIBILIDAD_ARRASTRE;
+      rotX -= deltaY * SENSIBILIDAD_ARRASTRE;
+
+      // Limitar inclinación en X para mantener legibilidad y orientación natural
+      rotX = Math.max(-LIMITE_INCLINACION_X, Math.min(LIMITE_INCLINACION_X, rotX));
+
+      // Guardar velocidad instantánea para inercia al soltar
+      velocidadX = -deltaY * SENSIBILIDAD_ARRASTRE;
+      velocidadY = deltaX * SENSIBILIDAD_ARRASTRE;
     };
 
-    const animar = (momento: number) => {
+    const finalizarArrastre = () => {
+      if (!estaArrastrando) return;
+      estaArrastrando = false;
+      zonaInteractiva.classList.remove("cursor-grabbing");
+      zonaInteractiva.classList.add("cursor-grab");
+    };
+
+    // Listeners del mouse
+    const manejarMouseDown = (evento: MouseEvent) => {
+      iniciarArrastre(evento.clientX, evento.clientY);
+    };
+
+    const manejarMouseMoveVentana = (evento: MouseEvent) => {
+      moverArrastre(evento.clientX, evento.clientY);
+    };
+
+    const manejarMouseUpVentana = () => {
+      finalizarArrastre();
+    };
+
+    // Listeners táctiles para móviles
+    const manejarTouchStart = (evento: TouchEvent) => {
+      if (evento.touches.length > 0) {
+        iniciarArrastre(evento.touches[0].clientX, evento.touches[0].clientY);
+      }
+    };
+
+    const manejarTouchMoveVentana = (evento: TouchEvent) => {
+      if (evento.touches.length > 0 && estaArrastrando) {
+        evento.preventDefault();
+        moverArrastre(evento.touches[0].clientX, evento.touches[0].clientY);
+      }
+    };
+
+    const manejarTouchEndVentana = () => {
+      finalizarArrastre();
+    };
+
+    // Bucle continuo de renderizado 3D y física
+    const animar = () => {
       if (!estaEnPantalla) {
         idAnimacion = 0;
         return;
       }
 
-      if (modoAutomatico) {
-        // Movimiento continuo: giro constante en Y + oscilación suave en X
-        objetivoY += VELOCIDAD_GIRO_Y;
-        objetivoX =
-          CENTRO_OSCILACION_X +
-          AMPLITUD_OSCILACION_X * Math.sin(momento * FRECUENCIA_OSCILACION);
+      if (!estaArrastrando) {
+        // Aplicar inercia residual
+        rotX += velocidadX;
+        rotY += velocidadY;
+
+        // Amortiguar inercia progresivamente
+        velocidadX *= FRICCION_INERCIA;
+        velocidadY *= FRICCION_INERCIA;
+
+        rotX = Math.max(-LIMITE_INCLINACION_X, Math.min(LIMITE_INCLINACION_X, rotX));
+
+        // Transición natural al giro automático constante en Y
+        if (Math.abs(velocidadY) < VELOCIDAD_GIRO_AUTOMATICO_Y) {
+          velocidadY = VELOCIDAD_GIRO_AUTOMATICO_Y;
+        }
       }
 
-      // Interpolación suave hacia el objetivo (transiciones fluidas, sin saltos)
-      rotX += (objetivoX - rotX) * FACTOR_SUAVIZADO;
-      rotY += (objetivoY - rotY) * FACTOR_SUAVIZADO;
       cubo.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-
       idAnimacion = requestAnimationFrame(animar);
     };
 
-    // Pausar el renderizado 3D cuando el cubo no esté a la vista para ahorrar GPU y batería
+    // Pausar animación cuando no esté visible en viewport
     const observadorVisibilidad = new IntersectionObserver(
       (entradas) => {
         entradas.forEach((entrada) => {
@@ -105,22 +167,35 @@ export function CuboCodigo() {
     );
     observadorVisibilidad.observe(zonaInteractiva);
 
-    zonaInteractiva.addEventListener("mousemove", manejarMouseMove);
-    zonaInteractiva.addEventListener("mouseleave", manejarMouseLeave);
+    zonaInteractiva.classList.add("cursor-grab");
+    zonaInteractiva.addEventListener("mousedown", manejarMouseDown);
+    zonaInteractiva.addEventListener("touchstart", manejarTouchStart, { passive: true });
+
+    window.addEventListener("mousemove", manejarMouseMoveVentana);
+    window.addEventListener("mouseup", manejarMouseUpVentana);
+    window.addEventListener("touchmove", manejarTouchMoveVentana, { passive: false });
+    window.addEventListener("touchend", manejarTouchEndVentana);
+
     idAnimacion = requestAnimationFrame(animar);
 
     return () => {
       cancelAnimationFrame(idAnimacion);
       observadorVisibilidad.disconnect();
-      zonaInteractiva.removeEventListener("mousemove", manejarMouseMove);
-      zonaInteractiva.removeEventListener("mouseleave", manejarMouseLeave);
+
+      zonaInteractiva.removeEventListener("mousedown", manejarMouseDown);
+      zonaInteractiva.removeEventListener("touchstart", manejarTouchStart);
+
+      window.removeEventListener("mousemove", manejarMouseMoveVentana);
+      window.removeEventListener("mouseup", manejarMouseUpVentana);
+      window.removeEventListener("touchmove", manejarTouchMoveVentana);
+      window.removeEventListener("touchend", manejarTouchEndVentana);
     };
   }, []);
 
   return (
-    <div className="zona-cubo flex flex-col items-center">
+    <div className="zona-cubo flex flex-col items-center select-none">
       {/* Escena con perspectiva 3D */}
-      <div className="h-44 w-44 [perspective:640px]">
+      <div className="h-44 w-44 [perspective:640px] select-none">
         <div
           ref={referenciaCubo}
           className="relative h-full w-full [transform-style:preserve-3d] will-change-transform"

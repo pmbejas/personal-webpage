@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 140" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&amp;family=Oswald:wght@700&amp;display=swap');
+      
+      .font-title {
+        font-family: 'Oswald', 'Arial Black', sans-serif;
+        font-size: 78px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      .font-pablo-dark { fill: #FFFFFF; }
+      .font-bejas-dark { fill: #38bdf8; }
+      
+      .font-subtitle-dark {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 19px;
+        font-weight: 800;
+        fill: #94A3B8;
+        letter-spacing: 1.8px;
+      }
+    </style>
+  </defs>
+
+  <g transform="translate(10, 75)">
+    <!-- Pablo Bejas -->
+    <text class="font-title" x="0" y="0">
+      <tspan class="font-pablo-dark">Pablo </tspan><tspan class="font-bejas-dark">Bejas</tspan>
+    </text>
+    <!-- FULL STACK DEVELOPER -->
+    <text class="font-subtitle-dark" x="0" y="42">FULL STACK DEVELOPER</text>
+  </g>
+</svg>

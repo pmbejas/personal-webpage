@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, Sparkles } from "lucide-react";
 import { Boton } from "@/components/ui/Boton";
-import { EMPRESAS_TECNOLOGIAS } from "@/data/datosContacto";
 import { CuboCodigo } from "@/components/animacion/CuboCodigo";
 
 /**
@@ -67,23 +66,6 @@ export function SeccionHero() {
               >
                 {traducciones("contactarme")}
               </Boton>
-            </div>
-
-            {/* Logos / Empresas y Tecnologías */}
-            <div className="mt-10 pt-6 border-t border-slate-800/80">
-              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
-                {traducciones("empresasConfianza")}
-              </p>
-              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                {EMPRESAS_TECNOLOGIAS.map((item) => (
-                  <span
-                    key={item.nombre}
-                    className="inline-flex items-center rounded-lg border border-slate-800/90 bg-slate-900/60 px-3 py-1.5 text-xs font-semibold text-slate-300 hover:border-blue-500/40 hover:text-white transition-colors"
-                  >
-                    {item.nombre}
-                  </span>
-                ))}
-              </div>
             </div>
           </motion.div>
 

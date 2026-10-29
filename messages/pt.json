@@ -82,8 +82,9 @@
     "etiqueta": "PROJETOS EM DESTAQUE",
     "titulo": "Projetos em Destaque",
     "verTodos": "Ver todos os projetos",
-    "verDemo": "Demo",
-    "verCodigo": "Código",
+    "verDemo": "Ver Demo Online",
+    "verCodigo": "Ver código no GitHub",
+    "proyectoPrivado": "Implementação Privada",
     "verProyecto": "Ver projeto",
     "etiquetaStack": "Stack tecnológico",
     "etiquetaCapacidades": "Capacidades principais",
@@ -171,5 +172,44 @@
     "linkedin": "Perfil no LinkedIn",
     "github": "Perfil no GitHub",
     "instagram": "Perfil no Instagram"
+  },
+  "stack": {
+    "subtitulo": "Stack de desenvolvimento e arquitetura de alto desempenho",
+    "backendRobusto": "Backend Robusto",
+    "appRouterSsr": "App Router / SSR",
+    "baseDatos": "Banco de Dados",
+    "tipadoEstricto": "Tipagem Estrita",
+    "contenedores": "Contêineres",
+    "disenoModerno": "Design Moderno",
+    "accesoDatos": "Acesso a Dados",
+    "buenasPracticas": "Boas Práticas"
+  },
+  "bento": {
+    "etiqueta": "Por que trabalhar comigo?",
+    "titulo": "Engenharia que transforma negócios",
+    "descripcion": "Combino arquitetura limpa, design moderno de alta conversão e código sustentável para gerar resultados tangíveis e mensuráveis.",
+    "tarjeta1": {
+      "categoria": "01 / BACKEND",
+      "titulo": "Arquitetura & Ferramentas",
+      "descripcion": "Desenvolvimento de serviços escaláveis com ASP.NET Core (.NET 9), Clean Architecture, Repository Pattern e PostgreSQL para garantir estabilidade e alta concorrência."
+    },
+    "tarjeta2": {
+      "categoria": "02 / FRONTEND",
+      "titulo": "Alto Desempenho & UX",
+      "descripcion": "Experiências fluidas construídas em Next.js 15, Tailwind CSS e Framer Motion com tempos de carregamento inferiores a 1 segundo e pontuação máxima no Core Web Vitals."
+    },
+    "tarjeta3": {
+      "categoria": "03 / NEGÓCIO",
+      "titulo": "Máximo Retorno & Eficiência",
+      "descripcion": "Automação de processos operacionais, redução de custos de servidores e código limpo que economiza centenas de horas em manutenção futura.",
+      "metrica": "+120%",
+      "etiquetaMetrica": "Eficiência de Processos"
+    },
+    "tarjeta4": {
+      "categoria": "04 / CONFIANÇA",
+      "titulo": "Transparência & Entregas Claras",
+      "descripcion": "Sem jargões obscuros ou surpresas. Entregas contínuas, comunicação transparente e código totalmente documentado para sua equipe.",
+      "insignia": "Garantia de qualidade & testes"
+    }
   }
 }

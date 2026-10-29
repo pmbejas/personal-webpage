@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Oswald:wght@700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,6 +34,16 @@
   --tema-acento-profundo-rgb: 122 68 34;
   --tema-texto-sobre: #2e1d0e;
 }
+
+/* Ámbar ardiente (Inspirado en V2) */
+[data-tema="ambar"] {
+  --tema-acento-claro-rgb: 251 191 36;
+  --tema-acento-rgb: 245 158 11;
+  --tema-acento-oscuro-rgb: 217 119 6;
+  --tema-acento-profundo-rgb: 120 53 15;
+  --tema-texto-sobre: #ffffff;
+}
+
 
 @layer base {
   html {
@@ -78,31 +90,6 @@
     .animate-pulse {
       animation: none;
     }
-
-    .borde-neon-perimetral {
-      animation: none;
-      opacity: 0.45;
-    }
-  }
-}
-
-/* ============ Borde de pantalla neón sutil con respiración (6s) ============ */
-.borde-neon-perimetral {
-  box-shadow: 
-    inset 0 0 0 1.5px rgb(var(--tema-acento-rgb) / 0.7),
-    inset 0 0 25px rgb(var(--tema-acento-oscuro-rgb) / 0.35),
-    inset 0 0 50px rgb(var(--tema-acento-claro-rgb) / 0.12);
-  animation: respiracion-borde-neon 6s ease-in-out infinite;
-}
-
-@keyframes respiracion-borde-neon {
-  0%, 100% {
-    opacity: 0.28;
-    filter: drop-shadow(0 0 2px rgb(var(--tema-acento-rgb) / 0.3));
-  }
-  50% {
-    opacity: 0.85;
-    filter: drop-shadow(0 0 8px rgb(var(--tema-acento-rgb) / 0.65));
   }
 }
 
