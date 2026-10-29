@@ -7,41 +7,53 @@
 /* ============ Temas de color del sitio ============ */
 /* Los valores RGB van separados por espacios (sin comas): la sintaxis
    moderna rgb(r g b / a) no admite comas mezcladas con slash de alpha.
-   Azul (por defecto) */
+   Azul Eléctrico / Cyan (por defecto) */
 :root,
 [data-tema="azul"] {
-  --tema-acento-claro-rgb: 96 165 250;
-  --tema-acento-rgb: 59 130 246;
-  --tema-acento-oscuro-rgb: 37 99 235;
-  --tema-acento-profundo-rgb: 30 58 138;
+  --tema-acento-claro-rgb: 56 189 248;
+  --tema-acento-rgb: 14 165 233;
+  --tema-acento-oscuro-rgb: 2 132 199;
+  --tema-acento-profundo-rgb: 3 105 161;
+  --tema-color-hex: #38bdf8;
   --tema-texto-sobre: #ffffff;
 }
 
-/* Verde menta */
+/* Verde Mojunsh / Esmeralda */
 [data-tema="verde"] {
-  --tema-acento-claro-rgb: 110 231 183;
-  --tema-acento-rgb: 52 211 153;
+  --tema-acento-claro-rgb: 52 211 153;
+  --tema-acento-rgb: 16 185 129;
   --tema-acento-oscuro-rgb: 5 150 105;
-  --tema-acento-profundo-rgb: 4 71 54;
+  --tema-acento-profundo-rgb: 4 120 87;
+  --tema-color-hex: #10b981;
   --tema-texto-sobre: #ffffff;
 }
 
-/* Naranja pastel (durazno/apricot suaves) */
-[data-tema="naranja"] {
-  --tema-acento-claro-rgb: 253 217 180;
-  --tema-acento-rgb: 244 173 117;
-  --tema-acento-oscuro-rgb: 231 145 80;
-  --tema-acento-profundo-rgb: 122 68 34;
-  --tema-texto-sobre: #2e1d0e;
-}
-
-/* Ámbar ardiente (Inspirado en V2) */
+/* Ámbar / Amarillo Dorado (Versión 3) */
 [data-tema="ambar"] {
   --tema-acento-claro-rgb: 251 191 36;
   --tema-acento-rgb: 245 158 11;
   --tema-acento-oscuro-rgb: 217 119 6;
-  --tema-acento-profundo-rgb: 120 53 15;
+  --tema-acento-profundo-rgb: 180 83 9;
+  --tema-color-hex: #f59e0b;
   --tema-texto-sobre: #ffffff;
+}
+
+/* Clase de tipografía geométrica refinada para la Versión 2 */
+.fuente-titular,
+[data-v2="true"] h1,
+[data-v2="true"] h2,
+[data-v2="true"] h3 {
+  font-family: var(--font-plus-jakarta), var(--font-inter), sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.025em;
+}
+
+[data-v2="true"] .font-black {
+  font-weight: 600 !important;
+}
+
+[data-v2="true"] .font-extrabold {
+  font-weight: 600 !important;
 }
 
 
@@ -50,7 +62,7 @@
     scroll-behavior: smooth;
     color-scheme: dark;
     max-width: 100vw;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
@@ -60,7 +72,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     max-width: 100vw;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Estilos para la barra de desplazamiento */

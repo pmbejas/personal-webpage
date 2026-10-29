@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Oswald, Montserrat } from "next/font/google";
+import { Inter, Oswald, Montserrat, Plus_Jakarta_Sans } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale, getTranslations } from "next-intl/server";
@@ -11,6 +11,13 @@ import "../globals.css";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -103,14 +110,14 @@ export default async function LayoutLocalizado({
   return (
     <html
       lang={locale}
-      className={`dark ${inter.variable} ${oswald.variable} ${montserrat.variable}`}
+      className={`dark ${inter.variable} ${oswald.variable} ${montserrat.variable} ${plusJakarta.variable}`}
       suppressHydrationWarning
     >
       <head>
-        {/* Garantiza la aplicación estricta del tema oficial azul */}
+        {/* Aplica el tema seleccionado dinámicamente o azul por defecto */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{localStorage.setItem("tema","azul");document.documentElement.setAttribute("data-tema","azul")}catch(error){}`,
+            __html: `try{var temaGuardado=localStorage.getItem("tema");if(temaGuardado==="azul"||temaGuardado==="verde"||temaGuardado==="ambar"){document.documentElement.setAttribute("data-tema",temaGuardado)}else{document.documentElement.setAttribute("data-tema","azul")}}catch(error){}`,
           }}
         />
       </head>
@@ -120,7 +127,7 @@ export default async function LayoutLocalizado({
           <MotionConfig reducedMotion="user">
             {/* Capa de fondo animado fija detrás de todo el contenido de la página */}
             <FondoAnimado />
-            <div className="relative z-10 flex flex-col min-h-screen overflow-x-hidden w-full max-w-full">
+            <div className="relative z-10 flex flex-col min-h-screen overflow-x-clip w-full max-w-full">
               {children}
             </div>
           </MotionConfig>

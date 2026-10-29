@@ -1,13 +1,16 @@
 import { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import { PaginaDisenoV2 } from "@/components/diseno-v2/PaginaDisenoV2";
+import { PaginaDisenoV2Mojunsh } from "@/components/diseno-v2-mojunsh/PaginaDisenoV2Mojunsh";
 
 export const metadata: Metadata = {
-  title: "Pablo Bejas | Software Architecture & Web Engineering (V2)",
+  title: "Pablo Bejas | Software Architecture & Web Engineering (Nueva V2)",
   description:
-    "Prueba de diseño experimental Dark Obsidian & Glowing Amber para Pablo Bejas, desarrollador Full Stack especializado en .NET 9, Next.js 15 y PostgreSQL.",
+    "Nueva Versión 2 inspirada en la arquitectura de mojunsh.com: tarjeta lateral fija con foto difusa, menú dock flotante con iconos y lienzo central interactivo con Cubo 3D.",
 };
 
+/**
+ * Ruta experimental de prueba para la nueva Versión 2.
+ */
 export default async function PaginaV2({
   params,
 }: {
@@ -16,5 +19,5 @@ export default async function PaginaV2({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <PaginaDisenoV2 />;
+  return <PaginaDisenoV2Mojunsh />;
 }

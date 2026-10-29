@@ -60,8 +60,5 @@
       <tspan fill="#FFFFFF">Pablo </tspan>
       <tspan fill="#3B82F6">Bejas</tspan>
     </text>
-
-    <!-- Línea 2: FULL STACK DEVELOPER (Gris técnico con espaciado) -->
-    <text x="101" y="66" class="texto-rol">FULL STACK DEVELOPER</text>
   </g>
 </svg>

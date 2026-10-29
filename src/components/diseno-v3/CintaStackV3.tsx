@@ -12,7 +12,7 @@ export function CintaStackV3() {
   const traducciones = useTranslations("stack");
 
   return (
-    <section className="relative py-12 bg-[#070606] overflow-hidden">
+    <section id="stack" className="relative py-12 bg-[#070606] overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <motion.p
           initial={{ opacity: 0, y: 15 }}
