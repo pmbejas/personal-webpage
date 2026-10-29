@@ -19,7 +19,7 @@ export function TarjetaLateralFija() {
   const traduccionesContacto = useTranslations("contacto");
 
   return (
-    <aside className="relative w-full lg:w-[380px] xl:w-[420px] lg:sticky lg:top-6 lg:self-start lg:h-[calc(100vh-3rem)] rounded-[32px] overflow-hidden bg-[#0c0a09]/95 border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.85)] flex flex-col justify-between p-6 sm:p-7 flex-shrink-0 group">
+    <aside className="relative w-full h-[calc(100dvh-1.5rem)] min-h-[540px] sm:h-[calc(100dvh-3rem)] lg:min-h-0 lg:w-[380px] xl:w-[420px] lg:sticky lg:top-6 lg:self-start lg:h-[calc(100vh-3rem)] rounded-[32px] overflow-hidden bg-[#0c0a09]/95 border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.85)] flex flex-col justify-between p-6 sm:p-7 flex-shrink-0 group">
       {/* 1. Fotografía de fondo difusa con gradiente cinematográfico */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <Image
@@ -79,7 +79,7 @@ export function TarjetaLateralFija() {
       </div>
 
       {/* 4. Cuerpo inferior: Datos esenciales, rol y llamadas a la acción */}
-      <div className="relative z-10 flex flex-col mt-36 lg:mt-0 pt-8">
+      <div className="relative z-10 flex flex-col mt-auto pt-6 lg:pt-8">
         {/* Insignia disponible para pantallas móviles */}
         <div className="lg:hidden inline-flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-[rgb(var(--tema-acento-claro-rgb))] bg-[rgb(var(--tema-acento-rgb)/0.1)] px-3 py-1 rounded-full border border-[rgb(var(--tema-acento-rgb)/0.3)] w-fit mb-3">
           <span className="relative flex h-2 w-2">
