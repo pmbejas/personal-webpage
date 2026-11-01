@@ -15,6 +15,7 @@ import { IsotipoLogo } from "@/components/layout/IsotipoLogo";
  */
 export function TarjetaLateralFija() {
   const traduccionesSobreMi = useTranslations("sobreMi");
+  const traduccionesTarjeta = useTranslations("tarjetaLateral");
 
   return (
     <aside className="relative w-full h-[calc(100dvh-1.5rem)] min-h-[540px] sm:h-[calc(100dvh-3rem)] lg:min-h-0 lg:w-[380px] xl:w-[420px] lg:sticky lg:top-6 lg:self-start lg:h-[calc(100vh-3rem)] rounded-[32px] overflow-hidden bg-[#0c0a09]/95 border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.85)] flex flex-col justify-between p-6 sm:p-7 flex-shrink-0 group">
@@ -39,7 +40,7 @@ export function TarjetaLateralFija() {
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[rgb(var(--tema-acento-claro-rgb))] opacity-75" />
           <span className="relative inline-flex rounded-full h-2 w-2 bg-[rgb(var(--tema-acento-rgb))]" />
         </span>
-        <span>Disponible para Proyectos</span>
+        <span>{traduccionesTarjeta("disponible")}</span>
       </div>
 
       {/* 4. Cuerpo inferior: Datos esenciales, rol y llamadas a la acción */}
@@ -50,7 +51,7 @@ export function TarjetaLateralFija() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[rgb(var(--tema-acento-claro-rgb))] opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[rgb(var(--tema-acento-rgb))]" />
           </span>
-          <span>Disponible para Proyectos</span>
+          <span>{traduccionesTarjeta("disponible")}</span>
         </div>
 
         {/* Isotipo y Wordmark alineados sobre el borde inferior */}
@@ -64,12 +65,12 @@ export function TarjetaLateralFija() {
         </div>
 
         <p className="text-xs font-mono tracking-wider uppercase text-[rgb(var(--tema-acento-claro-rgb))] font-semibold mt-1">
-          Full Stack & Software Architecture
+          {traduccionesTarjeta("rol")}
         </p>
 
         {/* Breve bio de presentación */}
         <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mt-3 max-w-sm">
-          Transformo necesidades complejas de negocio en arquitecturas de software robustas, seguras y de alto rendimiento en <strong className="text-white">.NET 9</strong> y <strong className="text-white">Next.js 15</strong>.
+          {traduccionesTarjeta("bio")}
         </p>
 
         {/* Botones de acción principales: WhatsApp + Descargar CV + Redes sociales */}
@@ -82,7 +83,7 @@ export function TarjetaLateralFija() {
             className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[rgb(var(--tema-acento-rgb))] text-black shadow-[0_0_16px_rgba(var(--tema-acento-rgb),0.35)] hover:shadow-[0_0_22px_rgba(var(--tema-acento-rgb),0.6)] hover:scale-105 active:scale-95 transition-all flex-shrink-0"
           >
             <MessageCircle className="w-3.5 h-3.5" />
-            <span>Háblame</span>
+            <span>{traduccionesTarjeta("hablame")}</span>
             <ArrowUpRight className="w-3 h-3" />
           </a>
 
@@ -95,7 +96,7 @@ export function TarjetaLateralFija() {
             title={traduccionesSobreMi("descargarCv")}
           >
             <Download className="w-3.5 h-3.5 text-[rgb(var(--tema-acento-claro-rgb))]" />
-            <span>CV</span>
+            <span>{traduccionesTarjeta("cv")}</span>
           </a>
 
           {/* Divisor vertical sutil */}
@@ -108,7 +109,7 @@ export function TarjetaLateralFija() {
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-[rgb(var(--tema-acento-rgb)/0.5)] hover:bg-white/10 hover:scale-105 active:scale-95 transition-all"
-              title="GitHub"
+              title={traduccionesTarjeta("perfilGithub")}
             >
               <Github className="w-3.5 h-3.5" />
             </a>
@@ -117,7 +118,7 @@ export function TarjetaLateralFija() {
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-[rgb(var(--tema-acento-claro-rgb))] hover:border-[rgb(var(--tema-acento-rgb)/0.5)] hover:bg-white/10 hover:scale-105 active:scale-95 transition-all"
-              title="LinkedIn"
+              title={traduccionesTarjeta("perfilLinkedin")}
             >
               <Linkedin className="w-3.5 h-3.5" />
             </a>
@@ -126,7 +127,7 @@ export function TarjetaLateralFija() {
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-[rgb(var(--tema-acento-rgb)/0.5)] hover:bg-white/10 hover:scale-105 active:scale-95 transition-all"
-              title="Instagram"
+              title={traduccionesTarjeta("perfilInstagram")}
             >
               <Instagram className="w-3.5 h-3.5" />
             </a>

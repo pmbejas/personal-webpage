@@ -7,11 +7,11 @@ import { CategoriaFiltroProyecto } from "@/types/Proyecto";
 import { servicioProyectos } from "@/services/ServicioProyectos";
 import { TarjetaProyecto } from "@/components/proyectos/TarjetaProyecto";
 
-const OPCIONES_FILTRO: { clave: CategoriaFiltroProyecto; etiqueta: string }[] = [
-  { clave: "todos", etiqueta: "Todos" },
-  { clave: "sistemas", etiqueta: "Sistemas & Gestión" },
-  { clave: "web", etiqueta: "Web Apps" },
-  { clave: "outdoor", etiqueta: "Outdoor & Mapas" },
+const CLAVES_FILTRO: { clave: CategoriaFiltroProyecto; claveTraduccion: string }[] = [
+  { clave: "todos", claveTraduccion: "filtros.todos" },
+  { clave: "sistemas", claveTraduccion: "filtros.sistemas" },
+  { clave: "web", claveTraduccion: "filtros.web" },
+  { clave: "outdoor", claveTraduccion: "filtros.outdoor" },
 ];
 
 /**
@@ -43,7 +43,7 @@ export function CatalogoProyectosV2() {
             viewport={{ once: true }}
             className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-sky-400 bg-sky-500/10 border border-sky-500/20 mb-3"
           >
-            Portafolio Real
+            {traducciones("etiquetaV2")}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -52,7 +52,7 @@ export function CatalogoProyectosV2() {
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-5xl font-black text-white tracking-tight"
           >
-            Proyectos que generan valor
+            {traducciones("tituloV2")}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -67,7 +67,7 @@ export function CatalogoProyectosV2() {
 
         {/* Barra de filtros minimalista en azul */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          {OPCIONES_FILTRO.map((filtro) => {
+          {CLAVES_FILTRO.map((filtro) => {
             const estaActivo = filtroActivo === filtro.clave;
             return (
               <button
@@ -80,7 +80,7 @@ export function CatalogoProyectosV2() {
                     : "bg-white/[0.03] text-neutral-400 hover:text-white hover:bg-white/[0.06] border border-white/5"
                 }`}
               >
-                {filtro.etiqueta}
+                {traducciones(filtro.claveTraduccion)}
               </button>
             );
           })}

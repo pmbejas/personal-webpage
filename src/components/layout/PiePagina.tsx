@@ -24,7 +24,7 @@ export function PiePagina() {
   };
 
   return (
-    <footer className="border-t border-slate-800/80 py-6 text-slate-400">
+    <footer className="border-t border-white/10 py-8 text-slate-400 bg-[#1c171b]/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Nombre y Rol */}
@@ -51,7 +51,7 @@ export function PiePagina() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={red.nombre}
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-blue-500/40 hover:bg-slate-800/80 transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.04] border border-white/10 text-slate-400 hover:text-blue-400 hover:border-blue-500/40 hover:bg-white/[0.08] transition-colors"
               >
                 {obtenerIconoRedSocial(red.icono)}
               </a>

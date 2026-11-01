@@ -21,6 +21,7 @@ import { CONFIGURACION_CONTACTO } from "@/data/datosContacto";
 export function CtaContacto() {
   const traduccionesBanner = useTranslations("bannerContacto");
   const traduccionesContacto = useTranslations("contacto");
+  const traduccionesCta = useTranslations("cta");
   const [copiado, setCopiado] = useState<boolean>(false);
 
   const copiarCorreo = async () => {
@@ -57,9 +58,9 @@ export function CtaContacto() {
           transition={{ delay: 0.1 }}
           className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight max-w-3xl mx-auto"
         >
-          Transformemos tu visión en un producto digital de
+          {traduccionesCta("tituloParte1")}
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-white mt-1">
-            clase mundial
+            {traduccionesCta("tituloResaltado")}
           </span>
         </motion.h2>
 
@@ -100,7 +101,7 @@ export function CtaContacto() {
                 {traduccionesContacto("whatsapp")}
               </span>
               <span className="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors">
-                Chatear ahora
+                {traduccionesCta("chatearAhora")}
               </span>
             </div>
           </a>
@@ -115,7 +116,7 @@ export function CtaContacto() {
                 type="button"
                 onClick={copiarCorreo}
                 className="p-1 rounded-lg text-neutral-400 hover:text-white transition-colors"
-                title="Copiar email"
+                title={traduccionesCta("copiarEmail")}
               >
                 {copiado ? (
                   <Check className="w-4 h-4 text-sky-400" />
@@ -155,7 +156,7 @@ export function CtaContacto() {
                 {traduccionesContacto("linkedin")}
               </span>
               <span className="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">
-                Conectar perfil
+                {traduccionesCta("conectarPerfil")}
               </span>
             </div>
           </a>

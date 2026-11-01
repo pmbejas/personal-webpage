@@ -17,10 +17,10 @@ export function SeccionHero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-[90vh] flex items-center overflow-hidden pt-24 pb-8 lg:pt-32 lg:pb-12"
+      className="relative min-h-[90vh] flex items-center overflow-hidden pt-28 pb-12 lg:pt-36 lg:pb-16"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
           {/* Columna Izquierda: Información de presentación */}
           <motion.div
@@ -30,26 +30,26 @@ export function SeccionHero() {
             className="lg:col-span-7 flex flex-col max-w-3xl"
           >
             {/* Saludo */}
-            <div className="inline-flex items-center gap-2 text-blue-400 font-semibold text-sm tracking-wide mb-3">
+            <div className="inline-flex items-center gap-2 text-blue-400 font-semibold text-xs uppercase tracking-widest mb-3">
               <Sparkles className="h-4 w-4" />
               <span>{traducciones("saludo")}</span>
             </div>
 
-            {/* Nombre y Título Principal */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+            {/* Nombre y Título Principal con Escala Áurea (68px / 42px) */}
+            <h1 className="text-4xl sm:text-5xl lg:text-[68px] font-extrabold tracking-tight text-white leading-[1.08]">
               {traducciones("nombre")}
-              <span className="block text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-400 mt-2">
+              <span className="block text-2xl sm:text-3xl lg:text-[42px] font-bold text-blue-400 mt-2 leading-tight">
                 {traducciones("rol")}
               </span>
             </h1>
 
-            {/* Descripción Profesional */}
-            <p className="mt-5 text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed">
+            {/* Descripción Profesional (Texto Base 16px) */}
+            <p className="mt-6 text-base text-slate-300 max-w-xl leading-relaxed">
               {traducciones("descripcion")}
             </p>
 
             {/* Botones de Acción */}
-            <div className="mt-7 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <Boton
                 href="#proyectos"
                 variante="primario"

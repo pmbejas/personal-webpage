@@ -21,17 +21,17 @@ export function SeccionProyectos() {
   );
 
   return (
-    <section id="proyectos" className="py-14 md:py-20 relative">
+    <section id="proyectos" className="py-16 md:py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Encabezado con título a la izquierda y enlace a la derecha */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 md:mb-12 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           <div>
             <motion.span
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-xs font-mono font-bold uppercase tracking-widest text-[rgb(var(--tema-acento-claro-rgb))] block mb-2"
+              className="text-xs font-mono font-bold uppercase tracking-widest text-[rgb(var(--tema-acento-claro-rgb))] block mb-3"
             >
               {traducciones("etiqueta")}
             </motion.span>
@@ -40,7 +40,7 @@ export function SeccionProyectos() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.05 }}
-              className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"
+              className="text-3xl sm:text-[42px] font-extrabold text-white tracking-tight leading-tight"
             >
               {traducciones("titulo")}
             </motion.h2>

@@ -60,25 +60,25 @@ export function TarjetaProyecto({
         </div>
       </div>
 
-      {/* Cuerpo de la tarjeta */}
-      <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+      {/* Cuerpo de la tarjeta con padding en múltiplos de 4 */}
+      <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
         <div>
-          {/* Título del proyecto */}
-          <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[rgb(var(--tema-acento-claro-rgb))] transition-colors">
+          {/* Título del proyecto con Escala Áurea H3 (26px) */}
+          <h3 className="text-xl sm:text-[26px] font-bold text-white group-hover:text-[rgb(var(--tema-acento-claro-rgb))] transition-colors leading-snug">
             {titulo}
           </h3>
 
           {/* Breve descripción concisa */}
-          <p className="mt-2 text-sm text-slate-400 line-clamp-2 leading-relaxed">
+          <p className="mt-3 text-sm text-slate-400 line-clamp-2 leading-relaxed">
             {descripcion}
           </p>
 
           {/* Píldoras de tecnologías utilizadas */}
-          <div className="flex flex-wrap gap-1.5 mt-4">
+          <div className="flex flex-wrap gap-2 mt-5">
             {proyecto.tecnologias.map((tecnologia) => (
               <span
                 key={tecnologia}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-white/[0.04] text-neutral-300 border border-white/5"
+                className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white/[0.04] text-neutral-300 border border-white/5"
               >
                 {tecnologia}
               </span>
@@ -87,7 +87,7 @@ export function TarjetaProyecto({
         </div>
 
         {/* Barra inferior de enlaces y acciones */}
-        <div className="mt-6 pt-5 border-t border-white/5 flex items-center justify-between">
+        <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between">
           {tieneDemo ? (
             <a
               href={proyecto.enlaceDemo}

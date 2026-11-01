@@ -1,44 +1,27 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Search, Compass, Rocket } from "lucide-react";
 
-interface PasoMetodologia {
-  numero: string;
-  titulo: string;
-  descripcion: string;
+interface ElementoConfigPaso {
+  clave: "paso1" | "paso2" | "paso3";
   icono: React.ElementType;
 }
 
-const PASOS_PROCESO: PasoMetodologia[] = [
-  {
-    numero: "01",
-    titulo: "Visión & Arquitectura",
-    descripcion:
-      "Relevamos en detalle las metas de tu negocio, los requerimientos técnicos y definimos la arquitectura óptima (.NET 9, Next.js, PostgreSQL) sin ambigüedades.",
-    icono: Search,
-  },
-  {
-    numero: "02",
-    titulo: "Desarrollo Ágil & Testing",
-    descripcion:
-      "Construyo la solución paso a paso aplicando Clean Architecture, código limpio, APIs seguras y componentes visuales reactivos con entregas periódicas.",
-    icono: Compass,
-  },
-  {
-    numero: "03",
-    titulo: "Despliegue & Escalado",
-    descripcion:
-      "Pruebas de calidad automatizadas, pipelines de CI/CD en contenedores Docker y puesta en marcha en la nube con monitoreo para máxima estabilidad.",
-    icono: Rocket,
-  },
+const PASOS_CONFIG: ElementoConfigPaso[] = [
+  { clave: "paso1", icono: Search },
+  { clave: "paso2", icono: Compass },
+  { clave: "paso3", icono: Rocket },
 ];
 
 /**
  * Sección de proceso y metodología ágil de 3 pasos.
  */
 export function ProcesoTrabajo() {
+  const traducciones = useTranslations("proceso");
+
   return (
     <section id="proceso" className="py-24 sm:py-32 relative bg-[#070606] overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -50,7 +33,7 @@ export function ProcesoTrabajo() {
             viewport={{ once: true }}
             className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-sky-400 bg-sky-500/10 border border-sky-500/20 mb-3"
           >
-            Metodología Ágil
+            {traducciones("etiqueta")}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -59,7 +42,7 @@ export function ProcesoTrabajo() {
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-5xl font-black text-white tracking-tight"
           >
-            Proceso claro, rápido y seguro
+            {traducciones("titulo")}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -68,17 +51,21 @@ export function ProcesoTrabajo() {
             transition={{ delay: 0.2 }}
             className="mt-4 text-neutral-400 text-sm sm:text-base leading-relaxed"
           >
-            Sin demoras innecesarias ni desvíos. Un flujo de trabajo probado que lleva tu proyecto de la idea a producción.
+            {traducciones("descripcion")}
           </motion.p>
         </div>
 
         {/* Tarjetas de proceso */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {PASOS_PROCESO.map((paso, indice) => {
+          {PASOS_CONFIG.map((paso, indice) => {
             const Icono = paso.icono;
+            const numero = traducciones(`${paso.clave}.numero`);
+            const titulo = traducciones(`${paso.clave}.titulo`);
+            const descripcion = traducciones(`${paso.clave}.descripcion`);
+
             return (
               <motion.div
-                key={paso.numero}
+                key={paso.clave}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -88,11 +75,11 @@ export function ProcesoTrabajo() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xs font-mono font-bold text-sky-400 bg-sky-500/10 px-2.5 py-1 rounded-full border border-sky-500/20">
-                      PASO {paso.numero}
+                      {traducciones("paso")} {numero}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{paso.titulo}</h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed">{paso.descripcion}</p>
+                  <h3 className="text-xl font-bold text-white mb-2">{titulo}</h3>
+                  <p className="text-sm text-neutral-400 leading-relaxed">{descripcion}</p>
                 </div>
 
                 {/* Ilustración de cápsula metálica inferior */}

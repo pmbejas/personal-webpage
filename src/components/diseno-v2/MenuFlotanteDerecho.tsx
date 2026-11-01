@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/routing";
 import { motion, AnimatePresence } from "framer-motion";
+import { VERSION_SITIO } from "@/data/datosVersion";
 import {
   Home,
   Layers,
@@ -19,18 +20,18 @@ import {
 
 interface ElementoSeccion {
   identificador: string;
-  etiqueta: string;
+  claveTraduccion: "inicio" | "stack" | "servicios" | "proceso" | "proyectos" | "faq" | "contacto";
   icono: React.ElementType;
 }
 
 const SECCIONES_MENU: ElementoSeccion[] = [
-  { identificador: "inicio", etiqueta: "Inicio", icono: Home },
-  { identificador: "stack", etiqueta: "Tecnologías", icono: Layers },
-  { identificador: "servicios", etiqueta: "Servicios", icono: Cpu },
-  { identificador: "proceso", etiqueta: "Metodología", icono: Rocket },
-  { identificador: "proyectos", etiqueta: "Proyectos", icono: Briefcase },
-  { identificador: "faq", etiqueta: "Preguntas", icono: HelpCircle },
-  { identificador: "contacto", etiqueta: "Contacto", icono: Mail },
+  { identificador: "inicio", claveTraduccion: "inicio", icono: Home },
+  { identificador: "stack", claveTraduccion: "stack", icono: Layers },
+  { identificador: "servicios", claveTraduccion: "servicios", icono: Cpu },
+  { identificador: "proceso", claveTraduccion: "proceso", icono: Rocket },
+  { identificador: "proyectos", claveTraduccion: "proyectos", icono: Briefcase },
+  { identificador: "faq", claveTraduccion: "faq", icono: HelpCircle },
+  { identificador: "contacto", claveTraduccion: "contacto", icono: Mail },
 ];
 
 const IDIOMAS = [
@@ -43,14 +44,14 @@ type TipoTemaColor = "azul" | "verde" | "ambar";
 
 interface OpcionColorTema {
   id: TipoTemaColor;
-  nombre: string;
+  claveTraduccion: "colores.azul" | "colores.verde" | "colores.ambar";
   hex: string;
 }
 
 const COLORES_TEMA: OpcionColorTema[] = [
-  { id: "azul", nombre: "Azul Eléctrico", hex: "#38bdf8" },
-  { id: "verde", nombre: "Verde", hex: "#10b981" },
-  { id: "ambar", nombre: "Amarillo Ámbar", hex: "#f59e0b" },
+  { id: "azul", claveTraduccion: "colores.azul", hex: "#38bdf8" },
+  { id: "verde", claveTraduccion: "colores.verde", hex: "#10b981" },
+  { id: "ambar", claveTraduccion: "colores.ambar", hex: "#f59e0b" },
 ];
 
 /**
@@ -68,6 +69,7 @@ export function MenuFlotanteDerecho() {
 
   const contenedorConfigRef = useRef<HTMLDivElement>(null);
   const idiomaActual = useLocale();
+  const traduccionesDock = useTranslations("menuDock");
   const router = useRouter();
   const pathname = usePathname();
 
@@ -168,40 +170,70 @@ export function MenuFlotanteDerecho() {
         {SECCIONES_MENU.map((seccion) => {
           const Icono = seccion.icono;
           const estaActiva = seccionActiva === seccion.identificador;
+          const etiquetaTraducida = traduccionesDock(seccion.claveTraduccion);
 
           return (
             <a
               key={seccion.identificador}
               href={`#${seccion.identificador}`}
               className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
-              aria-label={seccion.etiqueta}
+              aria-label={etiquetaTraducida}
             >
-              {/* Marcador activo con degradé radial etéreo que se difumina progresivamente hasta desaparecer */}
+              {/* Efecto Spotlight (#3): Haz de luz horizontal emitido desde el borde izquierdo hacia la derecha con lente y balanceo (Swing) */}
               {estaActiva && (
-                <motion.span
-                  layoutId="resplandor-dock-activo"
-                  className="absolute inset-[-2px] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(var(--tema-acento-rgb),0.42)_0%,rgba(var(--tema-acento-rgb),0.18)_42%,rgba(var(--tema-acento-rgb),0.04)_68%,transparent_100%)] shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.35)]"
+                <motion.div
+                  layoutId="spotlight-dock-activo"
+                  className="absolute inset-[-4px] pointer-events-none flex items-center justify-center overflow-visible z-0"
                   transition={{
                     type: "spring",
-                    stiffness: 320,
-                    damping: 26,
-                    mass: 0.7,
+                    stiffness: 340,
+                    damping: 24,
+                    mass: 0.6,
                   }}
-                />
+                >
+                  {/* Contenedor del haz con física pendular (Swing) al desplazarse */}
+                  <motion.div
+                    key={`spotlight-swing-${seccion.identificador}`}
+                    initial={{ rotate: -8, scale: 0.94 }}
+                    animate={{ rotate: 0, scale: 1 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 380,
+                      damping: 16,
+                      mass: 0.5,
+                    }}
+                    className="relative w-full h-full flex items-center justify-center"
+                  >
+                    {/* 1. Lente o proyector emisor de luz en el borde izquierdo (Spotlight Fixture) */}
+                    <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[2.5px] h-4 sm:h-5 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.95),0_0_16px_4px_rgba(var(--tema-acento-claro-rgb),0.85)] z-20" />
+
+                    {/* 2. Haz de luz cónico trapezoidal proyectado de izquierda a derecha */}
+                    <div
+                      className="absolute left-0 right-0 top-0 bottom-0 rounded-2xl bg-gradient-to-r from-[rgb(var(--tema-acento-claro-rgb)/0.55)] via-[rgb(var(--tema-acento-rgb)/0.25)] to-transparent"
+                      style={{
+                        clipPath: "polygon(0% 22%, 100% 0%, 100% 100%, 0% 78%)",
+                        filter: "drop-shadow(0 0 12px rgba(var(--tema-acento-rgb),0.4))",
+                      }}
+                    />
+
+                    {/* 3. Piscina de luz ambiental difusa que baña el ícono y se extiende a la derecha */}
+                    <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_35%_50%,rgba(var(--tema-acento-rgb),0.45)_0%,rgba(var(--tema-acento-rgb),0.15)_55%,transparent_80%)] blur-[2px]" />
+                  </motion.div>
+                </motion.div>
               )}
 
-              {/* Icono con brillo suave y escala refinada */}
+              {/* Icono con iluminación activa y brillo */}
               <Icono
                 className={`relative z-10 w-4 h-4 sm:w-4.5 sm:h-4.5 transition-all duration-300 ${
                   estaActiva
-                    ? "text-[rgb(var(--tema-acento-claro-rgb))] scale-110 drop-shadow-[0_0_10px_rgba(var(--tema-acento-claro-rgb),0.7)]"
+                    ? "text-[rgb(var(--tema-acento-claro-rgb))] scale-110 drop-shadow-[0_0_12px_rgba(var(--tema-acento-claro-rgb),0.85)]"
                     : "group-hover:scale-105"
                 }`}
               />
 
               {/* Tooltip (hacia abajo en móvil superior, hacia la izquierda en desktop) */}
               <span className="pointer-events-none absolute top-full mt-2.5 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 -translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-20">
-                {seccion.etiqueta}
+                {etiquetaTraducida}
               </span>
             </a>
           );
@@ -210,25 +242,60 @@ export function MenuFlotanteDerecho() {
         {/* Separador sutil (vertical en móvil horizontal, horizontal en desktop vertical) */}
         <div className="w-[1px] h-4 mx-0.5 sm:mx-1 lg:w-4 lg:h-[1px] lg:my-1 lg:mx-0 bg-white/10" />
 
-        {/* Botón de Configuración (Idioma y Colores) */}
+        {/* Botón de Configuración (Idioma y Colores) con su propio Spotlight Fijo Cenital (Desde la línea divisoria superior) */}
         <div className="relative" ref={contenedorConfigRef}>
           <button
             type="button"
             onClick={() => setPanelConfiguracionAbierto(!panelConfiguracionAbierto)}
-            className={`group relative p-2 sm:p-2.5 rounded-full transition-all flex items-center justify-center ${
-              panelConfiguracionAbierto
-                ? "bg-[radial-gradient(circle,rgba(var(--tema-acento-rgb),0.38)_0%,rgba(var(--tema-acento-rgb),0.15)_45%,transparent_100%)] text-[rgb(var(--tema-acento-claro-rgb))] shadow-[0_0_15px_rgba(var(--tema-acento-rgb),0.35)]"
-                : "text-neutral-400 hover:text-white hover:bg-white/10"
-            }`}
-            aria-label="Abrir configuración de idioma y tema"
-            title="Configuración"
+            className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-all flex items-center justify-center text-neutral-400 hover:text-white"
+            aria-label={traduccionesDock("abrirConfiguracion")}
+            title={traduccionesDock("configuracion")}
           >
-            <Settings className={`w-4 h-4 transition-transform duration-300 ${panelConfiguracionAbierto ? "rotate-90" : ""}`} />
+            {/* Spotlight Fijo Dedicado (Desde la línea divisoria superior hacia abajo) */}
+            <div className="absolute inset-[-4px] pointer-events-none flex items-center justify-center overflow-visible z-0">
+              <div className="relative w-full h-full flex flex-col items-center justify-center">
+                {/* 1. Lente o proyector emisor de luz en el borde superior (originado en la línea divisoria) */}
+                <div
+                  className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-all duration-300 z-20 ${
+                    panelConfiguracionAbierto
+                      ? "w-5 sm:w-6 h-[2.5px] shadow-[0_0_10px_3px_rgba(255,255,255,1),0_0_20px_5px_rgba(var(--tema-acento-claro-rgb),0.95)]"
+                      : "w-4 sm:w-5 h-[2px] opacity-80 shadow-[0_0_6px_1px_rgba(255,255,255,0.9),0_0_12px_2px_rgba(var(--tema-acento-claro-rgb),0.7)] group-hover:opacity-100 group-hover:w-5"
+                  }`}
+                />
+
+                {/* 2. Haz de luz cónico trapezoidal vertical fijo proyectado hacia abajo sobre el ícono */}
+                <div
+                  className={`absolute top-0 bottom-0 left-0 right-0 rounded-2xl bg-gradient-to-b from-[rgb(var(--tema-acento-claro-rgb)/0.50)] via-[rgb(var(--tema-acento-rgb)/0.22)] to-transparent transition-opacity duration-300 ${
+                    panelConfiguracionAbierto ? "opacity-100" : "opacity-70 group-hover:opacity-95"
+                  }`}
+                  style={{
+                    clipPath: "polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%)",
+                    filter: "drop-shadow(0 0 10px rgba(var(--tema-acento-rgb),0.35))",
+                  }}
+                />
+
+                {/* 3. Piscina de luz ambiental difusa que baña el ícono */}
+                <div
+                  className={`absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_60%,rgba(var(--tema-acento-rgb),0.40)_0%,rgba(var(--tema-acento-rgb),0.12)_55%,transparent_80%)] blur-[2px] transition-opacity duration-300 ${
+                    panelConfiguracionAbierto ? "opacity-100" : "opacity-65 group-hover:opacity-90"
+                  }`}
+                />
+              </div>
+            </div>
+
+            {/* Ícono de Configuración con brillo reactivo */}
+            <Settings
+              className={`relative z-10 w-4 h-4 sm:w-4.5 sm:h-4.5 transition-all duration-300 ${
+                panelConfiguracionAbierto
+                  ? "rotate-90 text-[rgb(var(--tema-acento-claro-rgb))] scale-110 drop-shadow-[0_0_12px_rgba(var(--tema-acento-claro-rgb),0.85)]"
+                  : "text-[rgb(var(--tema-acento-claro-rgb))] opacity-85 group-hover:opacity-100 group-hover:scale-105 drop-shadow-[0_0_8px_rgba(var(--tema-acento-claro-rgb),0.6)]"
+              }`}
+            />
 
             {/* Tooltip (hacia abajo en móvil superior, hacia la izquierda en desktop) */}
             {!panelConfiguracionAbierto && (
               <span className="pointer-events-none absolute top-full mt-2.5 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 -translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">
-                Configuración
+                {traduccionesDock("configuracion")}
               </span>
             )}
           </button>
@@ -247,17 +314,17 @@ export function MenuFlotanteDerecho() {
                 <div className="flex items-center justify-between pb-2 border-b border-white/10">
                   <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-neutral-200 flex items-center gap-1.5">
                     <Settings className="w-3.5 h-3.5 text-[rgb(var(--tema-acento-claro-rgb))]" />
-                    <span>Preferencias</span>
+                    <span>{traduccionesDock("preferencias")}</span>
                   </span>
-                  <span className="text-[9px] font-mono text-neutral-500 uppercase px-1.5 py-0.5 rounded bg-white/5 border border-white/5">
-                    V2
+                  <span className="text-[9px] font-mono text-neutral-400 font-semibold px-2 py-0.5 rounded-full bg-white/5 border border-white/10">
+                    v{VERSION_SITIO}
                   </span>
                 </div>
 
                 {/* Selección de Idioma */}
                 <div>
                   <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block mb-1.5">
-                    Idioma
+                    {traduccionesDock("idioma")}
                   </span>
                   <div className="grid grid-cols-3 gap-1 bg-white/5 p-1 rounded-xl border border-white/5">
                     {IDIOMAS.map((item) => {
@@ -283,7 +350,7 @@ export function MenuFlotanteDerecho() {
                 {/* Selección de Color de Acento */}
                 <div>
                   <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block mb-1.5">
-                    Color de Acento
+                    {traduccionesDock("colorAcento")}
                   </span>
                   <div className="flex flex-col gap-1">
                     {COLORES_TEMA.map((color) => {
@@ -304,7 +371,7 @@ export function MenuFlotanteDerecho() {
                               className="w-3.5 h-3.5 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.5)] flex-shrink-0"
                               style={{ backgroundColor: color.hex }}
                             />
-                            <span className="text-[11px]">{color.nombre}</span>
+                            <span className="text-[11px]">{traduccionesDock(color.claveTraduccion)}</span>
                           </div>
                           {esActivo && (
                             <Check className="w-3.5 h-3.5 text-[rgb(var(--tema-acento-claro-rgb))]" />
@@ -332,14 +399,14 @@ export function MenuFlotanteDerecho() {
               type="button"
               onClick={volverAlInicio}
               className="pointer-events-auto group relative p-2 sm:p-2.5 lg:p-3 rounded-full bg-[#0c0a09]/85 backdrop-blur-2xl border border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.6)] text-neutral-400 hover:text-[rgb(var(--tema-acento-claro-rgb))] hover:border-[rgb(var(--tema-acento-rgb)/0.4)] hover:scale-110 active:scale-95 transition-all flex items-center justify-center"
-              aria-label="Volver al inicio de la página"
-              title="Volver al inicio"
+              aria-label={traduccionesDock("volverInicio")}
+              title={traduccionesDock("volverInicio")}
             >
               <ArrowUp className="w-4 h-4 sm:w-4.5 sm:h-4.5 group-hover:-translate-y-0.5 transition-transform" />
 
               {/* Tooltip (hacia abajo en móvil superior, hacia la izquierda en desktop) */}
               <span className="pointer-events-none absolute top-full mt-2 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap">
-                Volver arriba
+                {traduccionesDock("volverArriba")}
               </span>
             </motion.button>
           )}

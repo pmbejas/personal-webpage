@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
+import { VERSION_SITIO } from "@/data/datosVersion";
 import { HeroContenidoV2 } from "./HeroContenidoV2";
 import { CintaStack } from "./CintaStack";
 import { GrillaBento } from "./GrillaBento";
@@ -14,6 +16,8 @@ import { CtaContacto } from "./CtaContacto";
  * Aloja todas las secciones interactivas del portafolio en flujo de scroll suave.
  */
 export function CuerpoContenidoV2() {
+  const traducciones = useTranslations("piePagina");
+
   return (
     <div className="flex flex-col gap-16 sm:gap-24">
       {/* 1. Hero con Cubo 3D y métricas */}
@@ -38,8 +42,10 @@ export function CuerpoContenidoV2() {
       <CtaContacto />
 
       {/* Pie de página sutil para la columna */}
-      <footer className="pt-8 pb-12 border-t border-white/5 text-center text-xs text-neutral-500 font-mono">
-        © 2026 Pablo Bejas — Full Stack Developer & Software Architecture
+      <footer className="pt-8 pb-12 border-t border-white/5 text-center text-xs text-neutral-500 font-mono flex items-center justify-center gap-2">
+        <span>{traducciones("derechos")}</span>
+        <span>·</span>
+        <span className="text-neutral-400 font-semibold">v{VERSION_SITIO}</span>
       </footer>
     </div>
   );

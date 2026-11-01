@@ -33,7 +33,7 @@ export function SeccionSobreMi() {
   ];
 
   return (
-    <section id="sobre-mi" className="py-10 md:py-14 relative">
+    <section id="sobre-mi" className="py-16 md:py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* En móvil el orden del DOM es el orden visual: texto, retrato y
             cards de experiencia. En lg cada bloque se coloca explícitamente
@@ -49,16 +49,16 @@ export function SeccionSobreMi() {
             className="lg:col-start-6 lg:col-span-7 lg:row-start-1 flex flex-col"
           >
             {/* Tag / Etiqueta */}
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-blue-400 mb-3">
               {traducciones("etiqueta")}
             </span>
 
-            {/* Título de la sección */}
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+            {/* Título de la sección con Escala Áurea (42px) */}
+            <h2 className="text-3xl sm:text-[42px] font-extrabold text-white tracking-tight leading-tight">
               {traducciones("titulo")}
             </h2>
 
-            {/* Descripción */}
+            {/* Descripción (Texto Base 16px) */}
             <p className="mt-6 text-base text-slate-300 leading-relaxed">
               {traducciones("descripcion")}
             </p>
@@ -77,14 +77,14 @@ export function SeccionSobreMi() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="lg:col-start-6 lg:col-span-7 lg:row-start-2 lg:mt-8"
           >
-            {/* Grid de 4 Métricas / Insignias */}
+            {/* Grid de 4 Métricas con Paleta de 4 Roles y Múltiplos de 4 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {metricasDestacadas.map((metrica, indice) => (
                 <div
                   key={indice}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800/80"
+                  className="flex items-center gap-3 p-4 rounded-2xl bg-white/[0.04] border border-white/10"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-950/60 border border-blue-800/40 flex-shrink-0">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20 flex-shrink-0">
                     {metrica.icono}
                   </div>
                   <span className="text-sm font-semibold text-slate-200">

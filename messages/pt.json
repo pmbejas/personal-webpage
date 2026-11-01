@@ -18,7 +18,15 @@
     "descripcion": "Construo experiências digitais excepcionais e aplicações web escaláveis com código limpo e design de alto impacto.",
     "verProyectos": "Ver meus projetos",
     "contactarme": "Fale comigo",
-    "empresasConfianza": "Confiado por empresas e tecnologias líderes"
+    "empresasConfianza": "Confiado por empresas e tecnologias líderes",
+    "insigniaV2": "Software Architecture & Full Stack",
+    "tituloV2Parte1": "Construo",
+    "tituloV2Pildora1": "sistemas web",
+    "tituloV2Conector": "&",
+    "tituloV2Pildora2": "arquiteturas",
+    "tituloV2Parte2": "escaláveis",
+    "descripcionV2": "Especializado em serviços backend em .NET 9 (C#) com Clean Architecture, interfaces reativas em Next.js 15 e bancos de dados relacionais em PostgreSQL.",
+    "rotarCubo": "Arraste com o mouse para girar o cubo livremente"
   },
   "sobreMi": {
     "etiqueta": "SOBRE MIM",
@@ -81,6 +89,8 @@
   "proyectos": {
     "etiqueta": "PROJETOS EM DESTAQUE",
     "titulo": "Projetos em Destaque",
+    "etiquetaV2": "Portfólio Real",
+    "tituloV2": "Projetos que geram valor",
     "verTodos": "Ver todos os projetos",
     "verDemo": "Ver Demo Online",
     "verCodigo": "Ver código no GitHub",
@@ -210,6 +220,116 @@
       "titulo": "Transparência & Entregas Claras",
       "descripcion": "Sem jargões obscuros ou surpresas. Entregas contínuas, comunicação transparente e código totalmente documentado para sua equipe.",
       "insignia": "Garantia de qualidade & testes"
+    }
+  },
+  "preloader": {
+    "saltarIntro": "Pular intro ✕",
+    "iniciandoEntorno": "Iniciando ambiente",
+    "altIsotipo": "Isotipo Pablo Bejas",
+    "subtitulo": "Full Stack & Software Architecture"
+  },
+  "tarjetaLateral": {
+    "disponible": "Disponível para Projetos",
+    "rol": "Full Stack & Software Architecture",
+    "bio": "Transformo necessidades complexas de negócios em arquiteturas de software robustas, seguras e de alto desempenho em .NET 9 e Next.js 15.",
+    "hablame": "Fale comigo",
+    "cv": "CV",
+    "perfilGithub": "Perfil no GitHub",
+    "perfilLinkedin": "Perfil no LinkedIn",
+    "perfilInstagram": "Perfil no Instagram"
+  },
+  "proceso": {
+    "etiqueta": "Metodologia Ágil",
+    "titulo": "Processo claro, rápido e seguro",
+    "descripcion": "Sem demoras desnecessárias nem desvios. Um fluxo de trabalho comprovado que leva seu projeto da ideia à produção.",
+    "paso": "PASSO",
+    "paso1": {
+      "numero": "01",
+      "titulo": "Visão & Arquitetura",
+      "descripcion": "Mapeamos detalhadamente os objetivos do negócio, requisitos técnicos e definimos a arquitetura ideal (.NET 9, Next.js, PostgreSQL) sem ambiguidades."
+    },
+    "paso2": {
+      "numero": "02",
+      "titulo": "Desenvolvimento Ágil & Testes",
+      "descripcion": "Construo a solução passo a passo aplicando Clean Architecture, código limpo, APIs seguras e componentes visuais reativos com entregas contínuas."
+    },
+    "paso3": {
+      "numero": "03",
+      "titulo": "Implantação & Escala",
+      "descripcion": "Testes de qualidade automatizados, pipelines de CI/CD em contêineres Docker e publicação na nuvem com monitoramento para máxima estabilidade."
+    }
+  },
+  "faq": {
+    "etiqueta": "Perguntas Frequentes",
+    "titulo": "Respostas diretas e transparentes",
+    "descripcion": "Tudo o que você precisa saber antes de iniciar nosso próximo projeto de desenvolvimento.",
+    "q1": {
+      "pregunta": "Quais tecnologias você utiliza para o desenvolvimento Full Stack?",
+      "respuesta": "Especializo-me no ecossistema Microsoft .NET (C#, ASP.NET Core Web API, EF Core, Dapper) para arquiteturas de backend robustas e de alto desempenho, aliado ao Next.js 15, TypeScript e Tailwind CSS no frontend para interfaces modernas, ultrarrápidas e otimizadas para SEO."
+    },
+    "q2": {
+      "pregunta": "Como funciona o fluxo de trabalho e a comunicação durante o projeto?",
+      "respuesta": "Trabalho sob metodologias ágeis com sprints bem definidos. Realizamos reuniões periódicas de alinhamento, demonstrações funcionais em ambientes de homologação e acesso direto ao repositório ou quadro para visibilidade total em cada etapa."
+    },
+    "q3": {
+      "pregunta": "Quanto tempo costuma levar o desenvolvimento de uma aplicação ou sistema?",
+      "respuesta": "Depende da complexidade e do escopo. Um site moderno ou landing page de alta conversão costuma ficar pronto em 1 a 2 semanas, enquanto um MVP ou sistema de gestão sob medida (.NET + Next.js) costuma ser estruturado em sprints quinzenais ao longo de 4 a 10 semanas com entregas contínuas."
+    },
+    "q4": {
+      "pregunta": "O software entregue segue boas práticas e testes automatizados?",
+      "respuesta": "Com certeza. Todo o código segue princípios SOLID, Clean Architecture e separação estrita de camadas (Repository, Service, Controller). Incluo testes em fluxos críticos e documentação técnica clara para garantir fácil escalabilidade."
+    },
+    "q5": {
+      "pregunta": "Você cuida da configuração do servidor, domínio e implantação em produção?",
+      "respuesta": "Sim, entrego soluções prontas para uso. Configuro toda a infraestrutura: vinculação de domínio, certificados SSL (HTTPS), bancos de dados (PostgreSQL/SQL Server) e pipelines automatizados de CI/CD na nuvem (Vercel, Azure, VPS ou contêineres Docker)."
+    },
+    "q6": {
+      "pregunta": "Você trabalha em projetos já existentes ou apenas do zero?",
+      "respuesta": "Posso tanto iniciar um projeto do zero quanto atuar em sistemas existentes. Realizo auditorias de código, otimização de consultas a bancos de dados, refatoração de código legado e modernização de arquiteturas monolíticas para APIs modernas."
+    },
+    "q7": {
+      "pregunta": "O que acontece após a entrega? Você oferece garantia ou suporte?",
+      "respuesta": "Todos os projetos contam com um período de garantia pós-lançamento (de 15 a 30 dias) para resolver qualquer ajuste sem custo adicional. Além disso, ofereço planos mensais de suporte e evolução contínua para acompanhar o crescimento da sua empresa."
+    },
+    "q8": {
+      "pregunta": "O código-fonte e os acessos ficam sob minha posse?",
+      "respuesta": "100% da propriedade intelectual, repositórios de código (GitHub/GitLab), acessos aos servidores e credenciais pertencem exclusivamente a você ou à sua empresa desde a conclusão da entrega."
+    },
+    "q9": {
+      "pregunta": "Quais modalidades de contratação você oferece?",
+      "respuesta": "Ofereço colaboração por escopo fechado (com cronograma, marcos e entregáveis definidos desde o início) e também por alocação de horas ou sprints para evolução contínua e consultoria técnica de arquitetura."
+    },
+    "q10": {
+      "pregunta": "Como são coordenados os pagamentos e a emissão de notas fiscais?",
+      "respuesta": "Trabalho com marcos de pagamento transparentes (normalmente 50% de entrada e 50% contra entrega aprovada, ou por sprint quinzenal). Emito nota fiscal e aceito transferências bancárias locais e internacionais para clientes do exterior."
+    }
+  },
+  "cta": {
+    "tituloParte1": "Vamos transformar sua visão em um produto digital de",
+    "tituloResaltado": "classe mundial",
+    "chatearAhora": "Conversar agora",
+    "copiarEmail": "Copiar e-mail",
+    "conectarPerfil": "Conectar perfil"
+  },
+  "menuDock": {
+    "inicio": "Início",
+    "stack": "Tecnologias",
+    "servicios": "Serviços",
+    "proceso": "Metodologia",
+    "proyectos": "Projetos",
+    "faq": "Perguntas",
+    "contacto": "Contato",
+    "configuracion": "Configurações",
+    "abrirConfiguracion": "Abrir configurações de idioma e tema",
+    "preferencias": "Preferências",
+    "idioma": "Idioma",
+    "colorAcento": "Cor de Destaque",
+    "volverInicio": "Voltar ao início",
+    "volverArriba": "Voltar ao topo",
+    "colores": {
+      "azul": "Azul Elétrico",
+      "verde": "Verde Esmeralda",
+      "ambar": "Amarelo Âmbar"
     }
   }
 }

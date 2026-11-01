@@ -33,25 +33,25 @@ export function HeroContenidoV2() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[rgb(var(--tema-acento-claro-rgb))] opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[rgb(var(--tema-acento-rgb))]" />
             </span>
-            <span>Software Architecture & Full Stack</span>
+            <span>{traduccionesHero("insigniaV2")}</span>
           </div>
 
           {/* Título Principal con cápsulas refinadas y tipografía moderna */}
           <h1 className="fuente-titular text-2xl sm:text-4xl xl:text-[3.25rem] font-normal text-white tracking-tight leading-[1.22]">
-            Construyo{" "}
+            {traduccionesHero("tituloV2Parte1")}{" "}
             <span className="inline-block bg-[rgb(var(--tema-acento-rgb))] text-black px-3.5 py-0.5 rounded-full font-medium align-middle shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.35)] my-0.5">
-              sistemas web
+              {traduccionesHero("tituloV2Pildora1")}
             </span>
             <br className="hidden sm:inline" />
-            {" "}&{" "}
+            {" "}{traduccionesHero("tituloV2Conector")}{" "}
             <span className="inline-block bg-white/10 text-[rgb(var(--tema-acento-claro-rgb))] px-3.5 py-0.5 rounded-full font-medium align-middle border border-white/15 my-5">
-              arquitecturas
+              {traduccionesHero("tituloV2Pildora2")}
             </span>{" "}
-            escalables
+            {traduccionesHero("tituloV2Parte2")}
           </h1>
 
           <p className="mt-4 text-sm sm:text-base text-neutral-300 max-w-2xl leading-relaxed">
-            Especializado en servicios backend en <strong className="text-white">.NET 9 (C#)</strong> con Clean Architecture, interfaces reactivas en <strong className="text-white">Next.js 15</strong> y bases de datos relacionales en <strong className="text-white">PostgreSQL</strong>.
+            {traduccionesHero("descripcionV2")}
           </p>
         </motion.div>
 
@@ -67,7 +67,7 @@ export function HeroContenidoV2() {
             </div>
             <p className="mt-3 text-[11px] font-mono text-neutral-400 flex items-center gap-1.5 uppercase tracking-widest text-center">
               <Sparkles className="w-3.5 h-3.5 text-[rgb(var(--tema-acento-claro-rgb))]" />
-              <span>Arrastra con el mouse para rotar el cubo libremente</span>
+              <span>{traduccionesHero("rotarCubo")}</span>
             </p>
           </div>
 

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface PropiedadesPreloader {
@@ -15,6 +16,7 @@ interface PropiedadesPreloader {
 export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinalizar }) => {
   const [progreso, setProgreso] = useState<number>(0);
   const [estaCompletado, setEstaCompletado] = useState<boolean>(false);
+  const traducciones = useTranslations("preloader");
 
   useEffect(() => {
     const duracionTotal = 1800;
@@ -68,7 +70,7 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
             type="button"
             className="absolute top-6 right-6 text-xs tracking-wider uppercase text-neutral-500 hover:text-neutral-300 transition-colors px-3 py-1.5 rounded-full border border-white/5 bg-white/[0.02]"
           >
-            Saltar intro ✕
+            {traducciones("saltarIntro")}
           </button>
 
           {/* Isotipo oficial con halo de luz azul */}
@@ -90,7 +92,7 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
             <div className="relative w-20 h-20 drop-shadow-[0_0_20px_rgba(56,189,248,0.7)] flex items-center justify-center">
               <Image
                 src="/isotipo-dark.svg"
-                alt="Isotipo Pablo Bejas"
+                alt={traducciones("altIsotipo")}
                 width={80}
                 height={80}
                 className="w-full h-full object-contain"
@@ -139,7 +141,7 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
           <div className="mt-4 font-mono text-xs tracking-wider text-neutral-400 flex items-center gap-2">
             <span className="text-sky-400 font-semibold">{progreso.toString().padStart(2, "0")}%</span>
             <span className="text-neutral-600">/</span>
-            <span className="text-neutral-500 text-[10px] uppercase tracking-widest">Iniciando entorno</span>
+            <span className="text-neutral-500 text-[10px] uppercase tracking-widest">{traducciones("iniciandoEntorno")}</span>
           </div>
         </motion.div>
       )}
