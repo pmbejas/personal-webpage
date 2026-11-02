@@ -17,7 +17,7 @@ export function IsotipoLogo({ className = "h-10 w-auto" }: PropiedadesIsotipoLog
       xmlns="http://www.w3.org/2000/svg"
       viewBox="28 10 144 212"
       fill="none"
-      className={className}
+      className={`overflow-visible ${className}`}
       aria-label="Isotipo Robot Pablo Bejas"
     >
       <defs>
@@ -28,12 +28,16 @@ export function IsotipoLogo({ className = "h-10 w-auto" }: PropiedadesIsotipoLog
             stroke-linecap: round;
             stroke-linejoin: round;
             fill: none;
-            filter: drop-shadow(0 0 5px rgb(var(--tema-acento-rgb, 14 165 233))) drop-shadow(0 0 14px rgba(var(--tema-acento-rgb, 14 165 233), 0.75));
+            filter: drop-shadow(0 0 4px rgb(var(--tema-acento-claro-rgb, 56 189 248) / 0.95))
+                    drop-shadow(0 0 12px rgb(var(--tema-acento-rgb, 14 165 233) / 0.8))
+                    drop-shadow(0 0 24px rgb(var(--tema-acento-rgb, 14 165 233) / 0.5));
             transition: stroke 0.3s ease, filter 0.3s ease;
           }
           .relleno-neon-robot {
             fill: rgb(var(--tema-acento-claro-rgb, 56 189 248));
-            filter: drop-shadow(0 0 5px rgb(var(--tema-acento-rgb, 14 165 233))) drop-shadow(0 0 12px rgba(var(--tema-acento-rgb, 14 165 233), 0.8));
+            filter: drop-shadow(0 0 4px rgb(var(--tema-acento-claro-rgb, 56 189 248) / 0.95))
+                    drop-shadow(0 0 10px rgb(var(--tema-acento-rgb, 14 165 233) / 0.8))
+                    drop-shadow(0 0 20px rgb(var(--tema-acento-rgb, 14 165 233) / 0.5));
             transition: fill 0.3s ease, filter 0.3s ease;
           }
         `}</style>

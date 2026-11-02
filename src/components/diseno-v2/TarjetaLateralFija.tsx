@@ -57,7 +57,17 @@ export function TarjetaLateralFija() {
         {/* Isotipo y Wordmark alineados sobre el borde inferior */}
         <div className="flex items-end gap-2 sm:gap-2.5 mb-3">
           <div className="relative h-20 sm:h-[84px] w-auto flex-shrink-0 flex items-end">
-            <IsotipoLogo className="h-full w-auto" />
+            {/* Halo ambiental difuso de resplandor glow neón */}
+            <div
+              className="absolute inset-0 -m-3 rounded-full bg-[radial-gradient(circle_at_center,rgba(var(--tema-acento-rgb),0.45)_0%,rgba(var(--tema-acento-rgb),0.18)_50%,transparent_75%)] blur-xl pointer-events-none transition-all duration-500 group-hover:scale-115 group-hover:opacity-100 opacity-80"
+              aria-hidden="true"
+            />
+            {/* Núcleo de resplandor focalizado adicional detrás del cuerpo */}
+            <div
+              className="absolute inset-x-2 bottom-2 top-4 rounded-full bg-[rgb(var(--tema-acento-claro-rgb)/0.25)] blur-md pointer-events-none transition-all duration-300"
+              aria-hidden="true"
+            />
+            <IsotipoLogo className="h-full w-auto relative z-10" />
           </div>
           <div className="relative flex items-end pb-0.5 sm:pb-1">
             <WordmarkLogo className="h-10 sm:h-11 w-auto drop-shadow-[0_4px_14px_rgba(0,0,0,0.7)]" />
