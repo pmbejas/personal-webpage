@@ -261,47 +261,47 @@
   },
   "faq": {
     "etiqueta": "Perguntas Frequentes",
-    "titulo": "Respostas diretas e transparentes",
-    "descripcion": "Tudo o que você precisa saber antes de iniciar nosso próximo projeto de desenvolvimento.",
+    "titulo": "Consultas frequentes e aspectos-chave",
+    "descripcion": "Informações essenciais e respostas às dúvidas mais frequentes sobre os serviços de desenvolvimento de software e arquitetura.",
     "q1": {
-      "pregunta": "Quais tecnologias você utiliza para o desenvolvimento Full Stack?",
-      "respuesta": "Especializo-me no ecossistema Microsoft .NET (C#, ASP.NET Core Web API, EF Core, Dapper) para arquiteturas de backend robustas e de alto desempenho, aliado ao Next.js 15, TypeScript e Tailwind CSS no frontend para interfaces modernas, ultrarrápidas e otimizadas para SEO."
+      "pregunta": "Quais são as principais tecnologias utilizadas para o desenvolvimento Full Stack?",
+      "respuesta": "O desenvolvimento fundamenta-se no ecossistema Microsoft .NET (.NET 9, C#, ASP.NET Core Web API, EF Core, Dapper) para arquiteturas de backend robustas e de alta concorrência, aliado ao Next.js 15, TypeScript e Tailwind CSS no frontend para interfaces web modernas, fluidas e otimizadas para SEO."
     },
     "q2": {
-      "pregunta": "Como funciona o fluxo de trabalho e a comunicação durante o projeto?",
-      "respuesta": "Trabalho sob metodologias ágeis com sprints bem definidos. Realizamos reuniões periódicas de alinhamento, demonstrações funcionais em ambientes de homologação e acesso direto ao repositório ou quadro para visibilidade total em cada etapa."
+      "pregunta": "Como se estrutura a metodologia de trabalho e a comunicação no projeto?",
+      "respuesta": "Os projetos são gerenciados por meio de metodologias ágeis com sprints planejados. Estabelecem-se reuniões periódicas de alinhamento, demonstrações em ambientes de homologação (staging) e acesso direto a quadros de gestão e repositórios para total transparência operacional."
     },
     "q3": {
-      "pregunta": "Quanto tempo costuma levar o desenvolvimento de uma aplicação ou sistema?",
-      "respuesta": "Depende da complexidade e do escopo. Um site moderno ou landing page de alta conversão costuma ficar pronto em 1 a 2 semanas, enquanto um MVP ou sistema de gestão sob medida (.NET + Next.js) costuma ser estruturado em sprints quinzenais ao longo de 4 a 10 semanas com entregas contínuas."
+      "pregunta": "Quais são os prazos estimados de desenvolvimento para uma aplicação ou sistema?",
+      "respuesta": "Os prazos variam conforme a complexidade e o escopo técnico. Um site moderno ou landing page institucional costuma ser concluído em 1 a 2 semanas, enquanto um sistema de gestão corporativo ou MVP sob medida (.NET + Next.js) é planejado em sprints quinzenais ao longo de 4 a 10 semanas com entregas contínuas."
     },
     "q4": {
-      "pregunta": "O software entregue segue boas práticas e testes automatizados?",
-      "respuesta": "Com certeza. Todo o código segue princípios SOLID, Clean Architecture e separação estrita de camadas (Repository, Service, Controller). Incluo testes em fluxos críticos e documentação técnica clara para garantir fácil escalabilidade."
+      "pregunta": "Como se garante a qualidade, arquitetura e boas práticas do código?",
+      "respuesta": "Todo o software é construído sob os princípios SOLID, Clean Architecture e separação estrita de camadas (Repository, Service, Controller). Incorporam-se testes automatizados nos fluxos críticos e documentação técnica abrangente para assegurar estabilidade e fácil escalabilidade."
     },
     "q5": {
-      "pregunta": "Você cuida da configuração do servidor, domínio e implantação em produção?",
-      "respuesta": "Sim, entrego soluções prontas para uso. Configuro toda a infraestrutura: vinculação de domínio, certificados SSL (HTTPS), bancos de dados (PostgreSQL/SQL Server) e pipelines automatizados de CI/CD na nuvem (Vercel, Azure, VPS ou contêineres Docker)."
+      "pregunta": "Está incluída a configuração de servidores, domínios e implantação em produção?",
+      "respuesta": "Sim, as soluções são entregues totalmente operacionais e prontas para uso. O serviço contempla a infraestrutura integral: configuração de domínios, certificados SSL (HTTPS), bancos de dados (PostgreSQL/SQL Server) e pipelines automatizados de CI/CD na nuvem (Vercel, Azure, VPS ou Docker)."
     },
     "q6": {
-      "pregunta": "Você trabalha em projetos já existentes ou apenas do zero?",
-      "respuesta": "Posso tanto iniciar um projeto do zero quanto atuar em sistemas existentes. Realizo auditorias de código, otimização de consultas a bancos de dados, refatoração de código legado e modernização de arquiteturas monolíticas para APIs modernas."
+      "pregunta": "É possível intervir em sistemas já existentes ou modernizar código legado?",
+      "respuesta": "É totalmente viável tanto iniciar projetos do zero quanto atuar em sistemas já existentes. Realizam-se auditorias de código, otimização de consultas a bancos de dados, refatoração de código legado e modernização de arquiteturas para APIs desacopladas."
     },
     "q7": {
-      "pregunta": "O que acontece após a entrega? Você oferece garantia ou suporte?",
-      "respuesta": "Todos os projetos contam com um período de garantia pós-lançamento (de 15 a 30 dias) para resolver qualquer ajuste sem custo adicional. Além disso, ofereço planos mensais de suporte e evolução contínua para acompanhar o crescimento da sua empresa."
+      "pregunta": "Qual é a cobertura de garantia e suporte técnico após a entrega?",
+      "respuesta": "Cada entrega contempla um período de garantia técnica pós-lançamento (de 15 a 30 dias) para solucionar qualquer ajuste sem custos adicionais. Além disso, disponibilizam-se planos de suporte contínuo e manutenção evolutiva para acompanhar o crescimento do sistema."
     },
     "q8": {
-      "pregunta": "O código-fonte e os acessos ficam sob minha posse?",
-      "respuesta": "100% da propriedade intelectual, repositórios de código (GitHub/GitLab), acessos aos servidores e credenciais pertencem exclusivamente a você ou à sua empresa desde a conclusão da entrega."
+      "pregunta": "Quem retém a propriedade intelectual e os acessos ao código-fonte?",
+      "respuesta": "100% da propriedade intelectual, o código-fonte (repositórios no GitHub/GitLab), as licenças e as credenciais de acesso a servidores e serviços em nuvem pertencem exclusivamente ao cliente após a entrega formal."
     },
     "q9": {
-      "pregunta": "Quais modalidades de contratação você oferece?",
-      "respuesta": "Ofereço colaboração por escopo fechado (com cronograma, marcos e entregáveis definidos desde o início) e também por alocação de horas ou sprints para evolução contínua e consultoria técnica de arquitetura."
+      "pregunta": "Quais são as modalidades de contratação disponíveis?",
+      "respuesta": "Contemplam-se contratações sob a modalidade de escopo fechado (com cronograma, marcos e entregáveis definidos) ou por alocação de horas e sprints para desenvolvimento contínuo e consultoria técnica de arquitetura."
     },
     "q10": {
-      "pregunta": "Como são coordenados os pagamentos e a emissão de notas fiscais?",
-      "respuesta": "Trabalho com marcos de pagamento transparentes (normalmente 50% de entrada e 50% contra entrega aprovada, ou por sprint quinzenal). Emito nota fiscal e aceito transferências bancárias locais e internacionais para clientes do exterior."
+      "pregunta": "Como são coordenadas as condições de pagamento e a emissão de notas fiscais?",
+      "respuesta": "Os acordos são estruturados por marcos de pagamento transparentes (normalmente 50% de entrada e 50% contra entrega final aprovada, ou por sprint quinzenal). Emite-se nota fiscal e aceitam-se transferências bancárias locais e internacionais."
     }
   },
   "cta": {

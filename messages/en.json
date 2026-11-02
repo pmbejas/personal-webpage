@@ -261,47 +261,47 @@
   },
   "faq": {
     "etiqueta": "Frequently Asked Questions",
-    "titulo": "Direct and Transparent Answers",
-    "descripcion": "Everything you need to know before kicking off our next development engagement.",
+    "titulo": "Frequently Asked Questions & Key Aspects",
+    "descripcion": "Key information and answers to the most common inquiries regarding software development and engineering services.",
     "q1": {
-      "pregunta": "What technologies do you use for Full Stack development?",
-      "respuesta": "I specialize in the Microsoft .NET ecosystem (C#, ASP.NET Core Web API, EF Core, Dapper) for robust, high-performance backend architectures, paired with Next.js 15, TypeScript, and Tailwind CSS on the frontend for modern, lightning-fast, SEO-optimized user interfaces."
+      "pregunta": "What are the primary technologies used for Full Stack development?",
+      "respuesta": "Development is built upon the Microsoft .NET ecosystem (.NET 9, C#, ASP.NET Core Web API, EF Core, Dapper) for robust, high-concurrency backend architectures, complemented by Next.js 15, TypeScript, and Tailwind CSS on the frontend for modern, fluid, and SEO-optimized web interfaces."
     },
     "q2": {
-      "pregunta": "What does the workflow and communication look like during the project?",
-      "respuesta": "I operate under agile methodologies with well-defined sprints. We maintain regular progress meetings, functional demos in staging environments, and direct access to a code repository or board so you have total visibility at every stage."
+      "pregunta": "How is the project workflow and communication structured?",
+      "respuesta": "Projects are managed using agile methodologies with planned sprints. Regular progress updates, staging environment demos, and direct access to management boards and source repositories are established to ensure full operational transparency."
     },
     "q3": {
-      "pregunta": "How long does it typically take to develop an application or system?",
-      "respuesta": "It depends on complexity and scope. A modern website or optimized landing page is typically delivered in 1 to 2 weeks, while an MVP or custom enterprise management system (.NET + Next.js) is usually structured in bi-weekly sprints over 4 to 10 weeks with continuous delivery."
+      "pregunta": "What are the estimated delivery timelines for an application or system?",
+      "respuesta": "Timelines vary depending on technical scope and complexity. A modern website or institutional landing page is typically completed in 1 to 2 weeks, whereas an enterprise management platform or custom MVP (.NET + Next.js) is structured in bi-weekly sprints over 4 to 10 weeks with continuous deliverables."
     },
     "q4": {
-      "pregunta": "Does the delivered software adhere to best practices and automated testing?",
-      "respuesta": "Absolutely. All code follows SOLID principles, Clean Architecture, and strict separation of concerns (Repository, Service, Controller). I include tests for critical business logic and clear technical documentation to ensure effortless maintainability."
+      "pregunta": "How are code quality, architecture, and engineering best practices ensured?",
+      "respuesta": "All software engineering adheres strictly to SOLID principles, Clean Architecture, and clear layer separation (Repository, Service, Controller). Automated testing is implemented across critical flows alongside thorough technical documentation to guarantee long-term stability and maintainability."
     },
     "q5": {
-      "pregunta": "Do you handle server setup, domain configuration, and production deployment?",
-      "respuesta": "Yes, I deliver turnkey solutions. I configure the entire infrastructure: domain linking, SSL certificates (HTTPS), production databases (PostgreSQL/SQL Server), and automated CI/CD cloud deployment pipelines (Vercel, Azure, VPS, or Docker containers)."
+      "pregunta": "Are server configuration, domain setup, and cloud deployments included?",
+      "respuesta": "Yes, solutions are delivered fully operational and turnkey. The scope encompasses complete infrastructure: custom domain mapping, SSL certificates (HTTPS), production database provisioning (PostgreSQL/SQL Server), and automated cloud CI/CD pipelines (Vercel, Azure, VPS, or Docker)."
     },
     "q6": {
-      "pregunta": "Do you work on existing legacy systems or only greenfield projects?",
-      "respuesta": "I can both build new projects from scratch and integrate with existing systems. I conduct code audits, database query optimizations, legacy code refactoring, and modernize monoliths into modern REST APIs."
+      "pregunta": "Is it possible to intervene in existing systems or modernize legacy codebases?",
+      "respuesta": "It is entirely feasible to either start greenfield projects or integrate into existing systems. Services include codebase audits, database query optimization, legacy refactoring, and migrating monoliths toward modern decoupled APIs."
     },
     "q7": {
-      "pregunta": "What happens after delivery? Do you provide warranty or ongoing support?",
-      "respuesta": "Every project includes a post-launch warranty period (15 to 30 days) to address any adjustments or fixes at zero extra cost. Additionally, I provide monthly retainer maintenance plans and ongoing feature development to support your business as it scales."
+      "pregunta": "What warranty and post-launch technical support is provided?",
+      "respuesta": "Every project includes a post-launch technical warranty period (15 to 30 days) to address adjustments at no additional charge. Ongoing feature evolution and proactive maintenance retainers are also available to support system growth."
     },
     "q8": {
-      "pregunta": "Will I own full rights to the source code and infrastructure credentials?",
-      "respuesta": "100% of the intellectual property, source code repositories (GitHub/GitLab), server credentials, and deployment environments belong exclusively to you or your company upon completion."
+      "pregunta": "Who retains intellectual property rights and repository access?",
+      "respuesta": "100% of the intellectual property, source code repositories (GitHub/GitLab), software licenses, and server/cloud credentials belong exclusively to the client upon formal project delivery."
     },
     "q9": {
-      "pregunta": "What hiring and collaboration models do you offer?",
-      "respuesta": "I offer both fixed-price projects (with clearly defined scope, deliverables, and milestones from day one) and hourly or sprint-based contracts for ongoing development and high-level architectural consulting."
+      "pregunta": "What engagement and contracting models are available?",
+      "respuesta": "Engagements are available as fixed-scope projects (with defined deliverables, milestones, and timelines) or via time-and-materials / sprint allocations for continuous development and technical architecture consulting."
     },
     "q10": {
-      "pregunta": "How are invoicing and payments coordinated?",
-      "respuesta": "I operate with transparent payment milestones (typically 50% upfront and 50% upon approved delivery, or per bi-weekly sprint). I provide tax invoices and accept local bank transfers as well as international payment methods for global clients."
+      "pregunta": "How are payment terms and invoicing structured?",
+      "respuesta": "Agreements are coordinated through clear, transparent payment milestones (typically 50% upfront and 50% upon approved delivery, or per bi-weekly sprint). Tax invoices are issued, and local as well as international bank transfers are supported."
     }
   },
   "cta": {
