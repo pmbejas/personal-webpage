@@ -198,6 +198,8 @@ function Actualizar-ArchivosVersion {
         [string]$NuevaVersion
     )
 
+    $utf8SinBom = New-Object System.Text.UTF8Encoding($false)
+
     # 1. Actualizar Frontend/src/data/datosVersion.ts
     $rutasDatosVersion = @(
         (Join-Path $RutaRepo "src\data\datosVersion.ts"),
@@ -214,7 +216,7 @@ function Actualizar-ArchivosVersion {
  */
 export const VERSION_SITIO = "$NuevaVersion";
 "@
-                Set-Content -Path $rutaTs -Value $contenidoNuevo -Encoding UTF8
+                [System.IO.File]::WriteAllText($rutaTs, $contenidoNuevo, $utf8SinBom)
                 Write-Host "  -> Archivo datosVersion.ts actualizado a v$NuevaVersion" -ForegroundColor Green
             } catch {
                 Write-Host "  [!] No se pudo actualizar $rutaTs" -ForegroundColor Yellow
@@ -222,7 +224,7 @@ export const VERSION_SITIO = "$NuevaVersion";
         }
     }
 
-    # 2. Actualizar Frontend/package.json
+    # 2. Actualizar Frontend/package.json (siempre sin marca de orden de bytes / BOM para compatibilidad con Node.js y Webpack)
     $rutasPackageJson = @(
         (Join-Path $RutaRepo "package.json"),
         (Join-Path $PSScriptRoot "Frontend\package.json")
@@ -231,10 +233,10 @@ export const VERSION_SITIO = "$NuevaVersion";
     foreach ($rutaJson in $rutasPackageJson) {
         if (Test-Path $rutaJson) {
             try {
-                $textoJson = Get-Content $rutaJson -Raw
+                $textoJson = [System.IO.File]::ReadAllText($rutaJson)
                 $reemplazo = [regex]::Replace($textoJson, '"version":\s*"[^"]+"', ('"version": "' + $NuevaVersion + '"'))
-                Set-Content -Path $rutaJson -Value $reemplazo -Encoding UTF8
-                Write-Host "  -> Archivo package.json actualizado a version $NuevaVersion" -ForegroundColor Green
+                [System.IO.File]::WriteAllText($rutaJson, $reemplazo, $utf8SinBom)
+                Write-Host "  -> Archivo package.json actualizado a version $NuevaVersion (UTF-8 sin BOM)" -ForegroundColor Green
             } catch {
                 Write-Host "  [!] No se pudo actualizar $rutaJson" -ForegroundColor Yellow
             }
