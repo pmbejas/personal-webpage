@@ -179,7 +179,7 @@ export function MenuFlotanteDerecho() {
               className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
               aria-label={etiquetaTraducida}
             >
-              {/* Efecto Spotlight (#3): Haz de luz horizontal emitido desde el borde izquierdo hacia la derecha con lente y balanceo (Swing) */}
+              {/* Efecto Spotlight (#3): Responsivo (Desde arriba en móvil horizontal, desde la izquierda en desktop vertical) */}
               {estaActiva && (
                 <motion.div
                   layoutId="spotlight-dock-activo"
@@ -204,20 +204,41 @@ export function MenuFlotanteDerecho() {
                     }}
                     className="relative w-full h-full flex items-center justify-center"
                   >
-                    {/* 1. Lente o proyector emisor de luz en el borde izquierdo (Spotlight Fixture) */}
-                    <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[2.5px] h-4 sm:h-5 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.95),0_0_16px_4px_rgba(var(--tema-acento-claro-rgb),0.85)] z-20" />
+                    {/* A. VERSIÓN MÓVIL (< lg): Haz cenital emitido desde el borde SUPERIOR hacia abajo */}
+                    <div className="block lg:hidden absolute inset-0">
+                      {/* 1. Lente o proyector emisor en borde superior */}
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 sm:w-5 h-[2px] rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.95),0_0_16px_4px_rgba(var(--tema-acento-claro-rgb),0.85)] z-20" />
 
-                    {/* 2. Haz de luz cónico trapezoidal proyectado de izquierda a derecha */}
-                    <div
-                      className="absolute left-0 right-0 top-0 bottom-0 rounded-2xl bg-gradient-to-r from-[rgb(var(--tema-acento-claro-rgb)/0.55)] via-[rgb(var(--tema-acento-rgb)/0.25)] to-transparent"
-                      style={{
-                        clipPath: "polygon(0% 22%, 100% 0%, 100% 100%, 0% 78%)",
-                        filter: "drop-shadow(0 0 12px rgba(var(--tema-acento-rgb),0.4))",
-                      }}
-                    />
+                      {/* 2. Haz de luz cónico trapezoidal proyectado de arriba hacia abajo */}
+                      <div
+                        className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[rgb(var(--tema-acento-claro-rgb)/0.55)] via-[rgb(var(--tema-acento-rgb)/0.25)] to-transparent"
+                        style={{
+                          clipPath: "polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%)",
+                          filter: "drop-shadow(0 0 12px rgba(var(--tema-acento-rgb),0.4))",
+                        }}
+                      />
 
-                    {/* 3. Piscina de luz ambiental difusa que baña el ícono y se extiende a la derecha */}
-                    <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_35%_50%,rgba(var(--tema-acento-rgb),0.45)_0%,rgba(var(--tema-acento-rgb),0.15)_55%,transparent_80%)] blur-[2px]" />
+                      {/* 3. Piscina de luz ambiental difusa bañando el ícono desde arriba */}
+                      <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_50%_35%,rgba(var(--tema-acento-rgb),0.45)_0%,rgba(var(--tema-acento-rgb),0.15)_55%,transparent_80%)] blur-[2px]" />
+                    </div>
+
+                    {/* B. VERSIÓN ESCRITORIO (>= lg): Haz horizontal emitido desde el borde IZQUIERDO hacia la derecha */}
+                    <div className="hidden lg:block absolute inset-0">
+                      {/* 1. Lente o proyector emisor en borde izquierdo */}
+                      <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[2.5px] h-5 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.95),0_0_16px_4px_rgba(var(--tema-acento-claro-rgb),0.85)] z-20" />
+
+                      {/* 2. Haz de luz cónico trapezoidal proyectado de izquierda a derecha */}
+                      <div
+                        className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[rgb(var(--tema-acento-claro-rgb)/0.55)] via-[rgb(var(--tema-acento-rgb)/0.25)] to-transparent"
+                        style={{
+                          clipPath: "polygon(0% 22%, 100% 0%, 100% 100%, 0% 78%)",
+                          filter: "drop-shadow(0 0 12px rgba(var(--tema-acento-rgb),0.4))",
+                        }}
+                      />
+
+                      {/* 3. Piscina de luz ambiental difusa bañando el ícono hacia la derecha */}
+                      <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_35%_50%,rgba(var(--tema-acento-rgb),0.45)_0%,rgba(var(--tema-acento-rgb),0.15)_55%,transparent_80%)] blur-[2px]" />
+                    </div>
                   </motion.div>
                 </motion.div>
               )}
@@ -251,35 +272,70 @@ export function MenuFlotanteDerecho() {
             aria-label={traduccionesDock("abrirConfiguracion")}
             title={traduccionesDock("configuracion")}
           >
-            {/* Spotlight Fijo Dedicado (Desde la línea divisoria superior hacia abajo) */}
+            {/* Spotlight Fijo Dedicado (Responsivo: desde la derecha en móvil horizontal, desde arriba en desktop vertical) */}
             <div className="absolute inset-[-4px] pointer-events-none flex items-center justify-center overflow-visible z-0">
               <div className="relative w-full h-full flex flex-col items-center justify-center">
-                {/* 1. Lente o proyector emisor de luz en el borde superior (originado en la línea divisoria) */}
-                <div
-                  className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-all duration-300 z-20 ${
-                    panelConfiguracionAbierto
-                      ? "w-5 sm:w-6 h-[2.5px] shadow-[0_0_10px_3px_rgba(255,255,255,1),0_0_20px_5px_rgba(var(--tema-acento-claro-rgb),0.95)]"
-                      : "w-4 sm:w-5 h-[2px] opacity-80 shadow-[0_0_6px_1px_rgba(255,255,255,0.9),0_0_12px_2px_rgba(var(--tema-acento-claro-rgb),0.7)] group-hover:opacity-100 group-hover:w-5"
-                  }`}
-                />
 
-                {/* 2. Haz de luz cónico trapezoidal vertical fijo proyectado hacia abajo sobre el ícono */}
-                <div
-                  className={`absolute top-0 bottom-0 left-0 right-0 rounded-2xl bg-gradient-to-b from-[rgb(var(--tema-acento-claro-rgb)/0.50)] via-[rgb(var(--tema-acento-rgb)/0.22)] to-transparent transition-opacity duration-300 ${
-                    panelConfiguracionAbierto ? "opacity-100" : "opacity-70 group-hover:opacity-95"
-                  }`}
-                  style={{
-                    clipPath: "polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%)",
-                    filter: "drop-shadow(0 0 10px rgba(var(--tema-acento-rgb),0.35))",
-                  }}
-                />
+                {/* A. VERSIÓN MÓVIL (< lg): Haz lateral emitido desde el borde DERECHO hacia la izquierda */}
+                <div className="block lg:hidden absolute inset-0">
+                  {/* 1. Lente o proyector emisor en borde derecho */}
+                  <div
+                    className={`absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-all duration-300 z-20 ${
+                      panelConfiguracionAbierto
+                        ? "w-[2.5px] h-5 sm:h-6 shadow-[0_0_10px_3px_rgba(255,255,255,1),0_0_20px_5px_rgba(var(--tema-acento-claro-rgb),0.95)]"
+                        : "w-[2px] h-4 sm:h-5 opacity-80 shadow-[0_0_6px_1px_rgba(255,255,255,0.9),0_0_12px_2px_rgba(var(--tema-acento-claro-rgb),0.7)] group-hover:opacity-100 group-hover:h-5"
+                    }`}
+                  />
 
-                {/* 3. Piscina de luz ambiental difusa que baña el ícono */}
-                <div
-                  className={`absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_60%,rgba(var(--tema-acento-rgb),0.40)_0%,rgba(var(--tema-acento-rgb),0.12)_55%,transparent_80%)] blur-[2px] transition-opacity duration-300 ${
-                    panelConfiguracionAbierto ? "opacity-100" : "opacity-65 group-hover:opacity-90"
-                  }`}
-                />
+                  {/* 2. Haz de luz cónico trapezoidal proyectado de derecha a izquierda */}
+                  <div
+                    className={`absolute inset-0 rounded-2xl bg-gradient-to-l from-[rgb(var(--tema-acento-claro-rgb)/0.50)] via-[rgb(var(--tema-acento-rgb)/0.22)] to-transparent transition-opacity duration-300 ${
+                      panelConfiguracionAbierto ? "opacity-100" : "opacity-70 group-hover:opacity-95"
+                    }`}
+                    style={{
+                      clipPath: "polygon(100% 22%, 0% 0%, 0% 100%, 100% 78%)",
+                      filter: "drop-shadow(0 0 10px rgba(var(--tema-acento-rgb),0.35))",
+                    }}
+                  />
+
+                  {/* 3. Piscina de luz ambiental difusa bañando el ícono desde la derecha */}
+                  <div
+                    className={`absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_65%_50%,rgba(var(--tema-acento-rgb),0.40)_0%,rgba(var(--tema-acento-rgb),0.12)_55%,transparent_80%)] blur-[2px] transition-opacity duration-300 ${
+                      panelConfiguracionAbierto ? "opacity-100" : "opacity-65 group-hover:opacity-90"
+                    }`}
+                  />
+                </div>
+
+                {/* B. VERSIÓN ESCRITORIO (>= lg): Haz cenital emitido desde el borde SUPERIOR (línea divisoria) hacia abajo */}
+                <div className="hidden lg:block absolute inset-0">
+                  {/* 1. Lente o proyector emisor en borde superior */}
+                  <div
+                    className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-all duration-300 z-20 ${
+                      panelConfiguracionAbierto
+                        ? "w-5 sm:w-6 h-[2.5px] shadow-[0_0_10px_3px_rgba(255,255,255,1),0_0_20px_5px_rgba(var(--tema-acento-claro-rgb),0.95)]"
+                        : "w-4 sm:w-5 h-[2px] opacity-80 shadow-[0_0_6px_1px_rgba(255,255,255,0.9),0_0_12px_2px_rgba(var(--tema-acento-claro-rgb),0.7)] group-hover:opacity-100 group-hover:w-5"
+                    }`}
+                  />
+
+                  {/* 2. Haz de luz cónico trapezoidal vertical fijo proyectado hacia abajo sobre el ícono */}
+                  <div
+                    className={`absolute inset-0 rounded-2xl bg-gradient-to-b from-[rgb(var(--tema-acento-claro-rgb)/0.50)] via-[rgb(var(--tema-acento-rgb)/0.22)] to-transparent transition-opacity duration-300 ${
+                      panelConfiguracionAbierto ? "opacity-100" : "opacity-70 group-hover:opacity-95"
+                    }`}
+                    style={{
+                      clipPath: "polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%)",
+                      filter: "drop-shadow(0 0 10px rgba(var(--tema-acento-rgb),0.35))",
+                    }}
+                  />
+
+                  {/* 3. Piscina de luz ambiental difusa que baña el ícono */}
+                  <div
+                    className={`absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_60%,rgba(var(--tema-acento-rgb),0.40)_0%,rgba(var(--tema-acento-rgb),0.12)_55%,transparent_80%)] blur-[2px] transition-opacity duration-300 ${
+                      panelConfiguracionAbierto ? "opacity-100" : "opacity-65 group-hover:opacity-90"
+                    }`}
+                  />
+                </div>
+
               </div>
             </div>
 
