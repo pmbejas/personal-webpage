@@ -114,10 +114,10 @@ export default async function LayoutLocalizado({
       suppressHydrationWarning
     >
       <head>
-        {/* Aplica el tema seleccionado dinámicamente o azul por defecto */}
+        {/* Aplica el tema cromático y el efecto ambiental seleccionados síncronamente antes del primer render */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var temaGuardado=localStorage.getItem("tema");if(temaGuardado==="azul"||temaGuardado==="verde"||temaGuardado==="ambar"){document.documentElement.setAttribute("data-tema",temaGuardado)}else{document.documentElement.setAttribute("data-tema","azul")}}catch(error){}`,
+            __html: `try{var temaGuardado=localStorage.getItem("tema");if(temaGuardado==="azul"||temaGuardado==="verde"||temaGuardado==="ambar"||temaGuardado==="rosa"){document.documentElement.setAttribute("data-tema",temaGuardado)}else{document.documentElement.setAttribute("data-tema","azul")}var efectoGuardado=localStorage.getItem("efectoFondo");if(efectoGuardado){document.documentElement.setAttribute("data-efecto",efectoGuardado)}else{document.documentElement.setAttribute("data-efecto","humo-bokeh")}}catch(error){}`,
           }}
         />
       </head>

@@ -13,7 +13,7 @@ export function GrillaBento() {
   const traducciones = useTranslations("bento");
 
   return (
-    <section id="servicios" className="py-24 sm:py-32 relative bg-[#070606] overflow-hidden">
+    <section id="servicios" className="py-24 sm:py-32 relative overflow-hidden">
       {/* Luz ambiental azul en el centro */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-blue-600/15 via-sky-500/5 to-transparent blur-[140px] pointer-events-none" />
 

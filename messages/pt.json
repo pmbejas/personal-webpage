@@ -324,12 +324,22 @@
     "preferencias": "Preferências",
     "idioma": "Idioma",
     "colorAcento": "Cor de Destaque",
+    "efectoFondo": "Efeito Ambiental",
     "volverInicio": "Voltar ao início",
     "volverArriba": "Voltar ao topo",
     "colores": {
       "azul": "Azul Elétrico",
       "verde": "Verde Esmeralda",
-      "ambar": "Amarelo Âmbar"
+      "ambar": "Amarelo Âmbar",
+      "rosa": "Rosa Neon"
+    },
+    "efectos": {
+      "sinFondo": "Sem Efeito (Limpo)",
+      "humoBokeh": "Fumaça de Fios & Bokeh",
+      "auroraSeda": "Aurora Boreal",
+      "rayosCenitales": "Bokeh & Feixes de Luz",
+      "reticulaDatos": "Retícula Cyber-Grid",
+      "constelacionBruma": "Nebulosa Reativa"
     }
   }
 }

@@ -324,12 +324,22 @@
     "preferencias": "Preferences",
     "idioma": "Language",
     "colorAcento": "Accent Color",
+    "efectoFondo": "Ambient Effect",
     "volverInicio": "Back to top",
     "volverArriba": "Scroll to top",
     "colores": {
       "azul": "Electric Blue",
       "verde": "Emerald Green",
-      "ambar": "Amber Gold"
+      "ambar": "Amber Gold",
+      "rosa": "Neon Pink"
+    },
+    "efectos": {
+      "sinFondo": "No Effect (Clean Dark)",
+      "humoBokeh": "Fine Smoke & Bokeh",
+      "auroraSeda": "Aurora Borealis",
+      "rayosCenitales": "Bokeh & Light Beams",
+      "reticulaDatos": "Cyber-Grid & Pulses",
+      "constelacionBruma": "Reactive Nebula"
     }
   }
 }

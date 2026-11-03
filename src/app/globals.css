@@ -38,6 +38,21 @@
   --tema-texto-sobre: #ffffff;
 }
 
+/* Rosa Neón / Cyberpunk */
+[data-tema="rosa"] {
+  --tema-acento-claro-rgb: 244 114 182;
+  --tema-acento-rgb: 236 72 153;
+  --tema-acento-oscuro-rgb: 219 39 119;
+  --tema-acento-profundo-rgb: 190 24 93;
+  --tema-color-hex: #ec4899;
+  --tema-texto-sobre: #ffffff;
+}
+
+/* Salvaguarda visual para el modo sin efecto ambiental */
+html[data-efecto="sin-fondo"] .lienzo-efecto-ambiental {
+  display: none !important;
+}
+
 /* Clase de tipografía geométrica refinada para la Versión 2 */
 .fuente-titular,
 [data-v2="true"] h1,

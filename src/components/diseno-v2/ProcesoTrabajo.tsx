@@ -23,7 +23,7 @@ export function ProcesoTrabajo() {
   const traducciones = useTranslations("proceso");
 
   return (
-    <section id="proceso" className="py-24 sm:py-32 relative bg-[#070606] overflow-hidden">
+    <section id="proceso" className="py-24 sm:py-32 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Cabecera */}
         <div className="text-center max-w-2xl mx-auto mb-16">

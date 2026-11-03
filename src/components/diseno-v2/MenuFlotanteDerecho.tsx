@@ -16,7 +16,16 @@ import {
   Settings,
   ArrowUp,
   Check,
+  Sparkles,
+  Ban,
 } from "lucide-react";
+import {
+  EFECTO_FONDO_POR_DEFECTO,
+  guardarEfectoFondoSeleccionado,
+  LISTA_OPCIONES_EFECTO_FONDO,
+  obtenerEfectoFondoAlmacenado,
+  TipoEfectoFondo,
+} from "@/components/animacion/tiposEfectoFondo";
 
 interface ElementoSeccion {
   identificador: string;
@@ -40,11 +49,11 @@ const IDIOMAS = [
   { codigo: "pt", etiqueta: "PT" },
 ];
 
-type TipoTemaColor = "azul" | "verde" | "ambar";
+type TipoTemaColor = "azul" | "verde" | "ambar" | "rosa";
 
 interface OpcionColorTema {
   id: TipoTemaColor;
-  claveTraduccion: "colores.azul" | "colores.verde" | "colores.ambar";
+  claveTraduccion: "colores.azul" | "colores.verde" | "colores.ambar" | "colores.rosa";
   hex: string;
 }
 
@@ -52,6 +61,7 @@ const COLORES_TEMA: OpcionColorTema[] = [
   { id: "azul", claveTraduccion: "colores.azul", hex: "#38bdf8" },
   { id: "verde", claveTraduccion: "colores.verde", hex: "#10b981" },
   { id: "ambar", claveTraduccion: "colores.ambar", hex: "#f59e0b" },
+  { id: "rosa", claveTraduccion: "colores.rosa", hex: "#ec4899" },
 ];
 
 /**
@@ -66,6 +76,7 @@ export function MenuFlotanteDerecho() {
   const [mostrarBotonArriba, setMostrarBotonArriba] = useState<boolean>(false);
   const [panelConfiguracionAbierto, setPanelConfiguracionAbierto] = useState<boolean>(false);
   const [temaActivo, setTemaActivo] = useState<TipoTemaColor>("azul");
+  const [efectoFondoActivo, setEfectoFondoActivo] = useState<TipoEfectoFondo>(EFECTO_FONDO_POR_DEFECTO);
 
   const contenedorConfigRef = useRef<HTMLDivElement>(null);
   const idiomaActual = useLocale();
@@ -73,18 +84,19 @@ export function MenuFlotanteDerecho() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // 1. Sincroniza el tema activo leyendo la propiedad en el DOM o en localStorage
+  // 1. Sincroniza el tema y efecto ambiental leyendo la propiedad en el DOM o en localStorage
   useEffect(() => {
     try {
       const temaEnDocumento = document.documentElement.getAttribute("data-tema") as TipoTemaColor | null;
-      if (temaEnDocumento && ["azul", "verde", "ambar"].includes(temaEnDocumento)) {
+      if (temaEnDocumento && ["azul", "verde", "ambar", "rosa"].includes(temaEnDocumento)) {
         setTemaActivo(temaEnDocumento);
       } else {
         const temaAlmacenado = localStorage.getItem("tema") as TipoTemaColor | null;
-        if (temaAlmacenado && ["azul", "verde", "ambar"].includes(temaAlmacenado)) {
+        if (temaAlmacenado && ["azul", "verde", "ambar", "rosa"].includes(temaAlmacenado)) {
           setTemaActivo(temaAlmacenado);
         }
       }
+      setEfectoFondoActivo(obtenerEfectoFondoAlmacenado());
     } catch {
       // Ignorar si no hay acceso a almacenamiento local
     }
@@ -152,6 +164,12 @@ export function MenuFlotanteDerecho() {
     } catch {
       // Manejo seguro de cuota o modo incógnito
     }
+  };
+
+  // Cambiar efecto ambiental de fondo y propagar el evento
+  const cambiarEfectoAmbiental = (nuevoEfecto: TipoEfectoFondo) => {
+    setEfectoFondoActivo(nuevoEfecto);
+    guardarEfectoFondoSeleccionado(nuevoEfecto);
   };
 
   // Volver suavemente al inicio de la página
@@ -364,7 +382,7 @@ export function MenuFlotanteDerecho() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                 transition={{ duration: 0.18 }}
-                className="absolute top-full mt-3 right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 lg:top-auto lg:bottom-0 lg:right-full lg:mr-3 lg:left-auto lg:translate-x-0 w-56 p-3.5 rounded-2xl bg-[#0c0a09]/95 backdrop-blur-2xl border border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col gap-3.5 z-50 text-left"
+                className="absolute top-full mt-3 right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 lg:top-auto lg:bottom-0 lg:right-full lg:mr-3 lg:left-auto lg:translate-x-0 w-64 p-3.5 rounded-2xl bg-[#0c0a09]/95 backdrop-blur-2xl border border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col gap-3.5 z-50 text-left"
               >
                 {/* Cabecera del panel */}
                 <div className="flex items-center justify-between pb-2 border-b border-white/10">
@@ -430,6 +448,54 @@ export function MenuFlotanteDerecho() {
                             <span className="text-[11px]">{traduccionesDock(color.claveTraduccion)}</span>
                           </div>
                           {esActivo && (
+                            <Check className="w-3.5 h-3.5 text-[rgb(var(--tema-acento-claro-rgb))]" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Selección de Efecto Ambiental */}
+                <div className="pt-2 border-t border-white/10">
+                  <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block mb-1.5">
+                    {traduccionesDock("efectoFondo")}
+                  </span>
+                  <div className="flex flex-col gap-1">
+                    {LISTA_OPCIONES_EFECTO_FONDO.map((efecto) => {
+                      const esEfectoActivo = efectoFondoActivo === efecto.identificador;
+                      return (
+                        <button
+                          key={efecto.identificador}
+                          type="button"
+                          onClick={() => cambiarEfectoAmbiental(efecto.identificador)}
+                          className={`flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-sans transition-all border ${
+                            esEfectoActivo
+                              ? "bg-white/10 border-[rgb(var(--tema-acento-rgb)/0.5)] text-white font-medium"
+                              : "border-transparent text-neutral-400 hover:text-white hover:bg-white/5"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            {efecto.identificador === "sin-fondo" ? (
+                              <Ban
+                                className={`w-3.5 h-3.5 flex-shrink-0 ${
+                                  esEfectoActivo
+                                    ? "text-[rgb(var(--tema-acento-claro-rgb))]"
+                                    : "text-neutral-500"
+                                }`}
+                              />
+                            ) : (
+                              <Sparkles
+                                className={`w-3.5 h-3.5 flex-shrink-0 ${
+                                  esEfectoActivo
+                                    ? "text-[rgb(var(--tema-acento-claro-rgb))]"
+                                    : "text-neutral-500"
+                                }`}
+                              />
+                            )}
+                            <span className="text-[11px]">{traduccionesDock(efecto.claveTraduccion)}</span>
+                          </div>
+                          {esEfectoActivo && (
                             <Check className="w-3.5 h-3.5 text-[rgb(var(--tema-acento-claro-rgb))]" />
                           )}
                         </button>

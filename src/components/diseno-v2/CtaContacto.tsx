@@ -35,7 +35,7 @@ export function CtaContacto() {
   };
 
   return (
-    <section id="contacto" className="relative py-24 sm:py-32 bg-[#070606] overflow-hidden">
+    <section id="contacto" className="relative py-24 sm:py-32 overflow-hidden">
       {/* Resplandor de horizonte curvado inferior en azul eléctrico */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] rounded-[100%] bg-gradient-to-b from-blue-600/15 via-sky-500/5 to-transparent blur-3xl pointer-events-none" />
 

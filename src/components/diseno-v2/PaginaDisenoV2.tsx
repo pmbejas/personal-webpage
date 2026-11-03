@@ -6,6 +6,7 @@ import { PreloaderCinematico } from "./PreloaderCinematico";
 import { TarjetaLateralFija } from "./TarjetaLateralFija";
 import { MenuFlotanteDerecho } from "./MenuFlotanteDerecho";
 import { CuerpoContenidoV2 } from "./CuerpoContenidoV2";
+import { FondoHumoSutil } from "@/components/animacion/FondoHumoSutil";
 
 /**
  * Contenedor Maestro de la Versión 2 Oficial.
@@ -25,12 +26,15 @@ export function PaginaDisenoV2() {
         <PreloaderCinematico alFinalizar={() => setCargando(false)} />
       )}
 
-      {/* 2. Disposición espacial Split-Screen */}
+      {/* 2. Fondo Ambiental de Humo Sutil (Estilo Vapor / Cigarrillo) */}
+      <FondoHumoSutil />
+
+      {/* 3. Disposición espacial Split-Screen */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: cargando ? 0 : 1 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="relative max-w-[1700px] mx-auto p-3 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-8 lg:gap-10 xl:gap-14"
+        className="relative z-10 max-w-[1700px] mx-auto p-3 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-8 lg:gap-10 xl:gap-14"
       >
         {/* Tarjeta Lateral Izquierda Fija / Sticky */}
         <TarjetaLateralFija />
