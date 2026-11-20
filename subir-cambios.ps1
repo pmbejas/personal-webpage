@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Script interactivo de PowerShell para control de versiones y publicación en GitHub.
 .DESCRIPTION
@@ -36,21 +36,31 @@ function Validar-GitInstalado {
 }
 
 function Obtener-RutaRepositorio {
-    # 1. Comprobar si existe la subcarpeta Frontend con .git (estructura oficial del proyecto)
+    # 1. Comprobar si existe la subcarpeta WebSite con .git (estructura oficial del proyecto)
+    $rutaWebSiteGit = Join-Path $PSScriptRoot "WebSite\.git"
+    if (Test-Path $rutaWebSiteGit) {
+        return (Join-Path $PSScriptRoot "WebSite")
+    }
+
+    # 2. Comprobar si existe la subcarpeta Frontend con .git (compatibilidad previa)
     $rutaFrontendGit = Join-Path $PSScriptRoot "Frontend\.git"
     if (Test-Path $rutaFrontendGit) {
         return (Join-Path $PSScriptRoot "Frontend")
     }
 
-    # 2. Comprobar si la carpeta donde reside el script contiene .git
+    # 3. Comprobar si la carpeta donde reside el script contiene .git
     if (Test-Path (Join-Path $PSScriptRoot ".git")) {
         return $PSScriptRoot
     }
 
-    # 3. Comprobar la ubicacion actual de ejecucion
+    # 4. Comprobar la ubicacion actual de ejecucion
     $ubicacionActual = (Get-Location).Path
     if (Test-Path (Join-Path $ubicacionActual ".git")) {
         return $ubicacionActual
+    }
+
+    if (Test-Path (Join-Path $PSScriptRoot "WebSite")) {
+        return (Join-Path $PSScriptRoot "WebSite")
     }
 
     return (Join-Path $PSScriptRoot "Frontend")
@@ -62,6 +72,7 @@ function Obtener-VersionActual {
     # 1. Intentar leer desde datosVersion.ts
     $rutasDatosVersion = @(
         (Join-Path $RutaRepo "src\data\datosVersion.ts"),
+        (Join-Path $PSScriptRoot "WebSite\src\data\datosVersion.ts"),
         (Join-Path $PSScriptRoot "Frontend\src\data\datosVersion.ts"),
         (Join-Path $PSScriptRoot "src\data\datosVersion.ts")
     )
@@ -82,6 +93,7 @@ function Obtener-VersionActual {
     # 2. Intentar leer desde package.json
     $rutasPackageJson = @(
         (Join-Path $RutaRepo "package.json"),
+        (Join-Path $PSScriptRoot "WebSite\package.json"),
         (Join-Path $PSScriptRoot "Frontend\package.json"),
         (Join-Path $PSScriptRoot "package.json")
     )
@@ -200,9 +212,10 @@ function Actualizar-ArchivosVersion {
 
     $utf8SinBom = New-Object System.Text.UTF8Encoding($false)
 
-    # 1. Actualizar Frontend/src/data/datosVersion.ts
+    # 1. Actualizar datosVersion.ts
     $rutasDatosVersion = @(
         (Join-Path $RutaRepo "src\data\datosVersion.ts"),
+        (Join-Path $PSScriptRoot "WebSite\src\data\datosVersion.ts"),
         (Join-Path $PSScriptRoot "Frontend\src\data\datosVersion.ts")
     )
 
@@ -224,9 +237,10 @@ export const VERSION_SITIO = "$NuevaVersion";
         }
     }
 
-    # 2. Actualizar Frontend/package.json (siempre sin marca de orden de bytes / BOM para compatibilidad con Node.js y Webpack)
+    # 2. Actualizar package.json (siempre sin marca de orden de bytes / BOM para compatibilidad con Node.js y Webpack)
     $rutasPackageJson = @(
         (Join-Path $RutaRepo "package.json"),
+        (Join-Path $PSScriptRoot "WebSite\package.json"),
         (Join-Path $PSScriptRoot "Frontend\package.json")
     )
 
