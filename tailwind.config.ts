@@ -27,6 +27,14 @@ const configuracionTailwind: Config = {
           400: "rgb(var(--tema-acento-claro-rgb) / <alpha-value>)",
           500: "rgb(var(--tema-acento-rgb) / <alpha-value>)",
         },
+        /* Token semántico de alto contraste para listones promocionales (Ribbons),
+           insignias de descuento y precios destacados, adaptado al tema activo */
+        realce: {
+          300: "rgb(var(--tema-realce-claro-rgb) / <alpha-value>)",
+          400: "rgb(var(--tema-realce-claro-rgb) / <alpha-value>)",
+          500: "rgb(var(--tema-realce-rgb) / <alpha-value>)",
+          600: "rgb(var(--tema-realce-oscuro-rgb) / <alpha-value>)",
+        },
         fondo: {
           oscuro: "#1c171b",
           tarjeta: "#0F172A",

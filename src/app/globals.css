@@ -16,6 +16,9 @@
   --tema-acento-profundo-rgb: 3 105 161;
   --tema-color-hex: #38bdf8;
   --tema-texto-sobre: #ffffff;
+  --tema-realce-claro-rgb: 251 191 36;
+  --tema-realce-rgb: 245 158 11;
+  --tema-realce-oscuro-rgb: 217 119 6;
 }
 
 /* Verde Esmeralda */
@@ -26,6 +29,9 @@
   --tema-acento-profundo-rgb: 4 120 87;
   --tema-color-hex: #10b981;
   --tema-texto-sobre: #ffffff;
+  --tema-realce-claro-rgb: 251 191 36;
+  --tema-realce-rgb: 245 158 11;
+  --tema-realce-oscuro-rgb: 217 119 6;
 }
 
 /* Ámbar / Amarillo Dorado (Versión 3) */
@@ -36,6 +42,9 @@
   --tema-acento-profundo-rgb: 180 83 9;
   --tema-color-hex: #f59e0b;
   --tema-texto-sobre: #ffffff;
+  --tema-realce-claro-rgb: 251 113 133;
+  --tema-realce-rgb: 244 63 94;
+  --tema-realce-oscuro-rgb: 225 29 72;
 }
 
 /* Rosa Neón / Cyberpunk */
@@ -46,6 +55,9 @@
   --tema-acento-profundo-rgb: 190 24 93;
   --tema-color-hex: #ec4899;
   --tema-texto-sobre: #ffffff;
+  --tema-realce-claro-rgb: 251 191 36;
+  --tema-realce-rgb: 245 158 11;
+  --tema-realce-oscuro-rgb: 217 119 6;
 }
 
 /* Salvaguarda visual para el modo sin efecto ambiental */
