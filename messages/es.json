@@ -26,7 +26,8 @@
     "tituloV2Pildora2": "arquitecturas",
     "tituloV2Parte2": "escalables",
     "descripcionV2": "Especializado en servicios backend en .NET 9 (C#) con Clean Architecture, interfaces reactivas en Next.js 15 y bases de datos relacionales en PostgreSQL.",
-    "rotarCubo": "Arrastra con el mouse para rotar el cubo libremente"
+    "rotarCubo": "Arrastra con el mouse para rotar el cubo libremente",
+    "cotizarEnUnMinuto": "Cotizá tu proyecto en 1 minuto"
   },
   "sobreMi": {
     "etiqueta": "SOBRE MÍ",
@@ -48,6 +49,10 @@
     "proyectos": {
       "titulo": "Proyectos | Pablo Bejas - Full Stack Developer",
       "descripcion": "Catálogo completo de proyectos desarrollados por Pablo Bejas: sistemas institucionales, aplicaciones web, software a medida y mapas interactivos."
+    },
+    "cotizador": {
+      "titulo": "Cotizador Online de Proyectos Web | Pablo Bejas",
+      "descripcion": "Calculá el presupuesto y tiempo de entrega de tu sitio web, landing page o aplicación SaaS a medida en tiempo real y descargá tu propuesta formal en PDF."
     }
   },
   "contacto": {
@@ -231,9 +236,11 @@
   "tarjetaLateral": {
     "disponible": "Disponible para Proyectos",
     "rol": "Full Stack & Software Architecture",
-    "bio": "Transformo necesidades complejas de negocio en arquitecturas de software robustas, seguras y de alto rendimiento en .NET 9 y Next.js 15.",
+    "bio": "Transformo necesidades complejas de negocio en arquitecturas de software robustas, seguras y de alto rendimiento en .NET 10 y Next.js 15.",
     "hablame": "Háblame",
     "cv": "CV",
+    "cotizar": "Cotizar",
+    "cotizarProyecto": "Cotizar proyecto online",
     "perfilGithub": "Perfil de GitHub",
     "perfilLinkedin": "Perfil de LinkedIn",
     "perfilInstagram": "Perfil de Instagram"
@@ -340,6 +347,52 @@
       "rayosCenitales": "Polvo Bokeh & Haces",
       "reticulaDatos": "Retícula Cyber-Grid",
       "constelacionBruma": "Nebulosa Reactiva"
-    }
+    },
+    "cotizador": "Cotizador"
+  },
+  "cotizador": {
+    "volverAlPortafolio": "Volver al portafolio",
+    "insigniaCabecera": "Cotizador Interactivo en Tiempo Real",
+    "tituloCabeceraParte1": "Configurá y cotizá tu",
+    "tituloCabeceraResaltado": "proyecto digital",
+    "descripcionCabecera": "Seleccioná el tipo de solución base, sumá las funcionalidades que tu negocio necesita y obtené al instante la inversión estimada, el plazo de entrega y tu presupuesto formal en PDF.",
+    "paso1Etiqueta": "PASO 01",
+    "paso1Titulo": "Elegí la solución base",
+    "paso1Descripcion": "Cada paquete incluye arquitectura moderna, diseño responsive, certificado SSL y garantía técnica.",
+    "paso2Etiqueta": "PASO 02",
+    "paso2Titulo": "Personalizá con módulos adicionales",
+    "paso2Descripcion": "Mostrando los módulos compatibles con la solución base seleccionada.",
+    "seleccionado": "Seleccionado",
+    "seleccionarPlan": "Elegir esta base",
+    "seccionesIncluidas": "secciones incluidas",
+    "diasHabiles": "días hábiles",
+    "diaHabil": "día hábil",
+    "ahorro": "Ahorrás",
+    "seccionesExtraTitulo": "¿Necesitás páginas o secciones adicionales?",
+    "seccionesExtraDetalle": "por sección extra",
+    "quitarSeccion": "Quitar sección adicional",
+    "agregarSeccion": "Agregar sección adicional",
+    "abonoMensualOpcional": "Mensual opcional",
+    "pagoUnico": "Pago único",
+    "compatibleConSeleccion": "Compatible",
+    "resumenTitulo": "Resumen de tu Presupuesto",
+    "resumenSubtitulo": "Cálculo transparente en tiempo real",
+    "conceptoBase": "Solución base",
+    "conceptoSeccionesExtra": "Secciones adicionales",
+    "conceptoAdicionales": "Módulos adicionales",
+    "sinAdicionales": "Sin módulos extra seleccionados",
+    "subtotalSinDescuento": "Subtotal",
+    "descuentoPromocional": "Descuento promocional",
+    "inversionTotalNeta": "Inversión Total Estimada",
+    "senaSugerida": "Seña de inicio sugerida (50%)",
+    "plazoEstimado": "Plazo estimado de entrega",
+    "garantiaValidez": "Validez de 7 días corridos · Incluye 2 rondas de revisiones",
+    "notaAbonoMensual": "Incluye servicio de mantenimiento mensual opcional de",
+    "botonFormalizarPdf": "Generar Presupuesto Formal & PDF",
+    "botonConsultarWhatsApp": "Enviar resumen por WhatsApp",
+    "proyectoAMedidaTitulo": "¿Buscás un desarrollo corporativo a medida?",
+    "proyectoAMedidaTexto": "Si tu proyecto requiere integraciones especiales o relevamiento técnico, agendemos una reunión.",
+    "verDetalleMovil": "Ver desglose",
+    "ocultarDetalleMovil": "Ocultar desglose"
   }
 }

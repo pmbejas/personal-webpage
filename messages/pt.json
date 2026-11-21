@@ -26,7 +26,8 @@
     "tituloV2Pildora2": "arquiteturas",
     "tituloV2Parte2": "escaláveis",
     "descripcionV2": "Especializado em serviços backend em .NET 9 (C#) com Clean Architecture, interfaces reativas em Next.js 15 e bancos de dados relacionais em PostgreSQL.",
-    "rotarCubo": "Arraste com o mouse para girar o cubo livremente"
+    "rotarCubo": "Arraste com o mouse para girar o cubo livremente",
+    "cotizarEnUnMinuto": "Orce seu projeto em 1 minuto"
   },
   "sobreMi": {
     "etiqueta": "SOBRE MIM",
@@ -48,6 +49,10 @@
     "proyectos": {
       "titulo": "Projetos | Pablo Bejas - Full Stack Developer",
       "descripcion": "Catálogo completo de projetos desenvolvidos por Pablo Bejas: sistemas institucionais, aplicações web, software sob medida e mapas interativos."
+    },
+    "cotizador": {
+      "titulo": "Orçador Online de Projetos Web | Pablo Bejas",
+      "descripcion": "Calcule o investimento estimado e o prazo de entrega do seu site corporativo, landing page ou aplicação SaaS sob medida em tempo real e baixe sua proposta formal em PDF."
     }
   },
   "contacto": {
@@ -231,9 +236,11 @@
   "tarjetaLateral": {
     "disponible": "Disponível para Projetos",
     "rol": "Full Stack & Software Architecture",
-    "bio": "Transformo necessidades complexas de negócios em arquiteturas de software robustas, seguras e de alto desempenho em .NET 9 e Next.js 15.",
+    "bio": "Transformo necessidades complexas de negócios em arquiteturas de software robustas, seguras e de alto desempenho em .NET 10 e Next.js 15.",
     "hablame": "Fale comigo",
     "cv": "CV",
+    "cotizar": "Orçar",
+    "cotizarProyecto": "Orçar projeto online",
     "perfilGithub": "Perfil no GitHub",
     "perfilLinkedin": "Perfil no LinkedIn",
     "perfilInstagram": "Perfil no Instagram"
@@ -340,6 +347,52 @@
       "rayosCenitales": "Bokeh & Feixes de Luz",
       "reticulaDatos": "Retícula Cyber-Grid",
       "constelacionBruma": "Nebulosa Reativa"
-    }
+    },
+    "cotizador": "Orçador"
+  },
+  "cotizador": {
+    "volverAlPortafolio": "Voltar ao portfólio",
+    "insigniaCabecera": "Orçador Interativo em Tempo Real",
+    "tituloCabeceraParte1": "Configure e orce seu",
+    "tituloCabeceraResaltado": "projeto digital",
+    "descripcionCabecera": "Selecione a solução base, adicione os módulos que sua empresa precisa e obtenha instantaneamente o investimento estimado, o prazo de entrega e sua proposta formal em PDF.",
+    "paso1Etiqueta": "PASSO 01",
+    "paso1Titulo": "Escolha a solução base",
+    "paso1Descripcion": "Cada pacote inclui arquitetura moderna, design responsivo, certificado SSL e garantia técnica.",
+    "paso2Etiqueta": "PASSO 02",
+    "paso2Titulo": "Personalize com módulos adicionais",
+    "paso2Descripcion": "Exibindo os módulos compatíveis com a solução base selecionada.",
+    "seleccionado": "Selecionado",
+    "seleccionarPlan": "Escolher esta base",
+    "seccionesIncluidas": "seções incluídas",
+    "diasHabiles": "dias úteis",
+    "diaHabil": "dia útil",
+    "ahorro": "Você economiza",
+    "seccionesExtraTitulo": "Precisa de páginas ou seções adicionais?",
+    "seccionesExtraDetalle": "por seção extra",
+    "quitarSeccion": "Remover seção adicional",
+    "agregarSeccion": "Adicionar seção adicional",
+    "abonoMensualOpcional": "Mensal opcional",
+    "pagoUnico": "Pagamento único",
+    "compatibleConSeleccion": "Compatível",
+    "resumenTitulo": "Resumo do seu Orçamento",
+    "resumenSubtitulo": "Cálculo transparente em tempo real",
+    "conceptoBase": "Solução base",
+    "conceptoSeccionesExtra": "Seções adicionais",
+    "conceptoAdicionales": "Módulos adicionais",
+    "sinAdicionales": "Nenhum módulo extra selecionado",
+    "subtotalSinDescuento": "Subtotal",
+    "descuentoPromocional": "Desconto promocional",
+    "inversionTotalNeta": "Investimento Total Estimado",
+    "senaSugerida": "Sinal de início sugerido (50%)",
+    "plazoEstimado": "Prazo estimado de entrega",
+    "garantiaValidez": "Validade de 7 dias corridos · Inclui 2 rodadas de revisão",
+    "notaAbonoMensual": "Inclui serviço de manutenção mensal opcional de",
+    "botonFormalizarPdf": "Gerar Orçamento Formal & PDF",
+    "botonConsultarWhatsApp": "Enviar resumo pelo WhatsApp",
+    "proyectoAMedidaTitulo": "Procura um desenvolvimento corporativo sob medida?",
+    "proyectoAMedidaTexto": "Se seu projeto requer integrações especiais ou levantamento técnico, vamos agendar uma reunião.",
+    "verDetalleMovil": "Ver detalhamento",
+    "ocultarDetalleMovil": "Ocultar detalhamento"
   }
 }

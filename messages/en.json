@@ -26,7 +26,8 @@
     "tituloV2Pildora2": "scalable",
     "tituloV2Parte2": "architectures",
     "descripcionV2": "Specialized in backend services with .NET 9 (C#) and Clean Architecture, reactive frontend interfaces in Next.js 15, and relational databases in PostgreSQL.",
-    "rotarCubo": "Drag with your mouse to rotate the cube freely"
+    "rotarCubo": "Drag with your mouse to rotate the cube freely",
+    "cotizarEnUnMinuto": "Quote your project in 1 minute"
   },
   "sobreMi": {
     "etiqueta": "ABOUT ME",
@@ -48,6 +49,10 @@
     "proyectos": {
       "titulo": "Projects | Pablo Bejas - Full Stack Developer",
       "descripcion": "Complete portfolio of projects developed by Pablo Bejas: enterprise systems, modern web apps, custom software, and interactive maps."
+    },
+    "cotizador": {
+      "titulo": "Online Web Project Quote Builder | Pablo Bejas",
+      "descripcion": "Calculate the estimated investment and delivery timeline for your corporate website, landing page, or custom SaaS application in real time and download your formal PDF quote."
     }
   },
   "contacto": {
@@ -231,9 +236,11 @@
   "tarjetaLateral": {
     "disponible": "Available for Projects",
     "rol": "Full Stack & Software Architecture",
-    "bio": "I transform complex business requirements into robust, secure, and high-performance software architectures with .NET 9 and Next.js 15.",
+    "bio": "I transform complex business requirements into robust, secure, and high-performance software architectures with .NET 10 and Next.js 15.",
     "hablame": "Let's talk",
     "cv": "CV",
+    "cotizar": "Quote",
+    "cotizarProyecto": "Quote your project online",
     "perfilGithub": "GitHub Profile",
     "perfilLinkedin": "LinkedIn Profile",
     "perfilInstagram": "Instagram Profile"
@@ -340,6 +347,52 @@
       "rayosCenitales": "Bokeh & Light Beams",
       "reticulaDatos": "Cyber-Grid & Pulses",
       "constelacionBruma": "Reactive Nebula"
-    }
+    },
+    "cotizador": "Quote Builder"
+  },
+  "cotizador": {
+    "volverAlPortafolio": "Back to portfolio",
+    "insigniaCabecera": "Real-Time Interactive Quote Builder",
+    "tituloCabeceraParte1": "Configure and quote your",
+    "tituloCabeceraResaltado": "digital project",
+    "descripcionCabecera": "Select your base solution, add the modules your business requires, and get instant pricing, estimated delivery timeline, and a formal PDF proposal.",
+    "paso1Etiqueta": "STEP 01",
+    "paso1Titulo": "Choose your base solution",
+    "paso1Descripcion": "Every package includes modern architecture, responsive design, SSL certificate, and technical warranty.",
+    "paso2Etiqueta": "STEP 02",
+    "paso2Titulo": "Customize with additional modules",
+    "paso2Descripcion": "Showing modules compatible with your selected base solution.",
+    "seleccionado": "Selected",
+    "seleccionarPlan": "Select this base",
+    "seccionesIncluidas": "sections included",
+    "diasHabiles": "business days",
+    "diaHabil": "business day",
+    "ahorro": "You save",
+    "seccionesExtraTitulo": "Need additional pages or sections?",
+    "seccionesExtraDetalle": "per extra section",
+    "quitarSeccion": "Remove extra section",
+    "agregarSeccion": "Add extra section",
+    "abonoMensualOpcional": "Optional monthly",
+    "pagoUnico": "One-time fee",
+    "compatibleConSeleccion": "Compatible",
+    "resumenTitulo": "Your Quote Summary",
+    "resumenSubtitulo": "Transparent real-time calculation",
+    "conceptoBase": "Base solution",
+    "conceptoSeccionesExtra": "Additional sections",
+    "conceptoAdicionales": "Additional modules",
+    "sinAdicionales": "No extra modules selected",
+    "subtotalSinDescuento": "Subtotal",
+    "descuentoPromocional": "Promotional discount",
+    "inversionTotalNeta": "Estimated Total Investment",
+    "senaSugerida": "Suggested upfront deposit (50%)",
+    "plazoEstimado": "Estimated delivery timeline",
+    "garantiaValidez": "Valid for 7 calendar days · Includes 2 revision rounds",
+    "notaAbonoMensual": "Includes optional monthly maintenance retainer of",
+    "botonFormalizarPdf": "Generate Formal Quote & PDF",
+    "botonConsultarWhatsApp": "Send summary via WhatsApp",
+    "proyectoAMedidaTitulo": "Looking for custom enterprise development?",
+    "proyectoAMedidaTexto": "If your project requires custom integrations or architectural discovery, let's schedule a meeting.",
+    "verDetalleMovil": "View breakdown",
+    "ocultarDetalleMovil": "Hide breakdown"
   }
 }
