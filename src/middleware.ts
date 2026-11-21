@@ -4,7 +4,7 @@ import { ruteo } from "./i18n/routing";
 export default createMiddleware(ruteo);
 
 export const config = {
-  // Matchear todas las rutas excepto archivos estáticos, api y favicons
-  matcher: ["/", "/(es|en|pt)/:path*", "/((?!_next|_vercel|.*\\..*).*)"],
+  // Matchear todas las rutas localizadas excluyendo api, archivos internos de Next/Vercel y activos estáticos
+  matcher: ["/", "/(es|en|pt)/:path*", "/((?!api|_next|_vercel|.*\\..*).*)"],
 };
 
