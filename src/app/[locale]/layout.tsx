@@ -6,6 +6,7 @@ import { getMessages, setRequestLocale, getTranslations } from "next-intl/server
 import { notFound } from "next/navigation";
 import { ruteo } from "@/i18n/routing";
 import { FondoAnimado } from "@/components/animacion/FondoAnimado";
+import { WarmUpBackend } from "@/components/sistema/WarmUpBackend";
 import "../globals.css";
 
 const inter = Inter({
@@ -122,6 +123,7 @@ export default async function LayoutLocalizado({
         />
       </head>
       <body className="bg-[#1c171b] text-slate-100 min-h-screen flex flex-col font-sans">
+        <WarmUpBackend />
         <NextIntlClientProvider locale={locale} messages={mensajes}>
           {/* Desactiva las animaciones cuando el usuario activa "reducir movimiento" en su sistema */}
           <MotionConfig reducedMotion="user">
