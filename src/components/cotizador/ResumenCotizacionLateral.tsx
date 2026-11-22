@@ -156,133 +156,142 @@ export function ResumenCotizacionLateral({
   );
 
   const renderizarContenidoResumen = (esVistaMovil: boolean) => (
-    <div className="relative rounded-3xl bg-[#0c0a09]/95 border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.85)] p-5 sm:p-6 overflow-hidden">
+    <div
+      className={`relative rounded-[32px] bg-[#0c0a09]/95 border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.85)] p-5 sm:p-6 overflow-hidden flex flex-col justify-between ${
+        esVistaMovil ? "" : "h-full"
+      }`}
+    >
       {/* Resplandor ambiental superior */}
       <div className="pointer-events-none absolute -top-24 -left-24 w-64 h-64 rounded-full bg-[rgb(var(--tema-acento-rgb)/0.14)] blur-3xl" />
 
-      {/* Cabecera del Resumen con Robot Isotipo a la izquierda */}
-      <div className="relative z-10 flex items-center justify-between gap-3 pb-3.5 border-b border-white/10">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="relative h-11 w-auto shrink-0 flex items-center justify-center">
-            <div
-              className="absolute inset-0 -m-1.5 rounded-full bg-[radial-gradient(circle_at_center,rgba(var(--tema-acento-rgb),0.4)_0%,transparent_75%)] blur-md pointer-events-none"
-              aria-hidden="true"
-            />
-            <IsotipoLogo className="h-full w-auto relative z-10" />
+      {/* Zona Superior: Cabecera + Desglose flexible */}
+      <div className="relative z-10 flex flex-col min-h-0 flex-1">
+        {/* Cabecera del Resumen con Robot Isotipo a la izquierda */}
+        <div className="flex items-center justify-between gap-3 pb-3.5 border-b border-white/10 shrink-0">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="relative h-11 w-auto shrink-0 flex items-center justify-center">
+              <div
+                className="absolute inset-0 -m-1.5 rounded-full bg-[radial-gradient(circle_at_center,rgba(var(--tema-acento-rgb),0.4)_0%,transparent_75%)] blur-md pointer-events-none"
+                aria-hidden="true"
+              />
+              <IsotipoLogo className="h-full w-auto relative z-10" />
+            </div>
+            <div className="min-w-0">
+              <h3 className="text-base sm:text-lg font-bold text-white leading-tight">
+                {traducciones("resumenTitulo")}
+              </h3>
+              <p className="text-[11px] text-neutral-400 font-mono mt-0.5 truncate">
+                {traducciones("resumenSubtitulo")}
+              </p>
+            </div>
           </div>
-          <div className="min-w-0">
-            <h3 className="text-base sm:text-lg font-bold text-white leading-tight">
-              {traducciones("resumenTitulo")}
-            </h3>
-            <p className="text-[11px] text-neutral-400 font-mono mt-0.5 truncate">
-              {traducciones("resumenSubtitulo")}
-            </p>
-          </div>
-        </div>
 
-        {esVistaMovil && (
-          <button
-            type="button"
-            onClick={() => setPanelMovilAbierto(false)}
-            aria-label={traducciones("ocultarDetalleMovil")}
-            className="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 hover:text-white transition-colors shrink-0"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        )}
-      </div>
-
-      {/* Desglose de Ítems */}
-      <div className="relative z-10 flex flex-col gap-3 mt-4 pb-4 border-b border-white/10">
-        {/* 1. Servicio Base */}
-        <div className="flex items-start justify-between gap-3 text-xs sm:text-sm">
-          <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block">
-              {traducciones("conceptoBase")}
-            </span>
-            <span className="font-semibold text-white">
-              {textosServicio.nombre}
-            </span>
-          </div>
-          <span className="font-mono font-semibold text-neutral-200 shrink-0">
-            {formatearMonedaArs(subtotalBase)}
-          </span>
-        </div>
-
-        {/* 2. Secciones Extra */}
-        {cantidadSeccionesExtra > 0 && (
-          <div className="flex items-center justify-between gap-3 text-xs pt-2 border-t border-white/5">
-            <span className="text-neutral-300">
-              {traducciones("conceptoSeccionesExtra")} (+
-              {cantidadSeccionesExtra})
-            </span>
-            <span className="font-mono font-semibold text-neutral-200 shrink-0">
-              +{formatearMonedaArs(subtotalSeccionesExtra)}
-            </span>
-          </div>
-        )}
-
-        {/* 3. Adicionales Seleccionados */}
-        <div className="pt-2 border-t border-white/5">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block mb-1.5">
-            {traducciones("conceptoAdicionales")} (
-            {adicionalesSeleccionados.length})
-          </span>
-
-          {adicionalesSeleccionados.length === 0 ? (
-            <span className="text-xs text-neutral-500 italic">
-              {traducciones("sinAdicionales")}
-            </span>
-          ) : (
-            <ul className="flex flex-col gap-1.5 max-h-36 overflow-y-auto pr-1">
-              {adicionalesSeleccionados.map((adicional) => {
-                const textoAdicional = localizarTextoCatalogo(
-                  idioma,
-                  adicional.clave,
-                  adicional.nombre,
-                  adicional.descripcionComercial
-                );
-                return (
-                  <li
-                    key={adicional.id}
-                    className="flex items-start justify-between gap-2 text-xs text-neutral-300"
-                  >
-                    <span className="leading-snug truncate">
-                      {textoAdicional.nombre}
-                    </span>
-                    <span className="font-mono text-neutral-200 shrink-0">
-                      +{formatearMonedaArs(adicional.precio)}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
+          {esVistaMovil && (
+            <button
+              type="button"
+              onClick={() => setPanelMovilAbierto(false)}
+              aria-label={traducciones("ocultarDetalleMovil")}
+              className="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 hover:text-white transition-colors shrink-0"
+            >
+              <X className="w-4 h-4" />
+            </button>
           )}
         </div>
 
-        {/* 4. Línea de Descuento Promocional en color de realce */}
-        {calculoPromocion.tienePromocion && (
-          <div className="mt-0.5 p-2.5 rounded-2xl bg-realce-500/12 border border-realce-500/35 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2 min-w-0">
-              <Sparkles className="w-3.5 h-3.5 text-realce-400 shrink-0" />
-              <div className="min-w-0">
-                <span className="text-xs font-bold text-realce-300 block truncate">
-                  {traducciones("descuentoPromocional")}
-                </span>
-                <span className="text-[10px] font-mono text-realce-400/90 block truncate">
-                  {promocionAplicada?.nombre}
+        {/* Desglose de Ítems */}
+        <div className="flex flex-col gap-3 mt-4 pb-4 border-b border-white/10 min-h-0 flex-1 overflow-y-auto pr-1">
+          {/* 1. Servicio Base */}
+          <div className="flex items-start justify-between gap-3 text-xs sm:text-sm shrink-0">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block">
+                {traducciones("conceptoBase")}
+              </span>
+              <span className="font-semibold text-white">
+                {textosServicio.nombre}
+              </span>
+            </div>
+            <span className="font-mono font-semibold text-neutral-200 shrink-0">
+              {formatearMonedaArs(subtotalBase)}
+            </span>
+          </div>
+
+          {/* 2. Secciones Extra */}
+          {cantidadSeccionesExtra > 0 && (
+            <div className="flex items-center justify-between gap-3 text-xs pt-2 border-t border-white/5 shrink-0">
+              <span className="text-neutral-300">
+                {traducciones("conceptoSeccionesExtra")} (+
+                {cantidadSeccionesExtra})
+              </span>
+              <span className="font-mono font-semibold text-neutral-200 shrink-0">
+                +{formatearMonedaArs(subtotalSeccionesExtra)}
+              </span>
+            </div>
+          )}
+
+          {/* 3. Adicionales Seleccionados */}
+          <div className="pt-2 border-t border-white/5">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block mb-1.5">
+              {traducciones("conceptoAdicionales")} (
+              {adicionalesSeleccionados.length})
+            </span>
+
+            {adicionalesSeleccionados.length === 0 ? (
+              <span className="text-xs text-neutral-500 italic">
+                {traducciones("sinAdicionales")}
+              </span>
+            ) : (
+              <ul className="flex flex-col gap-1.5">
+                {adicionalesSeleccionados.map((adicional) => {
+                  const textoAdicional = localizarTextoCatalogo(
+                    idioma,
+                    adicional.clave,
+                    adicional.nombre,
+                    adicional.descripcionComercial
+                  );
+                  return (
+                    <li
+                      key={adicional.id}
+                      className="flex items-start justify-between gap-2 text-xs text-neutral-300"
+                    >
+                      <span className="leading-snug truncate">
+                        {textoAdicional.nombre}
+                      </span>
+                      <span className="font-mono text-neutral-200 shrink-0">
+                        +{formatearMonedaArs(adicional.precio)}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+
+          {/* 4. Línea de Descuento Promocional en color de realce (Amarillo) */}
+          {calculoPromocion.tienePromocion && (
+            <div className="mt-auto pt-2 shrink-0">
+              <div className="p-2.5 rounded-2xl bg-realce-500/12 border border-realce-500/35 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Sparkles className="w-3.5 h-3.5 text-realce-400 shrink-0" />
+                  <div className="min-w-0">
+                    <span className="text-xs font-bold text-realce-300 block truncate">
+                      {traducciones("descuentoPromocional")}
+                    </span>
+                    <span className="text-[10px] font-mono text-realce-400/90 block truncate">
+                      {promocionAplicada?.nombre}
+                    </span>
+                  </div>
+                </div>
+                <span className="font-mono font-extrabold text-xs sm:text-sm text-realce-400 shrink-0">
+                  -{formatearMonedaArs(montoDescuento)}
                 </span>
               </div>
             </div>
-            <span className="font-mono font-extrabold text-xs sm:text-sm text-realce-400 shrink-0">
-              -{formatearMonedaArs(montoDescuento)}
-            </span>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
-      {/* Bloque de Totales: Inversión Total Neta, Seña 50% y Plazo */}
-      <div className="relative z-10 mt-4 flex flex-col gap-3.5">
+      {/* Zona Inferior Anclada: Inversión Total Neta, Seña 50%, Plazo y Botones */}
+      <div className="relative z-10 mt-4 flex flex-col gap-3.5 shrink-0">
         <div className="flex items-baseline justify-between gap-2">
           <span className="text-xs sm:text-sm font-semibold text-neutral-200">
             {traducciones("inversionTotalNeta")}
@@ -383,8 +392,8 @@ export function ResumenCotizacionLateral({
 
   return (
     <>
-      {/* 1. VERSIÓN ESCRITORIO (>= lg): Columna fija a la IZQUIERDA */}
-      <aside className="hidden lg:block lg:w-[340px] xl:w-[375px] lg:sticky lg:top-6 lg:self-start shrink-0">
+      {/* 1. VERSIÓN ESCRITORIO (>= lg): Columna fija a la IZQUIERDA con alto completo del viewport */}
+      <aside className="hidden lg:block lg:w-[360px] xl:w-[395px] lg:sticky lg:top-6 lg:self-start lg:h-[calc(100vh-3rem)] shrink-0">
         {renderizarContenidoResumen(false)}
       </aside>
 

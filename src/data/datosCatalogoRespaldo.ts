@@ -235,5 +235,16 @@ export const CATALOGO_RESPALDO_LOCAL: CatalogoPublicoResponse = {
       ],
     },
   ],
-  promocionesActivas: [],
+  promocionesActivas: [
+    {
+      id: "e4d96522-c260-42e6-b863-11d4e09aa13e",
+      clave: "lanzamiento-web",
+      nombre: "Promoción Lanzamiento Web",
+      textoBanner: "🚀 15% OFF LANZAMIENTO",
+      tipoDescuento: "Porcentaje",
+      valorDescuento: 15,
+      servicioBaseId: null,
+      fechaFin: "2027-01-05T05:01:32.703354Z",
+    },
+  ],
 };
