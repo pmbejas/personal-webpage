@@ -1,7 +1,10 @@
 import {
   CalculoPrecioPromocional,
   CatalogoPublicoResponse,
+  CrearPresupuestoRequest,
+  CrearPresupuestoResponse,
   PromocionVigenteResponse,
+  RespuestaApi,
 } from "@/types/Catalogo";
 
 /**
@@ -36,4 +39,17 @@ export interface IServicioCatalogo {
     precioOriginal: number,
     promocion: PromocionVigenteResponse | null
   ): CalculoPrecioPromocional;
+
+  /**
+   * Envía la solicitud de creación de presupuesto al Backend (POST /api/public/presupuestos),
+   * congelando el snapshot por 7 días, generando el PDF con QuestPDF y disparando los emails con Resend.
+   */
+  crearPresupuestoFormal(
+    peticion: CrearPresupuestoRequest
+  ): Promise<RespuestaApi<CrearPresupuestoResponse>>;
+
+  /**
+   * Construye la URL absoluta de descarga del PDF On-Demand para un código de presupuesto.
+   */
+  obtenerUrlDescargaPdf(codigoPresupuesto: string): string;
 }

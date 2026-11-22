@@ -1,6 +1,8 @@
 import {
   CalculoPrecioPromocional,
   CatalogoPublicoResponse,
+  CrearPresupuestoRequest,
+  CrearPresupuestoResponse,
   PromocionVigenteResponse,
   RespuestaApi,
 } from "@/types/Catalogo";
@@ -11,6 +13,7 @@ export const URL_BASE_API_POR_DEFECTO = "https://pablobejas-backend-api.onrender
 export const ETIQUETA_CACHE_CATALOGO = "catalogo-servicios";
 const TIEMPO_REVALIDACION_SEGUNDOS = 3600;
 const TIEMPO_LIMITE_PETICION_MS = 12000;
+const TIEMPO_LIMITE_CREACION_PRESUPUESTO_MS = 45000;
 
 /**
  * Obtiene la URL base del Backend API Core limpia de barras finales.
@@ -48,7 +51,23 @@ export class ServicioCatalogo implements IServicioCatalogo {
         return CATALOGO_RESPALDO_LOCAL;
       }
 
-      return envoltorio.datos;
+      // Garantizar que "sistema-web-saas" opere como cotización a medida ($0 / sin adicionales fijos)
+      const serviciosNormalizados = envoltorio.datos.servicios.map((servicio) =>
+        servicio.clave === "sistema-web-saas"
+          ? {
+              ...servicio,
+              precioBase: 0,
+              permiteSeccionesExtra: false,
+              precioSeccionExtra: 0,
+              adicionalesCompatiblesIds: [],
+            }
+          : servicio
+      );
+
+      return {
+        ...envoltorio.datos,
+        servicios: serviciosNormalizados,
+      };
     } catch {
       return CATALOGO_RESPALDO_LOCAL;
     }
@@ -111,6 +130,42 @@ export class ServicioCatalogo implements IServicioCatalogo {
       textoBanner: promocion.textoBanner,
       promocionAplicada: promocion,
     };
+  }
+
+  async crearPresupuestoFormal(
+    peticion: CrearPresupuestoRequest
+  ): Promise<RespuestaApi<CrearPresupuestoResponse>> {
+    const urlEndpoint = `${obtenerUrlBaseApi()}/api/public/presupuestos`;
+
+    try {
+      const respuesta = await fetch(urlEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(peticion),
+        signal: AbortSignal.timeout(TIEMPO_LIMITE_CREACION_PRESUPUESTO_MS),
+      });
+
+      const resultado =
+        (await respuesta.json()) as RespuestaApi<CrearPresupuestoResponse>;
+      return resultado;
+    } catch {
+      return {
+        exito: false,
+        datos: null,
+        mensaje:
+          "No fue posible conectar con el servidor de presupuestos en este momento. Podés enviarnos tu resumen directamente por WhatsApp.",
+        errores: null,
+      };
+    }
+  }
+
+  obtenerUrlDescargaPdf(codigoPresupuesto: string): string {
+    return `${obtenerUrlBaseApi()}/api/public/presupuestos/${encodeURIComponent(
+      codigoPresupuesto
+    )}/pdf`;
   }
 }
 

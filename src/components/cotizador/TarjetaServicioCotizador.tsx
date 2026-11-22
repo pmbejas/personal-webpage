@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Check, Clock, Layers, Minus, Plus, Sparkles } from "lucide-react";
+import { CalendarCheck, Check, Clock, Layers, Sparkles } from "lucide-react";
 import {
   CalculoPrecioPromocional,
   ServicioBaseResponse,
@@ -17,28 +17,23 @@ interface PropiedadesTarjetaServicioCotizador {
   servicio: ServicioBaseResponse;
   calculoPrecio: CalculoPrecioPromocional;
   estaSeleccionado: boolean;
-  cantidadSeccionesExtra: number;
   alSeleccionar: (servicioId: string) => void;
-  alCambiarSeccionesExtra: (nuevaCantidad: number) => void;
 }
 
-const MAXIMO_SECCIONES_EXTRA = 20;
-
 /**
- * Tarjeta interactiva compacta para un Servicio Base dentro del Cotizador.
- * Incluye Banner Cruzado (Ribbon) de campaña activa, precio original tachado en gris,
- * precio final promocional en color de realce y selector interactivo de secciones extra.
+ * Tarjeta interactiva compacta para el Paso 01 (Selección del Tipo de Producto).
+ * - No incluye selector de secciones adicionales (movido al Paso 02).
+ * - Si el precio es 0 (Software a Medida), muestra la leyenda "A convenir luego de la primera entrevista".
  */
 export function TarjetaServicioCotizador({
   servicio,
   calculoPrecio,
   estaSeleccionado,
-  cantidadSeccionesExtra,
   alSeleccionar,
-  alCambiarSeccionesExtra,
 }: PropiedadesTarjetaServicioCotizador) {
   const idioma = useLocale();
   const traducciones = useTranslations("cotizador");
+  const esPrecioAConvenir = servicio.precioBase === 0;
 
   const textosLocalizados = localizarTextoCatalogo(
     idioma,
@@ -46,20 +41,6 @@ export function TarjetaServicioCotizador({
     servicio.nombre,
     servicio.descripcionComercial
   );
-
-  const disminuirSecciones = (evento: React.MouseEvent) => {
-    evento.stopPropagation();
-    if (cantidadSeccionesExtra > 0) {
-      alCambiarSeccionesExtra(cantidadSeccionesExtra - 1);
-    }
-  };
-
-  const aumentarSecciones = (evento: React.MouseEvent) => {
-    evento.stopPropagation();
-    if (cantidadSeccionesExtra < MAXIMO_SECCIONES_EXTRA) {
-      alCambiarSeccionesExtra(cantidadSeccionesExtra + 1);
-    }
-  };
 
   return (
     <div
@@ -78,13 +59,15 @@ export function TarjetaServicioCotizador({
           : "bg-[#0c0a09]/90 border-white/10 hover:border-white/25 hover:bg-[#0f0d0e]"
       }`}
     >
-      {/* 1. Banner Cruzado (Ribbon) si existe promoción activa */}
-      {calculoPrecio.tienePromocion && calculoPrecio.textoBanner && (
-        <ListonPromocional
-          textoBanner={calculoPrecio.textoBanner}
-          variante="esquinaDiagonal"
-        />
-      )}
+      {/* 1. Banner Cruzado (Ribbon) si tiene precio > 0 y promoción activa */}
+      {!esPrecioAConvenir &&
+        calculoPrecio.tienePromocion &&
+        calculoPrecio.textoBanner && (
+          <ListonPromocional
+            textoBanner={calculoPrecio.textoBanner}
+            variante="esquinaDiagonal"
+          />
+        )}
 
       {/* Halo ambiental superior cuando está seleccionado */}
       {estaSeleccionado && (
@@ -128,27 +111,43 @@ export function TarjetaServicioCotizador({
           {textosLocalizados.descripcion}
         </p>
 
-        {/* 3. Metadatos de alcance base: Secciones incluidas y Días de entrega */}
+        {/* 3. Metadatos de alcance base */}
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-white/[0.04] border border-white/10 text-[11px] text-neutral-300 font-mono">
-            <Layers className="w-3 h-3 text-[rgb(var(--tema-acento-claro-rgb))]" />
-            <span>
-              {servicio.seccionesIncluidas} {traducciones("seccionesIncluidas")}
-            </span>
-          </div>
+          {!esPrecioAConvenir ? (
+            <>
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-white/[0.04] border border-white/10 text-[11px] text-neutral-300 font-mono">
+                <Layers className="w-3 h-3 text-[rgb(var(--tema-acento-claro-rgb))]" />
+                <span>
+                  {servicio.seccionesIncluidas}{" "}
+                  {traducciones("seccionesIncluidas")}
+                </span>
+              </div>
 
-          <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-white/[0.04] border border-white/10 text-[11px] text-neutral-300 font-mono">
-            <Clock className="w-3 h-3 text-[rgb(var(--tema-acento-claro-rgb))]" />
-            <span>
-              ~{servicio.diasEntregaBase} {traducciones("diasHabiles")}
-            </span>
-          </div>
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-white/[0.04] border border-white/10 text-[11px] text-neutral-300 font-mono">
+                <Clock className="w-3 h-3 text-[rgb(var(--tema-acento-claro-rgb))]" />
+                <span>
+                  ~{servicio.diasEntregaBase} {traducciones("diasHabiles")}
+                </span>
+              </div>
+            </>
+          ) : (
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-white/[0.04] border border-white/10 text-[11px] text-neutral-300 font-mono">
+              <CalendarCheck className="w-3 h-3 text-[rgb(var(--tema-acento-claro-rgb))]" />
+              <span>{traducciones("plazoAConvenir")}</span>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* 4. Bloque de Precios Compacto (Original Tachado + Precio Promocional en color de realce) */}
+      {/* 4. Bloque de Precios (Precio con oferta o Leyenda 'A convenir luego de la primera entrevista') */}
       <div className="mt-3.5 pt-3 border-t border-white/10">
-        {calculoPrecio.tienePromocion ? (
+        {esPrecioAConvenir ? (
+          <div className="p-2.5 rounded-xl bg-[rgb(var(--tema-acento-rgb)/0.1)] border border-[rgb(var(--tema-acento-rgb)/0.3)]">
+            <span className="text-xs sm:text-sm font-bold text-[rgb(var(--tema-acento-claro-rgb))] block leading-snug">
+              {traducciones("precioAConvenirCard")}
+            </span>
+          </div>
+        ) : calculoPrecio.tienePromocion ? (
           <div className="flex flex-col gap-0.5">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs font-mono text-neutral-500 line-through decoration-neutral-500/80 decoration-2">
@@ -178,50 +177,6 @@ export function TarjetaServicioCotizador({
               {formatearMonedaArs(servicio.precioBase)}
             </span>
             <span className="text-[11px] font-mono text-neutral-400">ARS</span>
-          </div>
-        )}
-
-        {/* 5. Control interactivo compacto de Secciones Extra (visible cuando el servicio está seleccionado) */}
-        {estaSeleccionado && servicio.permiteSeccionesExtra && (
-          <div
-            onClick={(evento) => evento.stopPropagation()}
-            className="mt-3 p-2.5 rounded-xl bg-black/60 border border-white/10 flex items-center justify-between gap-2"
-          >
-            <div className="min-w-0">
-              <span className="text-[11px] font-semibold text-neutral-200 block truncate">
-                {traducciones("seccionesExtraTitulo")}
-              </span>
-              <span className="text-[10px] font-mono text-neutral-400 block truncate">
-                +{formatearMonedaArs(servicio.precioSeccionExtra)} / +
-                {servicio.diasPorSeccionExtra}d
-              </span>
-            </div>
-
-            <div className="flex items-center gap-1.5 shrink-0">
-              <button
-                type="button"
-                onClick={disminuirSecciones}
-                disabled={cantidadSeccionesExtra <= 0}
-                aria-label={traducciones("quitarSeccion")}
-                className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/15 disabled:opacity-30 disabled:pointer-events-none border border-white/10 flex items-center justify-center text-white transition-colors"
-              >
-                <Minus className="w-3 h-3" />
-              </button>
-
-              <span className="w-6 text-center font-mono font-bold text-xs text-[rgb(var(--tema-acento-claro-rgb))]">
-                {cantidadSeccionesExtra}
-              </span>
-
-              <button
-                type="button"
-                onClick={aumentarSecciones}
-                disabled={cantidadSeccionesExtra >= MAXIMO_SECCIONES_EXTRA}
-                aria-label={traducciones("agregarSeccion")}
-                className="w-7 h-7 rounded-lg bg-[rgb(var(--tema-acento-rgb)/0.2)] hover:bg-[rgb(var(--tema-acento-rgb)/0.35)] border border-[rgb(var(--tema-acento-rgb)/0.45)] flex items-center justify-center text-[rgb(var(--tema-acento-claro-rgb))] transition-colors"
-              >
-                <Plus className="w-3 h-3" />
-              </button>
-            </div>
           </div>
         )}
       </div>

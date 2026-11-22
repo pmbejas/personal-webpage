@@ -93,3 +93,55 @@ export interface CalculoPrecioPromocional {
   textoBanner: string | null;
   promocionAplicada: PromocionVigenteResponse | null;
 }
+
+/**
+ * DTO de entrada para formalizar y crear un presupuesto en el Backend (POST /api/public/presupuestos).
+ */
+export interface CrearPresupuestoRequest {
+  nombreCompleto: string;
+  email: string;
+  telefonoWhatsApp: string;
+  empresa?: string;
+  rubro?: string;
+  descripcionNecesidad?: string;
+  servicioBaseId: string;
+  cantidadSeccionesExtra: number;
+  adicionalesIds: string[];
+  codigoPromocion?: string | null;
+  trampaSpam?: string;
+}
+
+/**
+ * Enlaces universales de WhatsApp devueltos al formalizar un presupuesto.
+ */
+export interface EnlacesPresupuestoWhatsAppResponse {
+  codigoPresupuesto: string;
+  enlaceClienteAPablo: string;
+  textoPrearmadoCliente: string;
+  enlacePabloACliente: string;
+  textoPrearmadoPablo: string;
+  numeroPabloNormalizado: string;
+  numeroClienteNormalizado: string;
+}
+
+/**
+ * DTO de salida tras crear y congelar un presupuesto en el servidor.
+ */
+export interface CrearPresupuestoResponse {
+  codigo: string;
+  fechaEmision: string;
+  fechaVencimiento: string;
+  moneda: string;
+  subtotalBase: number;
+  subtotalSeccionesExtra: number;
+  subtotalAdicionales: number;
+  montoDescuento: number;
+  promocionAplicada: string | null;
+  totalPresupuestado: number;
+  montoSenaSugerida: number;
+  tiempoEntregaDias: number;
+  urlDescargaPdf: string;
+  enlacesWhatsApp: EnlacesPresupuestoWhatsAppResponse;
+  emailEnviado: boolean;
+  mensaje: string;
+}

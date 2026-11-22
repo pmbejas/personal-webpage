@@ -6,7 +6,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronUp,
   Clock,
-  FileText,
+  FileDown,
+  Info,
+  Lock,
   MessageCircle,
   Receipt,
   ShieldCheck,
@@ -15,6 +17,7 @@ import {
 } from "lucide-react";
 import {
   AdicionalResponse,
+  CrearPresupuestoResponse,
   PromocionVigenteResponse,
   ServicioBaseResponse,
 } from "@/types/Catalogo";
@@ -32,67 +35,89 @@ interface PropiedadesResumenCotizacionLateral {
   cantidadSeccionesExtra: number;
   adicionalesSeleccionados: AdicionalResponse[];
   promocionAplicada: PromocionVigenteResponse | null;
-  alSolicitarFormalizacion?: () => void;
+  cotizacionFinalizada: boolean;
+  presupuestoCreado: CrearPresupuestoResponse | null;
+  descripcionProyecto: string;
+  nombreCliente: string;
 }
 
 /**
- * Construye el enlace universal de WhatsApp (wa.me) con el desglose completo de la cotización.
+ * Construye el enlace universal de WhatsApp (wa.me) con el desglose completo o solicitud a medida.
  */
 function construirEnlaceWhatsAppResumen(
+  codigoPresupuesto: string | null,
+  nombreCliente: string,
   nombreServicio: string,
+  esCotizacionAMedida: boolean,
   cantidadSeccionesExtra: number,
   nombresAdicionales: string[],
   textoPromocion: string | null,
   totalPresupuestado: number,
   montoSenaSugerida: number,
-  tiempoEntregaDias: number
+  tiempoEntregaDias: number,
+  descripcionProyecto: string
 ): string {
-  const lineas: string[] = [
-    "¡Hola Pablo! Estuve configurando mi proyecto en tu Cotizador Online:",
-    "",
-    `• Solución base: ${nombreServicio}`,
-  ];
+  const encabezadoCodigo = codigoPresupuesto
+    ? ` (${codigoPresupuesto})`
+    : "";
+  const presentacion = nombreCliente.trim()
+    ? `¡Hola Pablo! Soy ${nombreCliente.trim()}. Finalicé mi configuración en tu Cotizador Online${encabezadoCodigo}:`
+    : `¡Hola Pablo! Finalicé mi configuración en tu Cotizador Online${encabezadoCodigo}:`;
 
-  if (cantidadSeccionesExtra > 0) {
-    lineas.push(`• Secciones adicionales: +${cantidadSeccionesExtra}`);
+  const lineas: string[] = [presentacion, "", `• Solución base: ${nombreServicio}`];
+
+  if (esCotizacionAMedida) {
+    lineas.push("• Presupuesto: A convenir luego de la primera entrevista");
+  } else {
+    if (cantidadSeccionesExtra > 0) {
+      lineas.push(`• Secciones adicionales: +${cantidadSeccionesExtra}`);
+    }
+    if (nombresAdicionales.length > 0) {
+      lineas.push(`• Módulos adicionales: ${nombresAdicionales.join(", ")}`);
+    }
+    if (textoPromocion) {
+      lineas.push(`• Promoción aplicada: ${textoPromocion}`);
+    }
+    lineas.push(
+      "",
+      `• Inversión Total Estimada: ${formatearMonedaArs(totalPresupuestado)} ARS`,
+      `• Seña sugerida (50%): ${formatearMonedaArs(montoSenaSugerida)} ARS`,
+      `• Plazo estimado: ~${tiempoEntregaDias} días hábiles`
+    );
   }
 
-  if (nombresAdicionales.length > 0) {
-    lineas.push(`• Módulos adicionales: ${nombresAdicionales.join(", ")}`);
+  if (descripcionProyecto.trim().length > 0) {
+    lineas.push("", `• Mi proyecto: "${descripcionProyecto.trim()}"`);
   }
 
-  if (textoPromocion) {
-    lineas.push(`• Promoción aplicada: ${textoPromocion}`);
-  }
+  lineas.push("", "Me gustaría coordinar los próximos pasos.");
 
-  lineas.push(
-    "",
-    `• Inversión Total Estimada: ${formatearMonedaArs(totalPresupuestado)} ARS`,
-    `• Seña sugerida (50%): ${formatearMonedaArs(montoSenaSugerida)} ARS`,
-    `• Plazo estimado: ~${tiempoEntregaDias} días hábiles`,
-    "",
-    "Me gustaría coordinar los próximos pasos."
-  );
-
-  const textoCodificado = encodeURIComponent(lineas.join("\n"));
-  return `https://wa.me/${NUMERO_WHATSAPP_PABLO}?text=${textoCodificado}`;
+  return `https://wa.me/${NUMERO_WHATSAPP_PABLO}?text=${encodeURIComponent(
+    lineas.join("\n")
+  )}`;
 }
 
 /**
- * Sidebar flotante con desglose matemático en tiempo real.
- * - En Desktop (>= lg): Fijo a la izquierda (sticky).
- * - En Móvil (< lg): Oculto por defecto; se despliega mediante un botón flotante inferior.
+ * Card de Resumen del Presupuesto:
+ * - En Desktop (>= lg): Fijo a la izquierda con alto completo del viewport (lg:h-[calc(100vh-3rem)]).
+ * - En Móvil (< lg): Oculto por defecto, desplegable mediante botón inferior.
+ * - Sus botones de PDF y WhatsApp se habilitan una vez que el usuario hace clic en 'Finalizar' en el último paso.
  */
 export function ResumenCotizacionLateral({
   servicioSeleccionado,
   cantidadSeccionesExtra,
   adicionalesSeleccionados,
   promocionAplicada,
-  alSolicitarFormalizacion,
+  cotizacionFinalizada,
+  presupuestoCreado,
+  descripcionProyecto,
+  nombreCliente,
 }: PropiedadesResumenCotizacionLateral) {
   const [panelMovilAbierto, setPanelMovilAbierto] = useState<boolean>(false);
   const idioma = useLocale();
   const traducciones = useTranslations("cotizador");
+
+  const esCotizacionAMedida = servicioSeleccionado.precioBase === 0;
 
   // 1. Cálculos matemáticos sincronizados con Presupuesto.cs
   const subtotalBase = servicioSeleccionado.precioBase;
@@ -107,7 +132,7 @@ export function ResumenCotizacionLateral({
 
   const calculoPromocion = servicioCatalogo.calcularPrecioConPromocion(
     subtotalSinDescuento,
-    promocionAplicada
+    esCotizacionAMedida ? null : promocionAplicada
   );
 
   const montoDescuento = calculoPromocion.montoDescuento;
@@ -145,15 +170,25 @@ export function ResumenCotizacionLateral({
       ).nombre
   );
 
-  const urlWhatsAppDirecto = construirEnlaceWhatsAppResumen(
-    textosServicio.nombre,
-    cantidadSeccionesExtra,
-    nombresAdicionalesLocalizados,
-    calculoPromocion.tienePromocion ? calculoPromocion.textoBanner : null,
-    totalPresupuestado,
-    montoSenaSugerida,
-    tiempoEntregaDias
-  );
+  const urlWhatsAppFinal =
+    presupuestoCreado?.enlacesWhatsApp?.enlaceClienteAPablo ||
+    construirEnlaceWhatsAppResumen(
+      presupuestoCreado?.codigo ?? null,
+      nombreCliente,
+      textosServicio.nombre,
+      esCotizacionAMedida,
+      cantidadSeccionesExtra,
+      nombresAdicionalesLocalizados,
+      calculoPromocion.tienePromocion ? calculoPromocion.textoBanner : null,
+      totalPresupuestado,
+      montoSenaSugerida,
+      tiempoEntregaDias,
+      descripcionProyecto
+    );
+
+  const urlPdfFinal = presupuestoCreado?.codigo
+    ? servicioCatalogo.obtenerUrlDescargaPdf(presupuestoCreado.codigo)
+    : null;
 
   const renderizarContenidoResumen = (esVistaMovil: boolean) => (
     <div
@@ -181,7 +216,9 @@ export function ResumenCotizacionLateral({
                 {traducciones("resumenTitulo")}
               </h3>
               <p className="text-[11px] text-neutral-400 font-mono mt-0.5 truncate">
-                {traducciones("resumenSubtitulo")}
+                {presupuestoCreado?.codigo
+                  ? `#${presupuestoCreado.codigo}`
+                  : traducciones("resumenSubtitulo")}
               </p>
             </div>
           </div>
@@ -211,174 +248,218 @@ export function ResumenCotizacionLateral({
               </span>
             </div>
             <span className="font-mono font-semibold text-neutral-200 shrink-0">
-              {formatearMonedaArs(subtotalBase)}
+              {esCotizacionAMedida
+                ? traducciones("aConvenirCorto")
+                : formatearMonedaArs(subtotalBase)}
             </span>
           </div>
 
-          {/* 2. Secciones Extra */}
-          {cantidadSeccionesExtra > 0 && (
-            <div className="flex items-center justify-between gap-3 text-xs pt-2 border-t border-white/5 shrink-0">
-              <span className="text-neutral-300">
-                {traducciones("conceptoSeccionesExtra")} (+
-                {cantidadSeccionesExtra})
-              </span>
-              <span className="font-mono font-semibold text-neutral-200 shrink-0">
-                +{formatearMonedaArs(subtotalSeccionesExtra)}
-              </span>
+          {/* Si es Cotización a Medida ($0), mostrar aclaración formal */}
+          {esCotizacionAMedida ? (
+            <div className="mt-2 p-3.5 rounded-2xl bg-[rgb(var(--tema-acento-rgb)/0.1)] border border-[rgb(var(--tema-acento-rgb)/0.3)] flex items-start gap-2.5">
+              <Info className="w-4 h-4 text-[rgb(var(--tema-acento-claro-rgb))] shrink-0 mt-0.5" />
+              <p className="text-xs text-neutral-200 leading-relaxed">
+                {traducciones("aclaracionResumenAConvenir")}
+              </p>
             </div>
-          )}
+          ) : (
+            <>
+              {/* 2. Secciones Extra */}
+              {cantidadSeccionesExtra > 0 && (
+                <div className="flex items-center justify-between gap-3 text-xs pt-2 border-t border-white/5 shrink-0">
+                  <span className="text-neutral-300">
+                    {traducciones("conceptoSeccionesExtra")} (+
+                    {cantidadSeccionesExtra})
+                  </span>
+                  <span className="font-mono font-semibold text-neutral-200 shrink-0">
+                    +{formatearMonedaArs(subtotalSeccionesExtra)}
+                  </span>
+                </div>
+              )}
 
-          {/* 3. Adicionales Seleccionados */}
-          <div className="pt-2 border-t border-white/5">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block mb-1.5">
-              {traducciones("conceptoAdicionales")} (
-              {adicionalesSeleccionados.length})
-            </span>
+              {/* 3. Adicionales Seleccionados */}
+              <div className="pt-2 border-t border-white/5">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block mb-1.5">
+                  {traducciones("conceptoAdicionales")} (
+                  {adicionalesSeleccionados.length})
+                </span>
 
-            {adicionalesSeleccionados.length === 0 ? (
-              <span className="text-xs text-neutral-500 italic">
-                {traducciones("sinAdicionales")}
-              </span>
-            ) : (
-              <ul className="flex flex-col gap-1.5">
-                {adicionalesSeleccionados.map((adicional) => {
-                  const textoAdicional = localizarTextoCatalogo(
-                    idioma,
-                    adicional.clave,
-                    adicional.nombre,
-                    adicional.descripcionComercial
-                  );
-                  return (
-                    <li
-                      key={adicional.id}
-                      className="flex items-start justify-between gap-2 text-xs text-neutral-300"
-                    >
-                      <span className="leading-snug truncate">
-                        {textoAdicional.nombre}
-                      </span>
-                      <span className="font-mono text-neutral-200 shrink-0">
-                        +{formatearMonedaArs(adicional.precio)}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </div>
+                {adicionalesSeleccionados.length === 0 ? (
+                  <span className="text-xs text-neutral-500 italic">
+                    {traducciones("sinAdicionales")}
+                  </span>
+                ) : (
+                  <ul className="flex flex-col gap-1.5">
+                    {adicionalesSeleccionados.map((adicional) => {
+                      const textoAdicional = localizarTextoCatalogo(
+                        idioma,
+                        adicional.clave,
+                        adicional.nombre,
+                        adicional.descripcionComercial
+                      );
+                      return (
+                        <li
+                          key={adicional.id}
+                          className="flex items-start justify-between gap-2 text-xs text-neutral-300"
+                        >
+                          <span className="leading-snug truncate">
+                            {textoAdicional.nombre}
+                          </span>
+                          <span className="font-mono text-neutral-200 shrink-0">
+                            +{formatearMonedaArs(adicional.precio)}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
 
-          {/* 4. Línea de Descuento Promocional en color de realce (Amarillo) */}
-          {calculoPromocion.tienePromocion && (
-            <div className="mt-auto pt-2 shrink-0">
-              <div className="p-2.5 rounded-2xl bg-realce-500/12 border border-realce-500/35 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2 min-w-0">
-                  <Sparkles className="w-3.5 h-3.5 text-realce-400 shrink-0" />
-                  <div className="min-w-0">
-                    <span className="text-xs font-bold text-realce-300 block truncate">
-                      {traducciones("descuentoPromocional")}
-                    </span>
-                    <span className="text-[10px] font-mono text-realce-400/90 block truncate">
-                      {promocionAplicada?.nombre}
+              {/* 4. Línea de Descuento Promocional en color de realce (Amarillo) */}
+              {calculoPromocion.tienePromocion && (
+                <div className="mt-auto pt-2 shrink-0">
+                  <div className="p-2.5 rounded-2xl bg-realce-500/12 border border-realce-500/35 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <Sparkles className="w-3.5 h-3.5 text-realce-400 shrink-0" />
+                      <div className="min-w-0">
+                        <span className="text-xs font-bold text-realce-300 block truncate">
+                          {traducciones("descuentoPromocional")}
+                        </span>
+                        <span className="text-[10px] font-mono text-realce-400/90 block truncate">
+                          {promocionAplicada?.nombre}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="font-mono font-extrabold text-xs sm:text-sm text-realce-400 shrink-0">
+                      -{formatearMonedaArs(montoDescuento)}
                     </span>
                   </div>
                 </div>
-                <span className="font-mono font-extrabold text-xs sm:text-sm text-realce-400 shrink-0">
-                  -{formatearMonedaArs(montoDescuento)}
-                </span>
-              </div>
-            </div>
+              )}
+            </>
           )}
         </div>
       </div>
 
       {/* Zona Inferior Anclada: Inversión Total Neta, Seña 50%, Plazo y Botones */}
-      <div className="relative z-10 mt-4 flex flex-col gap-3.5 shrink-0">
+      <div className="relative z-10 mt-4 flex flex-col gap-3 shrink-0">
         <div className="flex items-baseline justify-between gap-2">
           <span className="text-xs sm:text-sm font-semibold text-neutral-200">
             {traducciones("inversionTotalNeta")}
           </span>
           <div className="text-right">
-            {calculoPromocion.tienePromocion && (
-              <span className="text-xs font-mono text-neutral-500 line-through block">
-                {formatearMonedaArs(subtotalSinDescuento)}
+            {esCotizacionAMedida ? (
+              <span className="text-sm sm:text-base font-bold font-mono text-[rgb(var(--tema-acento-claro-rgb))]">
+                {traducciones("aConvenirCorto")}
               </span>
+            ) : (
+              <>
+                {calculoPromocion.tienePromocion && (
+                  <span className="text-xs font-mono text-neutral-500 line-through block">
+                    {formatearMonedaArs(subtotalSinDescuento)}
+                  </span>
+                )}
+                <span
+                  className={`text-xl sm:text-2xl font-extrabold font-mono ${
+                    calculoPromocion.tienePromocion
+                      ? "text-realce-400 drop-shadow-[0_0_16px_rgb(var(--tema-realce-rgb)/0.3)]"
+                      : "text-white"
+                  }`}
+                >
+                  {formatearMonedaArs(totalPresupuestado)}
+                </span>
+                <span className="text-[11px] font-mono text-neutral-400 ml-1">
+                  ARS
+                </span>
+              </>
             )}
-            <span
-              className={`text-xl sm:text-2xl font-extrabold font-mono ${
-                calculoPromocion.tienePromocion
-                  ? "text-realce-400 drop-shadow-[0_0_16px_rgb(var(--tema-realce-rgb)/0.3)]"
-                  : "text-white"
-              }`}
-            >
-              {formatearMonedaArs(totalPresupuestado)}
-            </span>
-            <span className="text-[11px] font-mono text-neutral-400 ml-1">
-              ARS
-            </span>
           </div>
         </div>
 
         {/* Seña Sugerida (50%) y Tiempo de Entrega */}
         <div className="grid grid-cols-1 gap-2 p-3 rounded-2xl bg-white/[0.03] border border-white/10">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-neutral-400">
-              {traducciones("senaSugerida")}
-            </span>
-            <span className="font-mono font-bold text-[rgb(var(--tema-acento-claro-rgb))]">
-              {formatearMonedaArs(montoSenaSugerida)}
-            </span>
-          </div>
+          {!esCotizacionAMedida && (
+            <div className="flex items-center justify-between text-xs pb-1.5 border-b border-white/5">
+              <span className="text-neutral-400">
+                {traducciones("senaSugerida")}
+              </span>
+              <span className="font-mono font-bold text-[rgb(var(--tema-acento-claro-rgb))]">
+                {formatearMonedaArs(montoSenaSugerida)}
+              </span>
+            </div>
+          )}
 
-          <div className="flex items-center justify-between text-xs pt-1.5 border-t border-white/5">
+          <div className="flex items-center justify-between text-xs">
             <span className="text-neutral-400 flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-[rgb(var(--tema-acento-claro-rgb))]" />
               <span>{traducciones("plazoEstimado")}</span>
             </span>
             <span className="font-mono font-bold text-white">
-              ~{tiempoEntregaDias} {traducciones("diasHabiles")}
+              {esCotizacionAMedida
+                ? traducciones("plazoAConvenir")
+                : `~${tiempoEntregaDias} ${traducciones("diasHabiles")}`}
             </span>
           </div>
         </div>
 
         {/* Nota si incluye mantenimiento recurrente */}
-        {adicionalRecurrente && (
+        {!esCotizacionAMedida && adicionalRecurrente && (
           <p className="text-[11px] font-mono text-realce-300/90 bg-realce-500/10 border border-realce-500/20 rounded-xl px-3 py-1.5">
             {traducciones("notaAbonoMensual")}{" "}
             {formatearMonedaArs(adicionalRecurrente.precio)}/mes.
           </p>
         )}
 
-        {/* Botones de Acción Comercial */}
+        {/* Botones de Acción Comercial (Se habilitan al hacer clic en 'Finalizar' en el último paso) */}
         <div className="flex flex-col gap-2 mt-0.5">
-          {alSolicitarFormalizacion ? (
-            <button
-              type="button"
-              onClick={alSolicitarFormalizacion}
-              className="w-full py-3 px-4 rounded-2xl font-semibold text-xs bg-[rgb(var(--tema-acento-rgb))] text-black shadow-[0_0_24px_rgba(var(--tema-acento-rgb),0.4)] hover:shadow-[0_0_32px_rgba(var(--tema-acento-rgb),0.65)] hover:scale-[1.01] active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <FileText className="w-4 h-4" />
-              <span>{traducciones("botonFormalizarPdf")}</span>
-            </button>
-          ) : (
-            <a
-              href={urlWhatsAppDirecto}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-3 px-4 rounded-2xl font-semibold text-xs bg-[rgb(var(--tema-acento-rgb))] text-black shadow-[0_0_24px_rgba(var(--tema-acento-rgb),0.4)] hover:shadow-[0_0_32px_rgba(var(--tema-acento-rgb),0.65)] hover:scale-[1.01] active:scale-98 transition-all flex items-center justify-center gap-2"
-            >
-              <FileText className="w-4 h-4" />
-              <span>{traducciones("botonFormalizarPdf")}</span>
-            </a>
+          {!cotizacionFinalizada && (
+            <p className="text-[11px] font-mono text-neutral-400 flex items-center justify-center gap-1.5 text-center pb-0.5">
+              <Lock className="w-3 h-3 text-neutral-500 shrink-0" />
+              <span>{traducciones("avisoBotonesBloqueados")}</span>
+            </p>
           )}
 
-          <a
-            href={urlWhatsAppDirecto}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full py-2.5 px-4 rounded-2xl font-medium text-xs bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.4)] transition-all flex items-center justify-center gap-2"
-          >
-            <MessageCircle className="w-4 h-4 text-[rgb(var(--tema-acento-claro-rgb))]" />
-            <span>{traducciones("botonConsultarWhatsApp")}</span>
-          </a>
+          {cotizacionFinalizada && urlPdfFinal ? (
+            <a
+              href={urlPdfFinal}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-3 px-4 rounded-2xl font-semibold text-xs bg-[rgb(var(--tema-acento-rgb))] text-black shadow-[0_0_24px_rgba(var(--tema-acento-rgb),0.45)] hover:shadow-[0_0_32px_rgba(var(--tema-acento-rgb),0.7)] hover:scale-[1.01] active:scale-98 transition-all flex items-center justify-center gap-2"
+            >
+              <FileDown className="w-4 h-4" />
+              <span>{traducciones("botonEnviarDescargarPdf")}</span>
+            </a>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="w-full py-3 px-4 rounded-2xl font-semibold text-xs bg-white/5 text-neutral-500 border border-white/10 opacity-50 cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              <FileDown className="w-4 h-4" />
+              <span>{traducciones("botonEnviarDescargarPdf")}</span>
+            </button>
+          )}
+
+          {cotizacionFinalizada ? (
+            <a
+              href={urlWhatsAppFinal}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-2.5 px-4 rounded-2xl font-semibold text-xs bg-white/10 hover:bg-white/15 text-white border border-[rgb(var(--tema-acento-rgb)/0.5)] shadow-[0_0_18px_rgba(var(--tema-acento-rgb),0.2)] transition-all flex items-center justify-center gap-2"
+            >
+              <MessageCircle className="w-4 h-4 text-[rgb(var(--tema-acento-claro-rgb))]" />
+              <span>{traducciones("botonComunicarmeConmigo")}</span>
+            </a>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="w-full py-2.5 px-4 rounded-2xl font-medium text-xs bg-white/[0.03] text-neutral-500 border border-white/10 opacity-50 cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>{traducciones("botonComunicarmeConmigo")}</span>
+            </button>
+          )}
         </div>
 
         {/* Sello de Garantía y Validez */}
@@ -413,7 +494,9 @@ export function ResumenCotizacionLateral({
                 {traducciones("verDetalleMovil")}
               </span>
               <span className="text-sm font-extrabold font-mono text-white block truncate">
-                {formatearMonedaArs(totalPresupuestado)} ARS
+                {esCotizacionAMedida
+                  ? traducciones("aConvenirCorto")
+                  : `${formatearMonedaArs(totalPresupuestado)} ARS`}
               </span>
             </div>
           </div>
