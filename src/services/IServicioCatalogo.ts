@@ -6,6 +6,7 @@ import {
   PromocionVigenteResponse,
   RespuestaApi,
   ValidacionPresupuestoResponse,
+  ValidarCuponResponse,
 } from "@/types/Catalogo";
 
 /**
@@ -58,4 +59,12 @@ export interface IServicioCatalogo {
    * Valida la vigencia y autenticidad pública de un presupuesto emitido.
    */
   validarPresupuesto(codigo: string): Promise<ValidacionPresupuestoResponse | null>;
+
+  /**
+   * Valida un cupón de descuento comercial con el subtotal actual de la cotización.
+   */
+  validarCupon(
+    codigo: string,
+    subtotal: number
+  ): Promise<RespuestaApi<ValidarCuponResponse>>;
 }

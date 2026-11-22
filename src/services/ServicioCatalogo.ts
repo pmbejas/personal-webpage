@@ -6,6 +6,7 @@ import {
   PromocionVigenteResponse,
   RespuestaApi,
   ValidacionPresupuestoResponse,
+  ValidarCuponResponse,
 } from "@/types/Catalogo";
 import { CATALOGO_RESPALDO_LOCAL } from "@/data/datosCatalogoRespaldo";
 import { IServicioCatalogo } from "./IServicioCatalogo";
@@ -192,6 +193,40 @@ export class ServicioCatalogo implements IServicioCatalogo {
       return envoltorio.exito && envoltorio.datos ? envoltorio.datos : null;
     } catch {
       return null;
+    }
+  }
+
+  async validarCupon(
+    codigo: string,
+    subtotal: number
+  ): Promise<RespuestaApi<ValidarCuponResponse>> {
+    const urlEndpoint = `${obtenerUrlBaseApi()}/api/public/cupones/validar`;
+
+    try {
+      const respuesta = await fetch(urlEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          codigo,
+          subtotal,
+        }),
+        cache: "no-store",
+      });
+
+      const resultado =
+        (await respuesta.json()) as RespuestaApi<ValidarCuponResponse>;
+      return resultado;
+    } catch {
+      return {
+        exito: false,
+        datos: null,
+        mensaje:
+          "No se pudo conectar con el servidor para validar el cupón.",
+        errores: null,
+      };
     }
   }
 }

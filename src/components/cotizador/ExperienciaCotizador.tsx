@@ -22,6 +22,7 @@ import {
   AdicionalResponse,
   CatalogoPublicoResponse,
   CrearPresupuestoResponse,
+  ValidarCuponResponse,
 } from "@/types/Catalogo";
 import { servicioCatalogo } from "@/services/ServicioCatalogo";
 import { VERSION_SITIO } from "@/data/datosVersion";
@@ -92,6 +93,8 @@ export function ExperienciaCotizador({
     useState<boolean>(false);
   const [presupuestoCreado, setPresupuestoCreado] =
     useState<CrearPresupuestoResponse | null>(null);
+  const [cuponAplicado, setCuponAplicado] =
+    useState<ValidarCuponResponse | null>(null);
 
   // Control de cambios al salir
   const [huboCambioManual, setHuboCambioManual] = useState<boolean>(false);
@@ -278,7 +281,8 @@ export function ExperienciaCotizador({
       adicionalesIds: productoTieneAdicionales
         ? adicionalesSeleccionadosIds
         : [],
-      codigoPromocion: promocionActivaServicioActual?.clave ?? null,
+      codigoPromocion:
+        cuponAplicado?.codigo ?? promocionActivaServicioActual?.clave ?? null,
       trampaSpam: trampaSpam || undefined,
     });
 
@@ -337,6 +341,9 @@ export function ExperienciaCotizador({
             productoTieneAdicionales ? adicionalesSeleccionados : []
           }
           promocionAplicada={promocionActivaServicioActual}
+          cuponAplicado={cuponAplicado}
+          alAplicarCupon={setCuponAplicado}
+          alRemoverCupon={() => setCuponAplicado(null)}
           cotizacionFinalizada={cotizacionFinalizada}
           presupuestoCreado={presupuestoCreado}
           descripcionProyecto={descripcionProyecto}

@@ -167,3 +167,18 @@ export interface ValidacionPresupuestoResponse {
   urlWhatsApp: string;
   mensaje: string;
 }
+
+
+/**
+ * DTO de salida para la validación de un cupón de descuento comercial.
+ */
+export interface ValidarCuponResponse {
+  esValido: boolean;
+  mensaje?: string | null;
+  codigo?: string | null;
+  descripcion?: string | null;
+  tipoDescuento?: TipoDescuentoPromocion | null;
+  valorDescuento: number;
+  montoDescuento: number;
+  totalConDescuento: number;
+}

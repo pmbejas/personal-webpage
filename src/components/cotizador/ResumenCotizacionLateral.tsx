@@ -8,11 +8,13 @@ import {
   Clock,
   FileDown,
   Info,
+  Loader2,
   Lock,
   MessageCircle,
   Receipt,
   ShieldCheck,
   Sparkles,
+  Tag,
   X,
 } from "lucide-react";
 import {
@@ -20,6 +22,7 @@ import {
   CrearPresupuestoResponse,
   PromocionVigenteResponse,
   ServicioBaseResponse,
+  ValidarCuponResponse,
 } from "@/types/Catalogo";
 import { servicioCatalogo } from "@/services/ServicioCatalogo";
 import {
@@ -35,6 +38,9 @@ interface PropiedadesResumenCotizacionLateral {
   cantidadSeccionesExtra: number;
   adicionalesSeleccionados: AdicionalResponse[];
   promocionAplicada: PromocionVigenteResponse | null;
+  cuponAplicado: ValidarCuponResponse | null;
+  alAplicarCupon: (cupon: ValidarCuponResponse) => void;
+  alRemoverCupon: () => void;
   cotizacionFinalizada: boolean;
   presupuestoCreado: CrearPresupuestoResponse | null;
   descripcionProyecto: string;
@@ -108,12 +114,19 @@ export function ResumenCotizacionLateral({
   cantidadSeccionesExtra,
   adicionalesSeleccionados,
   promocionAplicada,
+  cuponAplicado,
+  alAplicarCupon,
+  alRemoverCupon,
   cotizacionFinalizada,
   presupuestoCreado,
   descripcionProyecto,
   nombreCliente,
 }: PropiedadesResumenCotizacionLateral) {
   const [panelMovilAbierto, setPanelMovilAbierto] = useState<boolean>(false);
+  const [codigoCupon, setCodigoCupon] = useState<string>("");
+  const [validandoCupon, setValidandoCupon] = useState<boolean>(false);
+  const [errorCupon, setErrorCupon] = useState<string | null>(null);
+
   const idioma = useLocale();
   const traducciones = useTranslations("cotizador");
 
@@ -135,9 +148,16 @@ export function ResumenCotizacionLateral({
     esCotizacionAMedida ? null : promocionAplicada
   );
 
-  const montoDescuento = calculoPromocion.montoDescuento;
-  const totalPresupuestado = calculoPromocion.precioFinal;
+  // Si hay cupón aplicado válido, se prioriza el descuento del cupón
+  const tieneCupon = Boolean(cuponAplicado && cuponAplicado.esValido);
+  const montoDescuento = tieneCupon
+    ? cuponAplicado!.montoDescuento
+    : calculoPromocion.montoDescuento;
+  const totalPresupuestado = tieneCupon
+    ? Math.max(0, subtotalSinDescuento - cuponAplicado!.montoDescuento)
+    : calculoPromocion.precioFinal;
   const montoSenaSugerida = Math.round(totalPresupuestado * 0.5);
+  const tieneDescuento = tieneCupon || calculoPromocion.tienePromocion;
 
   const diasSeccionesExtra =
     cantidadSeccionesExtra * servicioSeleccionado.diasPorSeccionExtra;
@@ -151,6 +171,30 @@ export function ResumenCotizacionLateral({
   const adicionalRecurrente = adicionalesSeleccionados.find(
     (item) => item.esRecurrente
   );
+
+  const manejarValidarCupon = async () => {
+    if (!codigoCupon.trim() || esCotizacionAMedida) return;
+    setValidandoCupon(true);
+    setErrorCupon(null);
+
+    const respuesta = await servicioCatalogo.validarCupon(
+      codigoCupon.trim(),
+      subtotalSinDescuento
+    );
+    setValidandoCupon(false);
+
+    if (!respuesta.exito || !respuesta.datos || !respuesta.datos.esValido) {
+      setErrorCupon(
+        respuesta.datos?.mensaje ||
+          respuesta.mensaje ||
+          "El cupón ingresado no es válido o ha caducado."
+      );
+      return;
+    }
+
+    alAplicarCupon(respuesta.datos);
+    setCodigoCupon("");
+  };
 
   // 2. Textos localizados para el resumen
   const textosServicio = localizarTextoCatalogo(
@@ -170,6 +214,12 @@ export function ResumenCotizacionLateral({
       ).nombre
   );
 
+  const textoPromocionResumen = tieneCupon
+    ? `Cupón ${cuponAplicado!.codigo} (-${formatearMonedaArs(montoDescuento)})`
+    : calculoPromocion.tienePromocion
+    ? calculoPromocion.textoBanner
+    : null;
+
   const urlWhatsAppFinal =
     presupuestoCreado?.enlacesWhatsApp?.enlaceClienteAPablo ||
     construirEnlaceWhatsAppResumen(
@@ -179,7 +229,7 @@ export function ResumenCotizacionLateral({
       esCotizacionAMedida,
       cantidadSeccionesExtra,
       nombresAdicionalesLocalizados,
-      calculoPromocion.tienePromocion ? calculoPromocion.textoBanner : null,
+      textoPromocionResumen,
       totalPresupuestado,
       montoSenaSugerida,
       tiempoEntregaDias,
@@ -315,8 +365,39 @@ export function ResumenCotizacionLateral({
                 )}
               </div>
 
-              {/* 4. Línea de Descuento Promocional en color de realce (Amarillo) */}
-              {calculoPromocion.tienePromocion && (
+              {/* 4. Línea de Descuento Promocional o Cupón de Descuento */}
+              {tieneCupon ? (
+                <div className="mt-auto pt-2 shrink-0">
+                  <div className="p-2.5 rounded-2xl bg-emerald-500/12 border border-emerald-500/35 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <Tag className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <div className="min-w-0">
+                        <span className="text-xs font-bold text-emerald-300 block truncate">
+                          {traducciones("cuponAplicadoTitulo")} ({cuponAplicado?.codigo})
+                        </span>
+                        <span className="text-[10px] font-mono text-emerald-400/90 block truncate">
+                          {cuponAplicado?.descripcion}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <span className="font-mono font-extrabold text-xs sm:text-sm text-emerald-400">
+                        -{formatearMonedaArs(montoDescuento)}
+                      </span>
+                      {!cotizacionFinalizada && (
+                        <button
+                          type="button"
+                          onClick={alRemoverCupon}
+                          title={traducciones("cuponRemover")}
+                          className="p-1 rounded-lg text-neutral-400 hover:text-red-400 hover:bg-white/10 transition-colors cursor-pointer"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ) : calculoPromocion.tienePromocion ? (
                 <div className="mt-auto pt-2 shrink-0">
                   <div className="p-2.5 rounded-2xl bg-realce-500/12 border border-realce-500/35 flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 min-w-0">
@@ -334,6 +415,51 @@ export function ResumenCotizacionLateral({
                       -{formatearMonedaArs(montoDescuento)}
                     </span>
                   </div>
+                </div>
+              ) : null}
+
+              {/* 5. Input interactivo para aplicar código de descuento si no hay cupón activo */}
+              {!esCotizacionAMedida && !tieneCupon && !cotizacionFinalizada && (
+                <div className="mt-2 pt-2 border-t border-white/5 shrink-0">
+                  <label className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block mb-1">
+                    {traducciones("cuponPregunta")}
+                  </label>
+                  <div className="flex items-center gap-1.5">
+                    <input
+                      type="text"
+                      value={codigoCupon}
+                      onChange={(e) => {
+                        setCodigoCupon(e.target.value.toUpperCase());
+                        setErrorCupon(null);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          manejarValidarCupon();
+                        }
+                      }}
+                      placeholder={traducciones("cuponPlaceholder")}
+                      className="w-full min-w-0 bg-white/5 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] rounded-xl px-2.5 py-1.5 text-xs font-mono text-white placeholder:text-neutral-500 focus:outline-none transition-colors uppercase tracking-wider"
+                    />
+                    <button
+                      type="button"
+                      onClick={manejarValidarCupon}
+                      disabled={validandoCupon || !codigoCupon.trim()}
+                      className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40 disabled:cursor-not-allowed border border-white/15 text-xs font-mono font-semibold text-white transition-all flex items-center gap-1 shrink-0 cursor-pointer"
+                    >
+                      {validandoCupon ? (
+                        <Loader2 className="w-3 h-3 animate-spin text-[rgb(var(--tema-acento-rgb))]" />
+                      ) : (
+                        <Tag className="w-3 h-3 text-[rgb(var(--tema-acento-claro-rgb))]" />
+                      )}
+                      <span>{traducciones("cuponBotonAplicar")}</span>
+                    </button>
+                  </div>
+                  {errorCupon && (
+                    <p className="text-[10px] text-red-400 font-mono mt-1 leading-tight">
+                      {errorCupon}
+                    </p>
+                  )}
                 </div>
               )}
             </>
@@ -354,14 +480,16 @@ export function ResumenCotizacionLateral({
               </span>
             ) : (
               <>
-                {calculoPromocion.tienePromocion && (
+                {tieneDescuento && (
                   <span className="text-xs font-mono text-neutral-500 line-through block">
                     {formatearMonedaArs(subtotalSinDescuento)}
                   </span>
                 )}
                 <span
                   className={`text-xl sm:text-2xl font-extrabold font-mono ${
-                    calculoPromocion.tienePromocion
+                    tieneCupon
+                      ? "text-emerald-400 drop-shadow-[0_0_16px_rgba(16,185,129,0.3)]"
+                      : calculoPromocion.tienePromocion
                       ? "text-realce-400 drop-shadow-[0_0_16px_rgb(var(--tema-realce-rgb)/0.3)]"
                       : "text-white"
                   }`}
