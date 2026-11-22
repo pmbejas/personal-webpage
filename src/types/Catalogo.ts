@@ -145,3 +145,25 @@ export interface CrearPresupuestoResponse {
   emailEnviado: boolean;
   mensaje: string;
 }
+
+/**
+/// DTO con el resultado de la validación pública de un presupuesto comercial.
+*/
+export interface ValidacionPresupuestoResponse {
+  codigo: string;
+  estado: string;
+  esValido: boolean;
+  fechaEmision: string;
+  fechaVencimiento: string;
+  diasValidez: number;
+  diasRestantes: number;
+  clienteNombre: string;
+  clienteEmpresa?: string | null;
+  servicioNombre: string;
+  moneda: string;
+  totalPresupuestado: number;
+  montoSenaSugerida: number;
+  urlDescargaPdf: string;
+  urlWhatsApp: string;
+  mensaje: string;
+}

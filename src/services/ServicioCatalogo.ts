@@ -5,6 +5,7 @@ import {
   CrearPresupuestoResponse,
   PromocionVigenteResponse,
   RespuestaApi,
+  ValidacionPresupuestoResponse,
 } from "@/types/Catalogo";
 import { CATALOGO_RESPALDO_LOCAL } from "@/data/datosCatalogoRespaldo";
 import { IServicioCatalogo } from "./IServicioCatalogo";
@@ -166,6 +167,32 @@ export class ServicioCatalogo implements IServicioCatalogo {
     return `${obtenerUrlBaseApi()}/api/public/presupuestos/${encodeURIComponent(
       codigoPresupuesto
     )}/pdf`;
+  }
+
+  async validarPresupuesto(
+    codigo: string
+  ): Promise<ValidacionPresupuestoResponse | null> {
+    const urlEndpoint = `${obtenerUrlBaseApi()}/api/public/presupuestos/${encodeURIComponent(
+      codigo
+    )}/validacion`;
+
+    try {
+      const respuesta = await fetch(urlEndpoint, {
+        method: "GET",
+        headers: { Accept: "application/json" },
+        cache: "no-store",
+      });
+
+      if (!respuesta.ok) {
+        return null;
+      }
+
+      const envoltorio =
+        (await respuesta.json()) as RespuestaApi<ValidacionPresupuestoResponse>;
+      return envoltorio.exito && envoltorio.datos ? envoltorio.datos : null;
+    } catch {
+      return null;
+    }
   }
 }
 

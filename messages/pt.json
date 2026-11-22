@@ -427,5 +427,28 @@
     "avisoBotonesBloqueados": "Conclua os passos e clique em Finalizar para habilitar estes botões.",
     "botonEnviarDescargarPdf": "Baixar Orçamento em PDF",
     "botonComunicarmeConmigo": "Falar comigo pelo WhatsApp"
+  },
+  "validadorPresupuesto": {
+    "titulo": "Validador Oficial de Orçamentos",
+    "subtitulo": "Certificação e autenticidade em tempo real",
+    "insigniaVigente": "Válido",
+    "insigniaVencido": "Vencido",
+    "insigniaNoEncontrado": "Não Encontrado",
+    "descripcionVigente": "Este orçamento é um documento formal e oficial emitido por Pablo Bejas. Está dentro do seu período de validade.",
+    "descripcionVencido": "O prazo formal de validade deste orçamento expirou. As tarifas e prazos de entrega estão sujeitos a revalidação.",
+    "descripcionNoEncontrado": "Não encontramos nenhum orçamento formal com o código fornecido. Verifique se o link ou código QR corresponde ao documento emitido.",
+    "diasRestantes": "{dias} dias restantes",
+    "diaRestante": "1 dia restante (vence hoje)",
+    "etiquetaCodigo": "Código Oficial",
+    "etiquetaEmision": "Data de Emissão",
+    "etiquetaVencimiento": "Vencimento Legal",
+    "etiquetaCliente": "Cliente",
+    "etiquetaServicio": "Serviço",
+    "etiquetaTotal": "Total Orçado",
+    "etiquetaSena": "Sinal de Início (50%)",
+    "botonDescargarPdf": "Baixar Orçamento em PDF",
+    "botonWhatsApp": "Falar pelo WhatsApp",
+    "botonRecotizar": "Gerar Novo Orçamento",
+    "volverInicio": "Voltar ao Início"
   }
 }

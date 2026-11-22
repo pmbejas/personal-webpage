@@ -427,5 +427,28 @@
     "avisoBotonesBloqueados": "Completá los pasos y hacé clic en Finalizar para habilitar estos botones.",
     "botonEnviarDescargarPdf": "Descargar Presupuesto en PDF",
     "botonComunicarmeConmigo": "Comunicarme por WhatsApp"
+  },
+  "validadorPresupuesto": {
+    "titulo": "Validador Oficial de Presupuestos",
+    "subtitulo": "Certificación y autenticidad en tiempo real",
+    "insigniaVigente": "Vigente",
+    "insigniaVencido": "Vencido",
+    "insigniaNoEncontrado": "No Encontrado",
+    "descripcionVigente": "Este presupuesto es un documento formal y oficial emitido por Pablo Bejas. Se encuentra dentro de su período de validez.",
+    "descripcionVencido": "El plazo formal de validez para este presupuesto ha expirado. Las tarifas y los plazos de entrega quedan sujetos a revalidación.",
+    "descripcionNoEncontrado": "No pudimos encontrar ningún presupuesto formal con el código proporcionado. Verificá que el enlace o código QR coincida con el documento emitido.",
+    "diasRestantes": "{dias} días restantes",
+    "diaRestante": "1 día restante (vence hoy)",
+    "etiquetaCodigo": "Código Oficial",
+    "etiquetaEmision": "Fecha de Emisión",
+    "etiquetaVencimiento": "Vencimiento Legal",
+    "etiquetaCliente": "Cliente",
+    "etiquetaServicio": "Servicio",
+    "etiquetaTotal": "Total Presupuestado",
+    "etiquetaSena": "Seña de Inicio (50%)",
+    "botonDescargarPdf": "Descargar Presupuesto PDF",
+    "botonWhatsApp": "Contactar por WhatsApp",
+    "botonRecotizar": "Generar Nueva Cotización",
+    "volverInicio": "Volver al Inicio"
   }
 }

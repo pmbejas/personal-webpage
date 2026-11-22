@@ -5,6 +5,7 @@ import {
   CrearPresupuestoResponse,
   PromocionVigenteResponse,
   RespuestaApi,
+  ValidacionPresupuestoResponse,
 } from "@/types/Catalogo";
 
 /**
@@ -52,4 +53,9 @@ export interface IServicioCatalogo {
    * Construye la URL absoluta de descarga del PDF On-Demand para un código de presupuesto.
    */
   obtenerUrlDescargaPdf(codigoPresupuesto: string): string;
+
+  /**
+   * Valida la vigencia y autenticidad pública de un presupuesto emitido.
+   */
+  validarPresupuesto(codigo: string): Promise<ValidacionPresupuestoResponse | null>;
 }

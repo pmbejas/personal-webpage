@@ -427,5 +427,28 @@
     "avisoBotonesBloqueados": "Complete the steps and click Finish to unlock these buttons.",
     "botonEnviarDescargarPdf": "Download PDF Quote",
     "botonComunicarmeConmigo": "Contact me via WhatsApp"
+  },
+  "validadorPresupuesto": {
+    "titulo": "Official Quote Validator",
+    "subtitulo": "Real-time certification and authenticity",
+    "insigniaVigente": "Valid",
+    "insigniaVencido": "Expired",
+    "insigniaNoEncontrado": "Not Found",
+    "descripcionVigente": "This quotation is a formal and official document issued by Pablo Bejas. It is within its validity period.",
+    "descripcionVencido": "The formal validity period for this quote has expired. Pricing and delivery schedules are subject to revalidation.",
+    "descripcionNoEncontrado": "We couldn't find any formal quote with the provided code. Please verify that the link or QR code matches the issued document.",
+    "diasRestantes": "{dias} days remaining",
+    "diaRestante": "1 day remaining (expires today)",
+    "etiquetaCodigo": "Official Code",
+    "etiquetaEmision": "Issue Date",
+    "etiquetaVencimiento": "Legal Expiration",
+    "etiquetaCliente": "Client",
+    "etiquetaServicio": "Service",
+    "etiquetaTotal": "Quoted Total",
+    "etiquetaSena": "Initial Deposit (50%)",
+    "botonDescargarPdf": "Download PDF Quote",
+    "botonWhatsApp": "Contact via WhatsApp",
+    "botonRecotizar": "Generate New Quote",
+    "volverInicio": "Back to Home"
   }
 }
