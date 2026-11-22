@@ -351,7 +351,11 @@
     "cotizador": "Cotizador"
   },
   "cotizador": {
-    "volverAlPortafolio": "Volver al portafolio",
+    "volverAlPortafolio": "Volver al inicio",
+    "modalSalidaTitulo": "¿Salir del cotizador?",
+    "modalSalidaDescripcion": "Tenés cambios realizados en tu configuración. Si volvés al inicio ahora, se perderán las opciones elegidas en tu presupuesto.",
+    "modalSalidaCancelar": "Seguir cotizando",
+    "modalSalidaConfirmar": "Sí, salir y descartar",
     "insigniaCabecera": "Cotizador Interactivo en Tiempo Real",
     "tituloCabeceraParte1": "Configurá y cotizá tu",
     "tituloCabeceraResaltado": "proyecto digital",

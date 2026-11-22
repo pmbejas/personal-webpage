@@ -351,7 +351,11 @@
     "cotizador": "Orçador"
   },
   "cotizador": {
-    "volverAlPortafolio": "Voltar ao portfólio",
+    "volverAlPortafolio": "Voltar ao início",
+    "modalSalidaTitulo": "Sair do orçador?",
+    "modalSalidaDescripcion": "Você tem alterações feitas na sua configuração. Se voltar ao início agora, as opções escolhidas no seu orçamento serão perdidas.",
+    "modalSalidaCancelar": "Continuar orçando",
+    "modalSalidaConfirmar": "Sim, sair e descartar",
     "insigniaCabecera": "Orçador Interativo em Tempo Real",
     "tituloCabeceraParte1": "Configure e orce seu",
     "tituloCabeceraResaltado": "projeto digital",

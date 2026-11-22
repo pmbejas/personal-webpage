@@ -2,9 +2,15 @@
 
 import React, { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
-import { ArrowLeft, Calculator, MessageSquare, Sparkles } from "lucide-react";
-import { Link } from "@/i18n/routing";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  AlertTriangle,
+  ArrowLeft,
+  MessageSquare,
+  Sparkles,
+  X,
+} from "lucide-react";
+import { useRouter } from "@/i18n/routing";
 import {
   AdicionalResponse,
   CatalogoPublicoResponse,
@@ -17,7 +23,6 @@ import { MenuFlotanteDerecho } from "@/components/diseno-v2/MenuFlotanteDerecho"
 import { TarjetaServicioCotizador } from "./TarjetaServicioCotizador";
 import { SelectorAdicionalesPorGrupo } from "./SelectorAdicionalesPorGrupo";
 import { ResumenCotizacionLateral } from "./ResumenCotizacionLateral";
-import { ListonPromocional } from "./ListonPromocional";
 
 interface PropiedadesExperienciaCotizador {
   catalogo: CatalogoPublicoResponse;
@@ -33,6 +38,7 @@ export function ExperienciaCotizador({
 }: PropiedadesExperienciaCotizador) {
   const traducciones = useTranslations("cotizador");
   const traduccionesPie = useTranslations("piePagina");
+  const router = useRouter();
 
   const serviciosOrdenados = useMemo(
     () =>
@@ -57,6 +63,15 @@ export function ExperienciaCotizador({
   const [adicionalesSeleccionadosIds, setAdicionalesSeleccionadosIds] = useState<
     string[]
   >([]);
+  const [huboCambioManual, setHuboCambioManual] = useState<boolean>(false);
+  const [modalConfirmarSalidaAbierto, setModalConfirmarSalidaAbierto] =
+    useState<boolean>(false);
+
+  const tieneCambiosEnCotizador =
+    huboCambioManual ||
+    servicioBaseId !== servicioInicialId ||
+    cantidadSeccionesExtra > 0 ||
+    adicionalesSeleccionadosIds.length > 0;
 
   const servicioSeleccionado = useMemo(
     () =>
@@ -93,6 +108,7 @@ export function ExperienciaCotizador({
 
   // Al cambiar de servicio base, limpia automáticamente adicionales que no sean compatibles con la nueva base
   const seleccionarServicioBase = (nuevoServicioId: string) => {
+    setHuboCambioManual(true);
     if (nuevoServicioId === servicioBaseId) {
       return;
     }
@@ -122,12 +138,31 @@ export function ExperienciaCotizador({
     }
   };
 
+  const cambiarSeccionesExtra = (nuevaCantidad: number) => {
+    setHuboCambioManual(true);
+    setCantidadSeccionesExtra(nuevaCantidad);
+  };
+
   const alternarAdicional = (adicionalId: string) => {
+    setHuboCambioManual(true);
     setAdicionalesSeleccionadosIds((previos) =>
       previos.includes(adicionalId)
         ? previos.filter((id) => id !== adicionalId)
         : [...previos, adicionalId]
     );
+  };
+
+  const manejarIntentoVolverInicio = () => {
+    if (tieneCambiosEnCotizador) {
+      setModalConfirmarSalidaAbierto(true);
+      return;
+    }
+    router.push("/");
+  };
+
+  const confirmarSalidaAlInicio = () => {
+    setModalConfirmarSalidaAbierto(false);
+    router.push("/");
   };
 
   if (!servicioSeleccionado) {
@@ -146,7 +181,7 @@ export function ExperienciaCotizador({
       <MenuFlotanteDerecho />
 
       {/* Disposición Espacial Split-Screen (Resumen Fijo a la Izquierda + Configurador a la Derecha con corredor libre para el Dock) */}
-      <div className="relative z-10 max-w-[1700px] mx-auto p-3 sm:p-6 lg:p-8 pt-16 sm:pt-20 lg:pt-8 pb-24 lg:pb-12 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
+      <div className="relative z-10 max-w-[1700px] mx-auto p-3 sm:p-6 lg:p-8 pt-16 sm:pt-20 lg:pt-6 pb-24 lg:pb-12 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
         {/* 1. Columna Izquierda Fija: Resumen de Presupuesto (Sticky en Desktop / Botón flotante en Móvil) */}
         <ResumenCotizacionLateral
           servicioSeleccionado={servicioSeleccionado}
@@ -156,48 +191,18 @@ export function ExperienciaCotizador({
         />
 
         {/* 2. Columna Principal Derecha: Configurador con margen derecho (lg:pr-16 xl:pr-20) para no chocar con el Dock */}
-        <main className="flex-1 min-w-0 w-full pr-0 lg:pr-16 xl:pr-20 flex flex-col gap-8">
-          {/* Barra superior de retorno al portafolio */}
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.45)] transition-all"
+        <main className="flex-1 min-w-0 w-full pr-0 lg:pr-16 xl:pr-20 flex flex-col gap-7">
+          {/* Barra superior con botón 'Volver al inicio' y control de cambios */}
+          <div className="flex items-center justify-between">
+            <button
+              type="button"
+              onClick={manejarIntentoVolverInicio}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.45)] transition-all cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5 text-[rgb(var(--tema-acento-claro-rgb))]" />
               <span>{traducciones("volverAlPortafolio")}</span>
-            </Link>
-
-            {promocionActivaServicioActual && (
-              <ListonPromocional
-                textoBanner={promocionActivaServicioActual.textoBanner}
-                variante="insigniaPildora"
-              />
-            )}
+            </button>
           </div>
-
-          {/* Cabecera del Cotizador */}
-          <motion.header
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="max-w-3xl"
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium text-[rgb(var(--tema-acento-claro-rgb))] bg-[rgb(var(--tema-acento-rgb)/0.1)] border border-[rgb(var(--tema-acento-rgb)/0.25)] mb-3">
-              <Calculator className="w-3.5 h-3.5" />
-              <span>{traducciones("insigniaCabecera")}</span>
-            </div>
-
-            <h1 className="fuente-titular text-2xl sm:text-4xl font-bold text-white tracking-tight leading-tight">
-              {traducciones("tituloCabeceraParte1")}{" "}
-              <span className="inline-block bg-[rgb(var(--tema-acento-rgb))] text-black px-3.5 py-0.5 rounded-full font-semibold shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.35)]">
-                {traducciones("tituloCabeceraResaltado")}
-              </span>
-            </h1>
-
-            <p className="mt-2.5 text-xs sm:text-sm text-neutral-300 leading-relaxed">
-              {traducciones("descripcionCabecera")}
-            </p>
-          </motion.header>
 
           {/* PASO 01: Selección de Servicio Base (3 Cards Compactas con gap reducido) */}
           <section aria-labelledby="titulo-paso-1">
@@ -206,12 +211,12 @@ export function ExperienciaCotizador({
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>{traducciones("paso1Etiqueta")}</span>
               </span>
-              <h2
+              <h1
                 id="titulo-paso-1"
                 className="text-xl sm:text-2xl font-bold text-white mt-0.5"
               >
                 {traducciones("paso1Titulo")}
-              </h2>
+              </h1>
               <p className="text-xs text-neutral-400 mt-0.5">
                 {traducciones("paso1Descripcion")}
               </p>
@@ -242,7 +247,7 @@ export function ExperienciaCotizador({
                         : 0
                     }
                     alSeleccionar={seleccionarServicioBase}
-                    alCambiarSeccionesExtra={setCantidadSeccionesExtra}
+                    alCambiarSeccionesExtra={cambiarSeccionesExtra}
                   />
                 );
               })}
@@ -300,7 +305,7 @@ export function ExperienciaCotizador({
           </section>
 
           {/* Pie de página sutil */}
-          <footer className="mt-6 pt-6 border-t border-white/5 text-center text-xs text-neutral-500 font-mono flex items-center justify-center gap-2">
+          <footer className="mt-4 pt-6 border-t border-white/5 text-center text-xs text-neutral-500 font-mono flex items-center justify-center gap-2">
             <span>{traduccionesPie("derechos")}</span>
             <span>·</span>
             <span className="text-neutral-400 font-semibold">
@@ -309,6 +314,80 @@ export function ExperienciaCotizador({
           </footer>
         </main>
       </div>
+
+      {/* Ventana Modal de Control de Cambios al pulsar 'Volver al inicio' */}
+      <AnimatePresence>
+        {modalConfirmarSalidaAbierto && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            onClick={() => setModalConfirmarSalidaAbierto(false)}
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.94, opacity: 0, y: 12 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.94, opacity: 0, y: 12 }}
+              transition={{ type: "spring", stiffness: 360, damping: 28 }}
+              onClick={(evento) => evento.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="titulo-modal-salida"
+              className="relative w-full max-w-md rounded-3xl bg-[#0c0a09]/95 border border-white/15 shadow-[0_24px_64px_rgba(0,0,0,0.9)] p-6 overflow-hidden"
+            >
+              {/* Halo ambiental del tema activo */}
+              <div className="pointer-events-none absolute -top-20 -left-20 w-52 h-52 rounded-full bg-[rgb(var(--tema-acento-rgb)/0.16)] blur-3xl" />
+
+              <div className="relative z-10 flex items-start justify-between gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-[rgb(var(--tema-acento-rgb)/0.12)] border border-[rgb(var(--tema-acento-rgb)/0.35)] flex items-center justify-center text-[rgb(var(--tema-acento-claro-rgb))] shrink-0">
+                  <AlertTriangle className="w-5 h-5" />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setModalConfirmarSalidaAbierto(false)}
+                  aria-label={traducciones("modalSalidaCancelar")}
+                  className="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="relative z-10 mt-4">
+                <h3
+                  id="titulo-modal-salida"
+                  className="text-lg sm:text-xl font-bold text-white"
+                >
+                  {traducciones("modalSalidaTitulo")}
+                </h3>
+                <p className="mt-2 text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                  {traducciones("modalSalidaDescripcion")}
+                </p>
+              </div>
+
+              <div className="relative z-10 mt-6 flex flex-col-reverse sm:flex-row items-center justify-end gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setModalConfirmarSalidaAbierto(false)}
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white border border-white/10 transition-all cursor-pointer"
+                >
+                  {traducciones("modalSalidaCancelar")}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={confirmarSalidaAlInicio}
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold bg-[rgb(var(--tema-acento-rgb))] text-black shadow-[0_0_18px_rgba(var(--tema-acento-rgb),0.4)] hover:shadow-[0_0_24px_rgba(var(--tema-acento-rgb),0.65)] transition-all cursor-pointer"
+                >
+                  {traducciones("modalSalidaConfirmar")}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

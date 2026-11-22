@@ -23,9 +23,9 @@ import {
   formatearMonedaArs,
   localizarTextoCatalogo,
 } from "@/utils/utilidadesCotizador";
-import { ListonPromocional } from "./ListonPromocional";
+import { IsotipoLogo } from "@/components/layout/IsotipoLogo";
 
-const NUMERO_WHATSAPP_PABLO = "5493815152178";
+const NUMERO_WHATSAPP_PABLO = "5493814636143";
 
 interface PropiedadesResumenCotizacionLateral {
   servicioSeleccionado: ServicioBaseResponse;
@@ -160,15 +160,24 @@ export function ResumenCotizacionLateral({
       {/* Resplandor ambiental superior */}
       <div className="pointer-events-none absolute -top-24 -left-24 w-64 h-64 rounded-full bg-[rgb(var(--tema-acento-rgb)/0.14)] blur-3xl" />
 
-      {/* Cabecera del Resumen */}
-      <div className="relative z-10 flex items-start justify-between gap-3 pb-3.5 border-b border-white/10">
-        <div>
-          <h3 className="text-base sm:text-lg font-bold text-white">
-            {traducciones("resumenTitulo")}
-          </h3>
-          <p className="text-[11px] text-neutral-400 font-mono mt-0.5">
-            {traducciones("resumenSubtitulo")}
-          </p>
+      {/* Cabecera del Resumen con Robot Isotipo a la izquierda */}
+      <div className="relative z-10 flex items-center justify-between gap-3 pb-3.5 border-b border-white/10">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="relative h-11 w-auto shrink-0 flex items-center justify-center">
+            <div
+              className="absolute inset-0 -m-1.5 rounded-full bg-[radial-gradient(circle_at_center,rgba(var(--tema-acento-rgb),0.4)_0%,transparent_75%)] blur-md pointer-events-none"
+              aria-hidden="true"
+            />
+            <IsotipoLogo className="h-full w-auto relative z-10" />
+          </div>
+          <div className="min-w-0">
+            <h3 className="text-base sm:text-lg font-bold text-white leading-tight">
+              {traducciones("resumenTitulo")}
+            </h3>
+            <p className="text-[11px] text-neutral-400 font-mono mt-0.5 truncate">
+              {traducciones("resumenSubtitulo")}
+            </p>
+          </div>
         </div>
 
         {esVistaMovil && (
@@ -176,22 +185,12 @@ export function ResumenCotizacionLateral({
             type="button"
             onClick={() => setPanelMovilAbierto(false)}
             aria-label={traducciones("ocultarDetalleMovil")}
-            className="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 hover:text-white transition-colors"
+            className="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 hover:text-white transition-colors shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
         )}
       </div>
-
-      {/* Badge de Promoción Activa si aplica */}
-      {calculoPromocion.tienePromocion && calculoPromocion.textoBanner && (
-        <div className="relative z-10 mt-3.5">
-          <ListonPromocional
-            textoBanner={calculoPromocion.textoBanner}
-            variante="insigniaPildora"
-          />
-        </div>
-      )}
 
       {/* Desglose de Ítems */}
       <div className="relative z-10 flex flex-col gap-3 mt-4 pb-4 border-b border-white/10">

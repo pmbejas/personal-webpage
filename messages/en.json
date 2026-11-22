@@ -351,7 +351,11 @@
     "cotizador": "Quote Builder"
   },
   "cotizador": {
-    "volverAlPortafolio": "Back to portfolio",
+    "volverAlPortafolio": "Back to home",
+    "modalSalidaTitulo": "Leave the quote builder?",
+    "modalSalidaDescripcion": "You have unsaved changes in your configuration. If you return home now, your selected quote options will be lost.",
+    "modalSalidaCancelar": "Keep configuring",
+    "modalSalidaConfirmar": "Yes, leave and discard",
     "insigniaCabecera": "Real-Time Interactive Quote Builder",
     "tituloCabeceraParte1": "Configure and quote your",
     "tituloCabeceraResaltado": "digital project",
