@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter, usePathname } from "@/i18n/routing";
+import { Link, useRouter, usePathname } from "@/i18n/routing";
 import { motion, AnimatePresence } from "framer-motion";
 import { VERSION_SITIO } from "@/data/datosVersion";
 import {
@@ -13,6 +13,7 @@ import {
   Briefcase,
   HelpCircle,
   Mail,
+  Calculator,
   Settings,
   ArrowUp,
   Check,
@@ -83,6 +84,8 @@ export function MenuFlotanteDerecho() {
   const traduccionesDock = useTranslations("menuDock");
   const router = useRouter();
   const pathname = usePathname();
+  const estaEnCotizador =
+    pathname === "/cotizador" || pathname.endsWith("/cotizador");
 
   // 1. Sincroniza el tema y efecto ambiental leyendo la propiedad en el DOM o en localStorage
   useEffect(() => {
@@ -187,13 +190,17 @@ export function MenuFlotanteDerecho() {
         {/* Enlaces de secciones con ScrollSpy y deslizamiento suave continuo */}
         {SECCIONES_MENU.map((seccion) => {
           const Icono = seccion.icono;
-          const estaActiva = seccionActiva === seccion.identificador;
+          const estaActiva =
+            !estaEnCotizador && seccionActiva === seccion.identificador;
           const etiquetaTraducida = traduccionesDock(seccion.claveTraduccion);
+          const destinoSeccion = estaEnCotizador
+            ? `/#${seccion.identificador}`
+            : `#${seccion.identificador}`;
 
           return (
             <a
               key={seccion.identificador}
-              href={`#${seccion.identificador}`}
+              href={destinoSeccion}
               className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
               aria-label={etiquetaTraducida}
             >
@@ -277,6 +284,33 @@ export function MenuFlotanteDerecho() {
             </a>
           );
         })}
+
+        {/* Acceso Directo al Cotizador Online (/[locale]/cotizador) */}
+        <Link
+          href="/cotizador"
+          className={`group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 flex items-center justify-center ${
+            estaEnCotizador
+              ? "text-realce-400 bg-realce-500/15 border border-realce-500/40 shadow-[0_0_16px_rgb(var(--tema-realce-rgb)/0.35)]"
+              : "text-realce-400/90 hover:text-realce-300 hover:bg-realce-500/10"
+          }`}
+          aria-label={traduccionesDock("cotizador")}
+        >
+          {/* Punto luminoso indicador de herramienta interactiva */}
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-realce-400 shadow-[0_0_6px_rgb(var(--tema-realce-rgb))]" />
+
+          <Calculator
+            className={`relative z-10 w-4 h-4 sm:w-4.5 sm:h-4.5 transition-transform duration-300 ${
+              estaEnCotizador
+                ? "scale-110 drop-shadow-[0_0_10px_rgb(var(--tema-realce-rgb)/0.85)]"
+                : "group-hover:scale-110"
+            }`}
+          />
+
+          {/* Tooltip del Cotizador */}
+          <span className="pointer-events-none absolute top-full mt-2.5 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-realce-300 bg-black/95 border border-realce-500/35 shadow-xl opacity-0 -translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-20">
+            {traduccionesDock("cotizador")}
+          </span>
+        </Link>
 
         {/* Separador sutil (vertical en móvil horizontal, horizontal en desktop vertical) */}
         <div className="w-[1px] h-4 mx-0.5 sm:mx-1 lg:w-4 lg:h-[1px] lg:my-1 lg:mx-0 bg-white/10" />
