@@ -19,6 +19,8 @@ import {
   Check,
   Sparkles,
   Ban,
+  Lock,
+  ExternalLink,
 } from "lucide-react";
 import {
   EFECTO_FONDO_POR_DEFECTO,
@@ -583,6 +585,23 @@ export function MenuFlotanteDerecho() {
                       );
                     })}
                   </div>
+                </div>
+
+                {/* Acceso Privado ERP */}
+                <div className="pt-2 border-t border-white/10">
+                  <a
+                    href={process.env.NEXT_PUBLIC_FRONTEND_URL || process.env.NEXT_PUBLIC_ERP_URL || "http://localhost:3001/login"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-sans text-neutral-400 hover:text-white hover:bg-white/5 transition-all group border border-transparent hover:border-white/10"
+                    title={traduccionesDock("accesoErp")}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Lock className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[rgb(var(--tema-acento-claro-rgb))] transition-colors" />
+                      <span className="text-[11px] font-mono tracking-wider">{traduccionesDock("accesoErp")}</span>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-neutral-500 group-hover:text-neutral-300" />
+                  </a>
                 </div>
               </motion.div>
             )}
