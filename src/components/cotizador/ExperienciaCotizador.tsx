@@ -25,7 +25,8 @@ interface PropiedadesExperienciaCotizador {
 
 /**
  * Contenedor interactivo principal de la página dedicada del Cotizador (/cotizador).
- * Mantiene el ADN visual de la Versión 2 Oficial (#070606, FondoHumoSutil y MenuFlotanteDerecho).
+ * Estructura Split-Screen: Resumen fijo a la izquierda en escritorio (oculto con botón en móvil),
+ * columna de configuración a la derecha con margen libre para no colisionar con el MenuFlotanteDerecho.
  */
 export function ExperienciaCotizador({
   catalogo,
@@ -144,172 +145,169 @@ export function ExperienciaCotizador({
       {/* Menú Dock Flotante Derecho */}
       <MenuFlotanteDerecho />
 
-      {/* Contenedor Principal */}
-      <div className="relative z-10 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-10 pt-16 sm:pt-20 lg:pt-10 pb-20 lg:pr-20">
-        {/* 1. Barra superior de retorno al portafolio */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-semibold bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.45)] transition-all"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 text-[rgb(var(--tema-acento-claro-rgb))]" />
-            <span>{traducciones("volverAlPortafolio")}</span>
-          </Link>
+      {/* Disposición Espacial Split-Screen (Resumen Fijo a la Izquierda + Configurador a la Derecha con corredor libre para el Dock) */}
+      <div className="relative z-10 max-w-[1700px] mx-auto p-3 sm:p-6 lg:p-8 pt-16 sm:pt-20 lg:pt-8 pb-24 lg:pb-12 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
+        {/* 1. Columna Izquierda Fija: Resumen de Presupuesto (Sticky en Desktop / Botón flotante en Móvil) */}
+        <ResumenCotizacionLateral
+          servicioSeleccionado={servicioSeleccionado}
+          cantidadSeccionesExtra={cantidadSeccionesExtra}
+          adicionalesSeleccionados={adicionalesSeleccionados}
+          promocionAplicada={promocionActivaServicioActual}
+        />
 
-          {promocionActivaServicioActual && (
-            <ListonPromocional
-              textoBanner={promocionActivaServicioActual.textoBanner}
-              variante="insigniaPildora"
-            />
-          )}
-        </div>
+        {/* 2. Columna Principal Derecha: Configurador con margen derecho (lg:pr-16 xl:pr-20) para no chocar con el Dock */}
+        <main className="flex-1 min-w-0 w-full pr-0 lg:pr-16 xl:pr-20 flex flex-col gap-8">
+          {/* Barra superior de retorno al portafolio */}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.45)] transition-all"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 text-[rgb(var(--tema-acento-claro-rgb))]" />
+              <span>{traducciones("volverAlPortafolio")}</span>
+            </Link>
 
-        {/* 2. Cabecera del Cotizador */}
-        <motion.header
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
-          className="max-w-3xl mb-12"
-        >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium text-[rgb(var(--tema-acento-claro-rgb))] bg-[rgb(var(--tema-acento-rgb)/0.1)] border border-[rgb(var(--tema-acento-rgb)/0.25)] mb-4">
-            <Calculator className="w-3.5 h-3.5" />
-            <span>{traducciones("insigniaCabecera")}</span>
+            {promocionActivaServicioActual && (
+              <ListonPromocional
+                textoBanner={promocionActivaServicioActual.textoBanner}
+                variante="insigniaPildora"
+              />
+            )}
           </div>
 
-          <h1 className="fuente-titular text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight">
-            {traducciones("tituloCabeceraParte1")}{" "}
-            <span className="inline-block bg-[rgb(var(--tema-acento-rgb))] text-black px-4 py-0.5 rounded-full font-semibold shadow-[0_0_24px_rgba(var(--tema-acento-rgb),0.35)]">
-              {traducciones("tituloCabeceraResaltado")}
-            </span>
-          </h1>
+          {/* Cabecera del Cotizador */}
+          <motion.header
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="max-w-3xl"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium text-[rgb(var(--tema-acento-claro-rgb))] bg-[rgb(var(--tema-acento-rgb)/0.1)] border border-[rgb(var(--tema-acento-rgb)/0.25)] mb-3">
+              <Calculator className="w-3.5 h-3.5" />
+              <span>{traducciones("insigniaCabecera")}</span>
+            </div>
 
-          <p className="mt-4 text-sm sm:text-base text-neutral-300 leading-relaxed">
-            {traducciones("descripcionCabecera")}
-          </p>
-        </motion.header>
+            <h1 className="fuente-titular text-2xl sm:text-4xl font-bold text-white tracking-tight leading-tight">
+              {traducciones("tituloCabeceraParte1")}{" "}
+              <span className="inline-block bg-[rgb(var(--tema-acento-rgb))] text-black px-3.5 py-0.5 rounded-full font-semibold shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.35)]">
+                {traducciones("tituloCabeceraResaltado")}
+              </span>
+            </h1>
 
-        {/* 3. Disposición en dos columnas: Configurador (Izquierda) + Resumen Sticky (Derecha) */}
-        <div className="flex flex-col lg:flex-row gap-8 xl:gap-10 items-start">
-          {/* Columna de Configuración */}
-          <main className="flex-1 min-w-0 w-full flex flex-col gap-12">
-            {/* PASO 01: Selección de Servicio Base */}
-            <section aria-labelledby="titulo-paso-1">
-              <div className="mb-6">
-                <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-widest text-[rgb(var(--tema-acento-claro-rgb))]">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>{traducciones("paso1Etiqueta")}</span>
-                </span>
-                <h2
-                  id="titulo-paso-1"
-                  className="text-2xl sm:text-3xl font-bold text-white mt-1"
-                >
-                  {traducciones("paso1Titulo")}
-                </h2>
-                <p className="text-xs sm:text-sm text-neutral-400 mt-1">
-                  {traducciones("paso1Descripcion")}
-                </p>
-              </div>
+            <p className="mt-2.5 text-xs sm:text-sm text-neutral-300 leading-relaxed">
+              {traducciones("descripcionCabecera")}
+            </p>
+          </motion.header>
 
-              <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
-                {serviciosOrdenados.map((servicio) => {
-                  const promoParaServicio =
-                    servicioCatalogo.resolverPromocionParaServicio(
-                      servicio.id,
-                      catalogo.promocionesActivas
-                    );
-                  const calculoPrecio =
-                    servicioCatalogo.calcularPrecioConPromocion(
-                      servicio.precioBase,
-                      promoParaServicio
-                    );
-
-                  return (
-                    <TarjetaServicioCotizador
-                      key={servicio.id}
-                      servicio={servicio}
-                      calculoPrecio={calculoPrecio}
-                      estaSeleccionado={servicio.id === servicioSeleccionado.id}
-                      cantidadSeccionesExtra={
-                        servicio.id === servicioSeleccionado.id
-                          ? cantidadSeccionesExtra
-                          : 0
-                      }
-                      alSeleccionar={seleccionarServicioBase}
-                      alCambiarSeccionesExtra={setCantidadSeccionesExtra}
-                    />
-                  );
-                })}
-              </div>
-            </section>
-
-            {/* PASO 02: Selección de Módulos Adicionales Compatibles */}
-            <section aria-labelledby="titulo-paso-2">
-              <div className="mb-6">
-                <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-widest text-[rgb(var(--tema-acento-claro-rgb))]">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>{traducciones("paso2Etiqueta")}</span>
-                </span>
-                <h2
-                  id="titulo-paso-2"
-                  className="text-2xl sm:text-3xl font-bold text-white mt-1"
-                >
-                  {traducciones("paso2Titulo")}
-                </h2>
-                <p className="text-xs sm:text-sm text-neutral-400 mt-1">
-                  {traducciones("paso2Descripcion")}
-                </p>
-              </div>
-
-              <SelectorAdicionalesPorGrupo
-                grupos={gruposOrdenados}
-                adicionalesCompatiblesIds={
-                  servicioSeleccionado.adicionalesCompatiblesIds
-                }
-                adicionalesSeleccionadosIds={adicionalesSeleccionadosIds}
-                alAlternarAdicional={alternarAdicional}
-              />
-            </section>
-
-            {/* Bloque para proyectos corporativos a medida */}
-            <section className="rounded-3xl bg-gradient-to-r from-[#0c0a09] via-[#120f11] to-[#0c0a09] border border-white/10 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-              <div>
-                <h3 className="text-lg font-bold text-white">
-                  {traducciones("proyectoAMedidaTitulo")}
-                </h3>
-                <p className="text-xs sm:text-sm text-neutral-400 mt-1 max-w-xl">
-                  {traducciones("proyectoAMedidaTexto")}
-                </p>
-              </div>
-
-              <a
-                href={CONFIGURACION_CONTACTO.urlWhatsApp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/15 hover:border-[rgb(var(--tema-acento-rgb)/0.5)] transition-all shrink-0"
+          {/* PASO 01: Selección de Servicio Base (3 Cards Compactas con gap reducido) */}
+          <section aria-labelledby="titulo-paso-1">
+            <div className="mb-4">
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-widest text-[rgb(var(--tema-acento-claro-rgb))]">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>{traducciones("paso1Etiqueta")}</span>
+              </span>
+              <h2
+                id="titulo-paso-1"
+                className="text-xl sm:text-2xl font-bold text-white mt-0.5"
               >
-                <MessageSquare className="w-4 h-4 text-[rgb(var(--tema-acento-claro-rgb))]" />
-                <span>WhatsApp</span>
-              </a>
-            </section>
-          </main>
+                {traducciones("paso1Titulo")}
+              </h2>
+              <p className="text-xs text-neutral-400 mt-0.5">
+                {traducciones("paso1Descripcion")}
+              </p>
+            </div>
 
-          {/* Columna Lateral Sticky de Resumen y Conversión */}
-          <ResumenCotizacionLateral
-            servicioSeleccionado={servicioSeleccionado}
-            cantidadSeccionesExtra={cantidadSeccionesExtra}
-            adicionalesSeleccionados={adicionalesSeleccionados}
-            promocionAplicada={promocionActivaServicioActual}
-          />
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-3.5">
+              {serviciosOrdenados.map((servicio) => {
+                const promoParaServicio =
+                  servicioCatalogo.resolverPromocionParaServicio(
+                    servicio.id,
+                    catalogo.promocionesActivas
+                  );
+                const calculoPrecio =
+                  servicioCatalogo.calcularPrecioConPromocion(
+                    servicio.precioBase,
+                    promoParaServicio
+                  );
 
-        {/* Pie de página sutil */}
-        <footer className="mt-20 pt-8 border-t border-white/5 text-center text-xs text-neutral-500 font-mono flex items-center justify-center gap-2">
-          <span>{traduccionesPie("derechos")}</span>
-          <span>·</span>
-          <span className="text-neutral-400 font-semibold">
-            v{VERSION_SITIO}
-          </span>
-        </footer>
+                return (
+                  <TarjetaServicioCotizador
+                    key={servicio.id}
+                    servicio={servicio}
+                    calculoPrecio={calculoPrecio}
+                    estaSeleccionado={servicio.id === servicioSeleccionado.id}
+                    cantidadSeccionesExtra={
+                      servicio.id === servicioSeleccionado.id
+                        ? cantidadSeccionesExtra
+                        : 0
+                    }
+                    alSeleccionar={seleccionarServicioBase}
+                    alCambiarSeccionesExtra={setCantidadSeccionesExtra}
+                  />
+                );
+              })}
+            </div>
+          </section>
+
+          {/* PASO 02: Selección de Módulos Adicionales Compatibles */}
+          <section aria-labelledby="titulo-paso-2">
+            <div className="mb-4">
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-widest text-[rgb(var(--tema-acento-claro-rgb))]">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>{traducciones("paso2Etiqueta")}</span>
+              </span>
+              <h2
+                id="titulo-paso-2"
+                className="text-xl sm:text-2xl font-bold text-white mt-0.5"
+              >
+                {traducciones("paso2Titulo")}
+              </h2>
+              <p className="text-xs text-neutral-400 mt-0.5">
+                {traducciones("paso2Descripcion")}
+              </p>
+            </div>
+
+            <SelectorAdicionalesPorGrupo
+              grupos={gruposOrdenados}
+              adicionalesCompatiblesIds={
+                servicioSeleccionado.adicionalesCompatiblesIds
+              }
+              adicionalesSeleccionadosIds={adicionalesSeleccionadosIds}
+              alAlternarAdicional={alternarAdicional}
+            />
+          </section>
+
+          {/* Bloque para proyectos corporativos a medida */}
+          <section className="rounded-2xl bg-gradient-to-r from-[#0c0a09] via-[#120f11] to-[#0c0a09] border border-white/10 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="text-base font-bold text-white">
+                {traducciones("proyectoAMedidaTitulo")}
+              </h3>
+              <p className="text-xs text-neutral-400 mt-1 max-w-xl">
+                {traducciones("proyectoAMedidaTexto")}
+              </p>
+            </div>
+
+            <a
+              href={CONFIGURACION_CONTACTO.urlWhatsApp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/15 hover:border-[rgb(var(--tema-acento-rgb)/0.5)] transition-all shrink-0"
+            >
+              <MessageSquare className="w-4 h-4 text-[rgb(var(--tema-acento-claro-rgb))]" />
+              <span>WhatsApp</span>
+            </a>
+          </section>
+
+          {/* Pie de página sutil */}
+          <footer className="mt-6 pt-6 border-t border-white/5 text-center text-xs text-neutral-500 font-mono flex items-center justify-center gap-2">
+            <span>{traduccionesPie("derechos")}</span>
+            <span>·</span>
+            <span className="text-neutral-400 font-semibold">
+              v{VERSION_SITIO}
+            </span>
+          </footer>
+        </main>
       </div>
     </div>
   );

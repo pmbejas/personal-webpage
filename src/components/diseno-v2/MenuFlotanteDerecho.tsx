@@ -285,29 +285,76 @@ export function MenuFlotanteDerecho() {
           );
         })}
 
-        {/* Acceso Directo al Cotizador Online (/[locale]/cotizador) */}
+        {/* Acceso Directo al Cotizador Online (/[locale]/cotizador) con el Efecto Spotlight Oficial del Tema Activo */}
         <Link
           href="/cotizador"
-          className={`group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 flex items-center justify-center ${
-            estaEnCotizador
-              ? "text-realce-400 bg-realce-500/15 border border-realce-500/40 shadow-[0_0_16px_rgb(var(--tema-realce-rgb)/0.35)]"
-              : "text-realce-400/90 hover:text-realce-300 hover:bg-realce-500/10"
-          }`}
+          className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
           aria-label={traduccionesDock("cotizador")}
         >
-          {/* Punto luminoso indicador de herramienta interactiva */}
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-realce-400 shadow-[0_0_6px_rgb(var(--tema-realce-rgb))]" />
+          {estaEnCotizador && (
+            <motion.div
+              layoutId="spotlight-dock-activo"
+              className="absolute inset-[-4px] pointer-events-none flex items-center justify-center overflow-visible z-0"
+              transition={{
+                type: "spring",
+                stiffness: 340,
+                damping: 24,
+                mass: 0.6,
+              }}
+            >
+              <motion.div
+                key="spotlight-swing-cotizador"
+                initial={{ rotate: -8, scale: 0.94 }}
+                animate={{ rotate: 0, scale: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 380,
+                  damping: 16,
+                  mass: 0.5,
+                }}
+                className="relative w-full h-full flex items-center justify-center"
+              >
+                {/* A. VERSIÓN MÓVIL (< lg): Haz cenital emitido desde el borde SUPERIOR hacia abajo */}
+                <div className="block lg:hidden absolute inset-0">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 sm:w-5 h-[2px] rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.95),0_0_16px_4px_rgba(var(--tema-acento-claro-rgb),0.85)] z-20" />
+                  <div
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[rgb(var(--tema-acento-claro-rgb)/0.55)] via-[rgb(var(--tema-acento-rgb)/0.25)] to-transparent"
+                    style={{
+                      clipPath: "polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%)",
+                      filter:
+                        "drop-shadow(0 0 12px rgba(var(--tema-acento-rgb),0.4))",
+                    }}
+                  />
+                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_50%_35%,rgba(var(--tema-acento-rgb),0.45)_0%,rgba(var(--tema-acento-rgb),0.15)_55%,transparent_80%)] blur-[2px]" />
+                </div>
+
+                {/* B. VERSIÓN ESCRITORIO (>= lg): Haz horizontal emitido desde el borde IZQUIERDO hacia la derecha */}
+                <div className="hidden lg:block absolute inset-0">
+                  <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[2.5px] h-5 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.95),0_0_16px_4px_rgba(var(--tema-acento-claro-rgb),0.85)] z-20" />
+                  <div
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[rgb(var(--tema-acento-claro-rgb)/0.55)] via-[rgb(var(--tema-acento-rgb)/0.25)] to-transparent"
+                    style={{
+                      clipPath: "polygon(0% 22%, 100% 0%, 100% 100%, 0% 78%)",
+                      filter:
+                        "drop-shadow(0 0 12px rgba(var(--tema-acento-rgb),0.4))",
+                    }}
+                  />
+                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_35%_50%,rgba(var(--tema-acento-rgb),0.45)_0%,rgba(var(--tema-acento-rgb),0.15)_55%,transparent_80%)] blur-[2px]" />
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
 
           <Calculator
-            className={`relative z-10 w-4 h-4 sm:w-4.5 sm:h-4.5 transition-transform duration-300 ${
+            className={`relative z-10 w-4 h-4 sm:w-4.5 sm:h-4.5 transition-all duration-300 ${
               estaEnCotizador
-                ? "scale-110 drop-shadow-[0_0_10px_rgb(var(--tema-realce-rgb)/0.85)]"
-                : "group-hover:scale-110"
+                ? "text-[rgb(var(--tema-acento-claro-rgb))] scale-110 drop-shadow-[0_0_12px_rgba(var(--tema-acento-claro-rgb),0.85)]"
+                : "group-hover:scale-105"
             }`}
           />
 
           {/* Tooltip del Cotizador */}
-          <span className="pointer-events-none absolute top-full mt-2.5 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-realce-300 bg-black/95 border border-realce-500/35 shadow-xl opacity-0 -translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-20">
+          <span className="pointer-events-none absolute top-full mt-2.5 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 -translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-20">
             {traduccionesDock("cotizador")}
           </span>
         </Link>

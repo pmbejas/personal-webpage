@@ -32,16 +32,16 @@ export function ListonPromocional({
 
   return (
     <div
-      className="pointer-events-none absolute top-0 right-0 w-36 h-36 overflow-hidden z-20 rounded-tr-3xl"
+      className="pointer-events-none absolute top-0 right-0 w-28 h-28 overflow-hidden z-20 rounded-tr-2xl"
       aria-label={textoBanner}
     >
       {/* Sombra de pliegue superior e inferior para efecto tridimensional de cinta */}
-      <div className="absolute top-0 left-6 w-2 h-2 bg-realce-600/80" />
-      <div className="absolute bottom-6 right-0 w-2 h-2 bg-realce-600/80" />
+      <div className="absolute top-0 left-3 w-1.5 h-1.5 bg-realce-600/80" />
+      <div className="absolute bottom-3 right-0 w-1.5 h-1.5 bg-realce-600/80" />
 
       {/* Listón diagonal rotado a 45 grados */}
-      <div className="absolute top-7 -right-10 w-44 rotate-45 bg-gradient-to-r from-realce-500 via-realce-400 to-realce-500 text-black font-mono font-extrabold text-[10px] tracking-wider uppercase py-1.5 text-center shadow-[0_4px_18px_rgb(var(--tema-realce-rgb)/0.55)] border-y border-white/30">
-        <span className="block truncate px-3 drop-shadow-[0_1px_0_rgba(255,255,255,0.35)]">
+      <div className="absolute top-5 -right-9 w-36 rotate-45 bg-gradient-to-r from-realce-500 via-realce-400 to-realce-500 text-black font-mono font-extrabold text-[9px] tracking-wider uppercase py-1 text-center shadow-[0_4px_14px_rgb(var(--tema-realce-rgb)/0.55)] border-y border-white/30">
+        <span className="block truncate px-2 drop-shadow-[0_1px_0_rgba(255,255,255,0.35)]">
           {textoBanner}
         </span>
       </div>
