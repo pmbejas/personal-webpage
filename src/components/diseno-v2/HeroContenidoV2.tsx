@@ -4,6 +4,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { Link } from "@/i18n/routing";
 import { CuboCodigo } from "@/components/animacion/CuboCodigo";
 
 /**
@@ -90,6 +91,17 @@ export function HeroContenidoV2() {
                 {traduccionesSobreMi("proyectosCompletados")}
               </span>
             </div>
+
+            <Link
+              href="/cotizador"
+              className="relative inline-flex items-center justify-between px-5 py-3.5 rounded-2xl text-xs font-bold bg-realce-500/15 hover:bg-realce-500/25 text-realce-300 hover:text-white border border-realce-500/50 shadow-[0_0_24px_rgb(var(--tema-realce-rgb)/0.3)] hover:shadow-[0_0_32px_rgb(var(--tema-realce-rgb)/0.55)] hover:scale-[1.02] active:scale-95 transition-all group"
+            >
+              <span className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-realce-400 animate-pulse shrink-0" />
+                <span>{traduccionesHero("cotizarEnUnMinuto")}</span>
+              </span>
+              <ArrowRight className="w-4 h-4 text-realce-400 group-hover:translate-x-1 transition-transform shrink-0" />
+            </Link>
 
             <a
               href="#proyectos"
