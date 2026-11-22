@@ -473,8 +473,8 @@ export function ResumenCotizacionLateral({
 
   return (
     <>
-      {/* 1. VERSIÓN ESCRITORIO (>= lg): Columna fija a la IZQUIERDA con alto completo del viewport */}
-      <aside className="hidden lg:block lg:w-[360px] xl:w-[395px] lg:sticky lg:top-6 lg:self-start lg:h-[calc(100vh-3rem)] shrink-0">
+      {/* 1. VERSIÓN ESCRITORIO (>= lg): Columna fija a la IZQUIERDA con alto completo del viewport e inamovible (fixed) */}
+      <aside className="hidden lg:block lg:fixed lg:top-6 lg:left-[max(2rem,calc((100vw-1700px)/2+2rem))] lg:w-[360px] xl:w-[395px] lg:h-[calc(100vh-3rem)] z-20 shrink-0">
         {renderizarContenidoResumen(false)}
       </aside>
 

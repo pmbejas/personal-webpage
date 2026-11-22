@@ -320,7 +320,13 @@ export function ExperienciaCotizador({
       <MenuFlotanteDerecho />
 
       {/* Disposición Espacial Split-Screen (Resumen Fijo a la Izquierda + Wizard por Pasos a la Derecha) */}
-      <div className="relative z-10 max-w-[1700px] mx-auto p-3 sm:p-6 lg:p-8 pt-16 sm:pt-20 lg:pt-6 pb-24 lg:pb-12 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
+      <div className="relative z-10 max-w-[1700px] mx-auto px-3 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-6 pb-24 lg:pb-8 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
+        {/* Placeholder invisible para reservar el ancho exacto del Resumen en el flujo flex */}
+        <div
+          className="hidden lg:block lg:w-[360px] xl:w-[395px] shrink-0 pointer-events-none opacity-0"
+          aria-hidden="true"
+        />
+
         {/* 1. Columna Izquierda Fija: Resumen de Presupuesto a alto completo del viewport */}
         <ResumenCotizacionLateral
           servicioSeleccionado={servicioSeleccionado}
