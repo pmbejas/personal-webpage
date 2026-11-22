@@ -55,8 +55,8 @@ export function TarjetaServicioCotizador({
       }}
       className={`group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden border text-left ${
         estaSeleccionado
-          ? "bg-[#110e10] border-[rgb(var(--tema-acento-rgb))] shadow-[0_0_28px_rgba(var(--tema-acento-rgb),0.22)]"
-          : "bg-[#0c0a09]/90 border-white/10 hover:border-white/25 hover:bg-[#0f0d0e]"
+          ? "bg-[rgb(var(--tema-acento-rgb)/0.18)] border-[rgb(var(--tema-acento-rgb))] shadow-[0_0_32px_rgba(var(--tema-acento-rgb),0.35)]"
+          : "bg-[rgb(var(--tema-acento-rgb)/0.08)] border-[rgb(var(--tema-acento-rgb)/0.3)] hover:border-[rgb(var(--tema-acento-rgb)/0.6)] hover:bg-[rgb(var(--tema-acento-rgb)/0.14)] shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.08)]"
       }`}
     >
       {/* 1. Banner Cruzado (Ribbon) si tiene precio > 0 y promoción activa */}
@@ -71,7 +71,7 @@ export function TarjetaServicioCotizador({
 
       {/* Halo ambiental superior cuando está seleccionado */}
       {estaSeleccionado && (
-        <div className="pointer-events-none absolute -top-16 -left-16 w-44 h-44 rounded-full bg-[rgb(var(--tema-acento-rgb)/0.14)] blur-3xl" />
+        <div className="pointer-events-none absolute -top-16 -left-16 w-48 h-48 rounded-full bg-[rgb(var(--tema-acento-rgb)/0.25)] blur-3xl" />
       )}
 
       <div>
@@ -115,7 +115,7 @@ export function TarjetaServicioCotizador({
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
           {!esPrecioAConvenir ? (
             <>
-              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-white/[0.04] border border-white/10 text-[11px] text-neutral-300 font-mono">
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-black/40 border border-[rgb(var(--tema-acento-rgb)/0.25)] text-[11px] text-neutral-200 font-mono">
                 <Layers className="w-3 h-3 text-[rgb(var(--tema-acento-claro-rgb))]" />
                 <span>
                   {servicio.seccionesIncluidas}{" "}
@@ -123,7 +123,7 @@ export function TarjetaServicioCotizador({
                 </span>
               </div>
 
-              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-white/[0.04] border border-white/10 text-[11px] text-neutral-300 font-mono">
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-black/40 border border-[rgb(var(--tema-acento-rgb)/0.25)] text-[11px] text-neutral-200 font-mono">
                 <Clock className="w-3 h-3 text-[rgb(var(--tema-acento-claro-rgb))]" />
                 <span>
                   ~{servicio.diasEntregaBase} {traducciones("diasHabiles")}
@@ -131,7 +131,7 @@ export function TarjetaServicioCotizador({
               </div>
             </>
           ) : (
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-white/[0.04] border border-white/10 text-[11px] text-neutral-300 font-mono">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-black/40 border border-[rgb(var(--tema-acento-rgb)/0.25)] text-[11px] text-neutral-200 font-mono">
               <CalendarCheck className="w-3 h-3 text-[rgb(var(--tema-acento-claro-rgb))]" />
               <span>{traducciones("plazoAConvenir")}</span>
             </div>
@@ -140,7 +140,7 @@ export function TarjetaServicioCotizador({
       </div>
 
       {/* 4. Bloque de Precios (Precio con oferta o Leyenda 'A convenir luego de la primera entrevista') */}
-      <div className="mt-3.5 pt-3 border-t border-white/10">
+      <div className="mt-3.5 pt-3 border-t border-[rgb(var(--tema-acento-rgb)/0.2)]">
         {esPrecioAConvenir ? (
           <div className="p-2.5 rounded-xl bg-[rgb(var(--tema-acento-rgb)/0.1)] border border-[rgb(var(--tema-acento-rgb)/0.3)]">
             <span className="text-xs sm:text-sm font-bold text-[rgb(var(--tema-acento-claro-rgb))] block leading-snug">
