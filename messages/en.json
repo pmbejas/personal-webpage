@@ -430,9 +430,9 @@
     "errorCamposPasoFinal": "Please provide a brief description, your name, a valid email, and your WhatsApp number.",
     "cotizacionListaTitulo": "Quote finalized and unlocked!",
     "cotizacionListaTexto": "You can now download your formal PDF quote or contact me using the summary buttons on the left.",
-    "avisoBotonesBloqueados": "Complete the steps and click Finish to unlock these buttons.",
-    "botonEnviarDescargarPdf": "Download PDF Quote",
-    "botonComunicarmeConmigo": "Contact me via WhatsApp"
+    "avisoBotonesBloqueados": "Complete the steps and finish to unlock.",
+    "botonEnviarDescargarPdf": "Download PDF",
+    "botonComunicarmeConmigo": "WhatsApp"
   },
   "validadorPresupuesto": {
     "titulo": "Official Quote Validator",

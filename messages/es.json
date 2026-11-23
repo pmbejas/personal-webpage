@@ -430,9 +430,9 @@
     "errorCamposPasoFinal": "Por favor completá una breve descripción, tu nombre, un email válido y tu WhatsApp.",
     "cotizacionListaTitulo": "¡Presupuesto finalizado y habilitado!",
     "cotizacionListaTexto": "Ya podés descargar tu presupuesto formal en PDF o comunicarte conmigo desde los botones del resumen a la izquierda.",
-    "avisoBotonesBloqueados": "Completá los pasos y hacé clic en Finalizar para habilitar estos botones.",
-    "botonEnviarDescargarPdf": "Descargar Presupuesto en PDF",
-    "botonComunicarmeConmigo": "Comunicarme por WhatsApp"
+    "avisoBotonesBloqueados": "Completá los pasos y finalizá para habilitar.",
+    "botonEnviarDescargarPdf": "Descargar PDF",
+    "botonComunicarmeConmigo": "WhatsApp"
   },
   "validadorPresupuesto": {
     "titulo": "Validador Oficial de Presupuestos",
