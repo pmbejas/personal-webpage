@@ -32,7 +32,7 @@ export const CATALOGO_RESPALDO_LOCAL: CatalogoPublicoResponse = {
       nombre: "Landing Page Comercial",
       descripcionComercial:
         "Página web de alta conversión diseñada estratégicamente para captación de leads, venta de un producto/servicio o lanzamiento. Incluye diseño responsive prémium, animaciones sutiles y llamado a la acción directo.",
-      precioBase: 180000,
+      precioBase: 350000,
       diasEntregaBase: 5,
       seccionesIncluidas: 4,
       permiteSeccionesExtra: true,

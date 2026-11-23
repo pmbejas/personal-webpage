@@ -22,11 +22,11 @@ const TIEMPO_LIMITE_CREACION_PRESUPUESTO_MS = 45000;
  */
 export function obtenerUrlBaseApi(): string {
   const urlConfigurada = process.env.NEXT_PUBLIC_API_URL || URL_BASE_API_POR_DEFECTO;
-  return urlConfigurada.replace(/\/+$/, "");
+  return urlConfigurada.replace(/\/api\/?$/, "").replace(/\/+$/, "");
 }
 
 /**
- * Implementación del servicio de catálogo comercial con soporte ISR (Incremental Static Regeneration)
+ * Implementación del servicio de catálogo comercial con consulta en tiempo real
  * y respaldo estático resiliente ante cold starts en Render Free.
  */
 export class ServicioCatalogo implements IServicioCatalogo {
@@ -37,11 +37,8 @@ export class ServicioCatalogo implements IServicioCatalogo {
       const respuesta = await fetch(urlEndpoint, {
         method: "GET",
         headers: { Accept: "application/json" },
+        cache: "no-store",
         signal: AbortSignal.timeout(TIEMPO_LIMITE_PETICION_MS),
-        next: {
-          tags: [ETIQUETA_CACHE_CATALOGO],
-          revalidate: TIEMPO_REVALIDACION_SEGUNDOS,
-        },
       });
 
       if (!respuesta.ok) {

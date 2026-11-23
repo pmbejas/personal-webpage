@@ -31,10 +31,13 @@ export async function generateMetadata({
   };
 }
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 /**
  * Página dedicada del Cotizador Online (/[locale]/cotizador).
- * Consume el catálogo y las promociones vigentes con ISR (0 ms de latencia)
- * y respaldo estático automático ante cold starts en Render Free.
+ * Consume el catálogo y las promociones vigentes en tiempo real
+ * con respaldo estático automático ante cold starts en Render Free.
  */
 export default async function PaginaCotizador({
   params,
