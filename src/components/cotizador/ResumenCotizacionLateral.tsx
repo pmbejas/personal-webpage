@@ -218,8 +218,14 @@ export function ResumenCotizacionLateral({
     ? calculoPromocion.textoBanner
     : null;
 
+  const urlWhatsAppApi =
+    presupuestoCreado?.enlacesWhatsApp?.enlaceClienteAPablo;
+  const urlWhatsAppSaneada = urlWhatsAppApi
+    ? urlWhatsAppApi.replace(/wa\.me\/[0-9]*/, `wa.me/${NUMERO_WHATSAPP_PABLO}`)
+    : null;
+
   const urlWhatsAppFinal =
-    presupuestoCreado?.enlacesWhatsApp?.enlaceClienteAPablo ||
+    urlWhatsAppSaneada ||
     construirEnlaceWhatsAppResumen(
       presupuestoCreado?.codigo ?? null,
       nombreCliente,

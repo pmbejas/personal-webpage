@@ -235,7 +235,10 @@ export default async function PaginaValidacionPresupuesto({
 
                 {presupuesto.urlWhatsApp && (
                   <a
-                    href={presupuesto.urlWhatsApp}
+                    href={presupuesto.urlWhatsApp.replace(
+                      /wa\.me\/[0-9]*/,
+                      "wa.me/5493814636143"
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:scale-[1.02] active:scale-95 transition-all flex-1"
