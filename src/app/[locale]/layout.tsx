@@ -5,7 +5,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ruteo } from "@/i18n/routing";
-import { FondoAnimado } from "@/components/animacion/FondoAnimado";
 import { WarmUpBackend } from "@/components/sistema/WarmUpBackend";
 import "../globals.css";
 
@@ -47,7 +46,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadatos.inicio" });
-  const urlBaseSitio = process.env.NEXT_PUBLIC_SITIO_URL || "https://pablodev.com";
+  const urlBaseSitio =
+    process.env.NEXT_PUBLIC_SITIO_URL || "https://pablobejas.vercel.app";
 
   return {
     metadataBase: new URL(urlBaseSitio),
@@ -127,8 +127,6 @@ export default async function LayoutLocalizado({
         <NextIntlClientProvider locale={locale} messages={mensajes}>
           {/* Desactiva las animaciones cuando el usuario activa "reducir movimiento" en su sistema */}
           <MotionConfig reducedMotion="user">
-            {/* Capa de fondo animado fija detrás de todo el contenido de la página */}
-            <FondoAnimado />
             <div className="relative z-10 flex flex-col min-h-screen overflow-x-clip w-full max-w-full">
               {children}
             </div>

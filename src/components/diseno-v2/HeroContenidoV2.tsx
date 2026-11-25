@@ -94,6 +94,7 @@ export function HeroContenidoV2() {
 
             <Link
               href="/cotizador"
+              prefetch={false}
               className="relative inline-flex items-center justify-between px-5 py-3.5 rounded-2xl text-xs font-bold bg-realce-500/15 hover:bg-realce-500/25 text-realce-300 hover:text-white border border-realce-500/50 shadow-[0_0_24px_rgb(var(--tema-realce-rgb)/0.3)] hover:shadow-[0_0_32px_rgb(var(--tema-realce-rgb)/0.55)] hover:scale-[1.02] active:scale-95 transition-all group"
             >
               <span className="flex items-center gap-2">

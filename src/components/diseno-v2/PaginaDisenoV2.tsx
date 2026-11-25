@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
 import { PreloaderCinematico } from "./PreloaderCinematico";
 import { TarjetaLateralFija } from "./TarjetaLateralFija";
 import { MenuFlotanteDerecho } from "./MenuFlotanteDerecho";
 import { CuerpoContenidoV2 } from "./CuerpoContenidoV2";
 import { FondoHumoSutil } from "@/components/animacion/FondoHumoSutil";
+
+const CLAVE_INTRO_SESION = "pb_intro_cinematica_vista";
 
 /**
  * Contenedor Maestro de la Versión 2 Oficial.
@@ -14,28 +15,43 @@ import { FondoHumoSutil } from "@/components/animacion/FondoHumoSutil";
  * Dock de navegación flotante a la derecha y lienzo interactivo de contenido con Cubo 3D.
  */
 export function PaginaDisenoV2() {
-  const [cargando, setCargando] = useState<boolean>(true);
+  const [mostrarPreloader, setMostrarPreloader] = useState<boolean>(false);
+
+  useEffect(() => {
+    try {
+      const yaVista = sessionStorage.getItem(CLAVE_INTRO_SESION) === "1";
+      if (!yaVista) {
+        setMostrarPreloader(true);
+      }
+    } catch {
+      // Si sessionStorage está bloqueado, omitir preloader para no degradar la experiencia
+    }
+  }, []);
+
+  const finalizarPreloader = () => {
+    try {
+      sessionStorage.setItem(CLAVE_INTRO_SESION, "1");
+    } catch {
+      // Ignorar en navegación privada estricta
+    }
+    setMostrarPreloader(false);
+  };
 
   return (
     <div
       data-v2="true"
       className="relative min-h-screen bg-[#070606] text-neutral-100 selection:bg-[rgb(var(--tema-acento-rgb))] selection:text-black"
     >
-      {/* 1. Preloader Cinemático Oficial */}
-      {cargando && (
-        <PreloaderCinematico alFinalizar={() => setCargando(false)} />
+      {/* 1. Preloader Cinemático Oficial (una sola vez por sesión, sin ocultar el contenido al SSR/LCP) */}
+      {mostrarPreloader && (
+        <PreloaderCinematico alFinalizar={finalizarPreloader} />
       )}
 
       {/* 2. Fondo Ambiental de Humo Sutil (Estilo Vapor / Cigarrillo) */}
       <FondoHumoSutil />
 
       {/* 3. Disposición espacial Split-Screen */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: cargando ? 0 : 1 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="relative z-10 max-w-[1700px] mx-auto p-3 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-8 lg:gap-10 xl:gap-14"
-      >
+      <div className="relative z-10 max-w-[1700px] mx-auto p-3 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-8 lg:gap-10 xl:gap-14">
         {/* Tarjeta Lateral Izquierda Fija / Sticky */}
         <TarjetaLateralFija />
 
@@ -46,7 +62,7 @@ export function PaginaDisenoV2() {
 
         {/* Menú Dock Flotante Derecho */}
         <MenuFlotanteDerecho />
-      </motion.div>
+      </div>
     </div>
   );
 }

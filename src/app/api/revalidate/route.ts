@@ -26,8 +26,23 @@ function extraerSecretoPeticion(peticion: NextRequest): string | null {
  * cuando se actualizan tarifas del catálogo o se activan/modifican campañas promocionales.
  */
 export async function POST(peticion: NextRequest) {
+  const secretoEntorno = process.env.REVALIDATE_SECRET?.trim();
+  const esProduccion = process.env.NODE_ENV === "production";
+
+  if (esProduccion && !secretoEntorno) {
+    return NextResponse.json(
+      {
+        exito: false,
+        revalidado: false,
+        mensaje:
+          "Configuración incompleta: REVALIDATE_SECRET no está definido en el entorno de producción.",
+      },
+      { status: 500 }
+    );
+  }
+
   const secretoConfigurado =
-    process.env.REVALIDATE_SECRET || SECRETO_REVALIDACION_POR_DEFECTO;
+    secretoEntorno || SECRETO_REVALIDACION_POR_DEFECTO;
   const secretoRecibido = extraerSecretoPeticion(peticion);
 
   if (!secretoRecibido || secretoRecibido !== secretoConfigurado) {

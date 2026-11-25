@@ -34,10 +34,13 @@ export async function generateMetadata({
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+const TIEMPO_LIMITE_SSR_CATALOGO_MS = 6000;
+
 /**
  * Página dedicada del Cotizador Online (/[locale]/cotizador).
- * Consume el catálogo y las promociones vigentes en tiempo real
- * con respaldo estático automático ante cold starts en Render Free.
+ * Obtiene las tarifas oficiales en vivo desde el Backend; si el contenedor de Render
+ * está despertando, delega la espera al cliente para mostrar siempre precios reales
+ * sin recurrir jamás a valores estáticos desactualizados.
  */
 export default async function PaginaCotizador({
   params,
@@ -47,7 +50,9 @@ export default async function PaginaCotizador({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const catalogo = await servicioCatalogo.obtenerCatalogoPublico();
+  const catalogoInicial = await servicioCatalogo.obtenerCatalogoEnVivo({
+    tiempoLimiteMs: TIEMPO_LIMITE_SSR_CATALOGO_MS,
+  });
 
-  return <ExperienciaCotizador catalogo={catalogo} />;
+  return <ExperienciaCotizador catalogoInicial={catalogoInicial} />;
 }

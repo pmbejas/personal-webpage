@@ -430,19 +430,33 @@
     "errorCamposPasoFinal": "Por favor, preencha uma breve descrição, seu nome, um e-mail válido e seu WhatsApp.",
     "cotizacionListaTitulo": "Orçamento finalizado e habilitado!",
     "cotizacionListaTexto": "Você já pode baixar seu orçamento formal em PDF ou falar comigo pelos botões do resumo à esquerda.",
-    "avisoBotonesBloqueados": "Conclua os passos e clique em Finalizar para habilitar estes botões.",
-    "botonEnviarDescargarPdf": "Baixar Orçamento em PDF",
-    "botonComunicarmeConmigo": "Falar comigo pelo WhatsApp"
+    "avisoBotonesBloqueados": "Conclua os passos e finalize para habilitar.",
+    "botonEnviarDescargarPdf": "Baixar PDF",
+    "botonComunicarmeConmigo": "WhatsApp",
+    "cuponErrorInvalido": "O cupom inserido é inválido ou expirou.",
+    "cargandoTarifasTitulo": "Atualizando tarifas oficiais ao vivo",
+    "cargandoTarifasDescripcion": "Conectando ao servidor para garantir que você visualize preços, módulos e promoções vigentes em tempo real.",
+    "errorCargaTarifasTitulo": "Não foi possível carregar as tarifas vigentes",
+    "errorCargaTarifasDescripcion": "Para evitar exibir preços desatualizados, não foram carregados valores de reserva. Tente reconectar ou fale comigo direto pelo WhatsApp.",
+    "botonReintentarCarga": "Tentar novamente",
+    "botonContactarWhatsAppDirecto": "Falar pelo WhatsApp",
+    "errorCrearPresupuesto": "Não foi possível registrar o orçamento no servidor neste momento. Tente novamente em alguns segundos.",
+    "enviarConsultaWhatsAppManual": "Enviar consulta direta pelo WhatsApp"
   },
   "validadorPresupuesto": {
     "titulo": "Validador Oficial de Orçamentos",
     "subtitulo": "Certificação e autenticidade em tempo real",
+    "insigniaValidadorSsl": "Validador SSL",
     "insigniaVigente": "Válido",
     "insigniaVencido": "Vencido",
     "insigniaNoEncontrado": "Não Encontrado",
     "descripcionVigente": "Este orçamento é um documento formal e oficial emitido por Pablo Bejas. Está dentro do seu período de validade.",
     "descripcionVencido": "O prazo formal de validade deste orçamento expirou. As tarifas e prazos de entrega estão sujeitos a revalidação.",
     "descripcionNoEncontrado": "Não encontramos nenhum orçamento formal com o código fornecido. Verifique se o link ou código QR corresponde ao documento emitido.",
+    "presupuestoCodigoTitulo": "Orçamento {codigo}",
+    "validezCumplidaDetalle": "(Validade de {dias} dias expirada)",
+    "codigoNoEncontradoTitulo": "Código {codigo} não encontrado",
+    "aConvenir": "A combinar",
     "diasRestantes": "{dias} dias restantes",
     "diaRestante": "1 dia restante (vence hoje)",
     "etiquetaCodigo": "Código Oficial",
@@ -456,5 +470,10 @@
     "botonWhatsApp": "Falar pelo WhatsApp",
     "botonRecotizar": "Gerar Novo Orçamento",
     "volverInicio": "Voltar ao Início"
+  },
+  "noEncontrada": {
+    "titulo": "Página não encontrada",
+    "descripcion": "A rota que você está procurando não existe ou foi movida. Você pode voltar ao portfólio principal ou abrir o orçador ao vivo.",
+    "volverInicio": "Voltar ao início"
   }
 }

@@ -9,9 +9,14 @@ export interface RespuestaApi<T> {
 }
 
 /**
- * Tipos de descuento admitidos por el motor de promociones temporales.
+ * Tipos de descuento admitidos por el motor de promociones y cupones.
  */
 export type TipoDescuentoPromocion = "Porcentaje" | "MontoFijo";
+
+/**
+ * Formato compatible de tipo de descuento para cupones (admite texto del enum o su entero equivalente).
+ */
+export type TipoDescuentoCupon = TipoDescuentoPromocion | 1 | 2;
 
 /**
  * DTO de salida para un servicio web base del catálogo comercial.
@@ -147,8 +152,8 @@ export interface CrearPresupuestoResponse {
 }
 
 /**
-/// DTO con el resultado de la validación pública de un presupuesto comercial.
-*/
+ * DTO con el resultado de la validación pública de un presupuesto comercial.
+ */
 export interface ValidacionPresupuestoResponse {
   codigo: string;
   estado: string;
@@ -168,7 +173,6 @@ export interface ValidacionPresupuestoResponse {
   mensaje: string;
 }
 
-
 /**
  * DTO de salida para la validación de un cupón de descuento comercial.
  */
@@ -177,7 +181,7 @@ export interface ValidarCuponResponse {
   mensaje?: string | null;
   codigo?: string | null;
   descripcion?: string | null;
-  tipoDescuento?: TipoDescuentoPromocion | null;
+  tipoDescuento?: TipoDescuentoCupon | null;
   valorDescuento: number;
   montoDescuento: number;
   totalConDescuento: number;

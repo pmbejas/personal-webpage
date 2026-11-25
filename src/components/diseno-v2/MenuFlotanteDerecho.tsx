@@ -20,7 +20,6 @@ import {
   Sparkles,
   Ban,
   Lock,
-  ExternalLink,
 } from "lucide-react";
 import {
   EFECTO_FONDO_POR_DEFECTO,
@@ -198,14 +197,8 @@ export function MenuFlotanteDerecho() {
           const destinoSeccion = estaEnCotizador
             ? `/#${seccion.identificador}`
             : `#${seccion.identificador}`;
-
-          return (
-            <a
-              key={seccion.identificador}
-              href={destinoSeccion}
-              className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
-              aria-label={etiquetaTraducida}
-            >
+          const contenidoEnlace = (
+            <>
               {/* Efecto Spotlight (#3): Responsivo (Desde arriba en móvil horizontal, desde la izquierda en desktop vertical) */}
               {estaActiva && (
                 <motion.div
@@ -283,6 +276,30 @@ export function MenuFlotanteDerecho() {
               <span className="pointer-events-none absolute top-full mt-2.5 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 -translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-20">
                 {etiquetaTraducida}
               </span>
+            </>
+          );
+
+          if (estaEnCotizador) {
+            return (
+              <Link
+                key={seccion.identificador}
+                href={destinoSeccion}
+                className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
+                aria-label={etiquetaTraducida}
+              >
+                {contenidoEnlace}
+              </Link>
+            );
+          }
+
+          return (
+            <a
+              key={seccion.identificador}
+              href={destinoSeccion}
+              className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
+              aria-label={etiquetaTraducida}
+            >
+              {contenidoEnlace}
             </a>
           );
         })}
@@ -290,6 +307,7 @@ export function MenuFlotanteDerecho() {
         {/* Acceso Directo al Cotizador Online (/[locale]/cotizador) con el Efecto Spotlight Oficial del Tema Activo */}
         <Link
           href="/cotizador"
+          prefetch={false}
           className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
           aria-label={traduccionesDock("cotizador")}
         >
@@ -477,7 +495,7 @@ export function MenuFlotanteDerecho() {
                   <div className="flex items-center gap-1.5 shrink-0">
                     {/* Botón Discreto de Acceso ERP */}
                     <a
-                      href={process.env.NEXT_PUBLIC_FRONTEND_URL || process.env.NEXT_PUBLIC_ERP_URL || "http://localhost:3001/login"}
+                      href={process.env.NEXT_PUBLIC_FRONTEND_URL || process.env.NEXT_PUBLIC_ERP_URL || "https://pablobejas-erp.vercel.app/login"}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-2 py-0.5 rounded-lg text-[10px] font-mono text-neutral-400 hover:text-[rgb(var(--tema-acento-claro-rgb))] bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.4)] transition-all flex items-center gap-1"

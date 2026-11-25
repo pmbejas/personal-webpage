@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -11,13 +11,16 @@ import {
   CheckCircle2,
   Loader2,
   Mail,
+  MessageCircle,
   MessageSquare,
   Phone,
+  RefreshCw,
   Sparkles,
   User,
   X,
 } from "lucide-react";
 import { useRouter } from "@/i18n/routing";
+import { CONFIGURACION_CONTACTO } from "@/data/datosContacto";
 import {
   AdicionalResponse,
   CatalogoPublicoResponse,
@@ -32,39 +35,58 @@ import { TarjetaServicioCotizador } from "./TarjetaServicioCotizador";
 import { SelectorAdicionalesPorGrupo } from "./SelectorAdicionalesPorGrupo";
 import { ResumenCotizacionLateral } from "./ResumenCotizacionLateral";
 
+const TIEMPO_LIMITE_SINCRONIZACION_CLIENTE_MS = 55000;
+const INTERVALO_REVALIDACION_PESTANA_MS = 30000;
+
 interface PropiedadesExperienciaCotizador {
-  catalogo: CatalogoPublicoResponse;
+  catalogoInicial: CatalogoPublicoResponse | null;
 }
 
 type PasoCotizador = 1 | 2 | 3;
 
 /**
  * Contenedor interactivo principal del Cotizador Online (/cotizador) con flujo guiado por pasos (Wizard):
- * - Fila superior única con botón 'Volver al inicio' y títulos PASO 01, PASO 02 (oculto si el producto no tiene adicionales) y PASO 03.
+ * - Sincroniza las tarifas oficiales en vivo desde el Backend sin recurrir nunca a precios estáticos viejos.
  * - Un solo paso abierto por vez: Paso 1 (Tipo de producto) -> Paso 2 (Secciones y Adicionales) -> Paso 3 (Descripción + Datos + Finalizar).
  * - Al hacer clic en 'Finalizar', persiste el presupuesto en el Backend y habilita los botones de PDF y WhatsApp en el Resumen izquierdo.
  */
 export function ExperienciaCotizador({
-  catalogo,
+  catalogoInicial,
 }: PropiedadesExperienciaCotizador) {
   const traducciones = useTranslations("cotizador");
   const traduccionesPie = useTranslations("piePagina");
   const router = useRouter();
 
+  // Estado del catálogo oficial siempre sincronizado con el servidor
+  const [catalogoActual, setCatalogoActual] =
+    useState<CatalogoPublicoResponse | null>(catalogoInicial);
+  const [cargandoCatalogo, setCargandoCatalogo] = useState<boolean>(
+    catalogoInicial === null
+  );
+  const [errorCargaCatalogo, setErrorCargaCatalogo] = useState<boolean>(false);
+  const ultimaSincronizacionRef = useRef<number>(
+    catalogoInicial ? Date.now() : 0
+  );
+  const sincronizandoRef = useRef<boolean>(false);
+
   const serviciosOrdenados = useMemo(
     () =>
-      [...catalogo.servicios].sort(
-        (a, b) => a.ordenVisualizacion - b.ordenVisualizacion
-      ),
-    [catalogo.servicios]
+      catalogoActual
+        ? [...catalogoActual.servicios].sort(
+            (a, b) => a.ordenVisualizacion - b.ordenVisualizacion
+          )
+        : [],
+    [catalogoActual]
   );
 
   const gruposOrdenados = useMemo(
     () =>
-      [...catalogo.gruposAdicionales].sort(
-        (a, b) => a.ordenVisualizacion - b.ordenVisualizacion
-      ),
-    [catalogo.gruposAdicionales]
+      catalogoActual
+        ? [...catalogoActual.gruposAdicionales].sort(
+            (a, b) => a.ordenVisualizacion - b.ordenVisualizacion
+          )
+        : [],
+    [catalogoActual]
   );
 
   const servicioInicialId = serviciosOrdenados[0]?.id ?? "";
@@ -86,6 +108,7 @@ export function ExperienciaCotizador({
   const [mensajeErrorFormulario, setMensajeErrorFormulario] = useState<
     string | null
   >(null);
+  const [falloEnvioServidor, setFalloEnvioServidor] = useState<boolean>(false);
 
   // Estado de finalización y sincronización con el Backend
   const [enviandoPresupuesto, setEnviandoPresupuesto] = useState<boolean>(false);
@@ -100,6 +123,97 @@ export function ExperienciaCotizador({
   const [huboCambioManual, setHuboCambioManual] = useState<boolean>(false);
   const [modalConfirmarSalidaAbierto, setModalConfirmarSalidaAbierto] =
     useState<boolean>(false);
+
+  /**
+   * Consulta en vivo el tarifario oficial desde la API del Backend con reintento automático
+   * ante cold starts de Render Free. Nunca reemplaza las tarifas reales por datos estáticos viejos.
+   */
+  const sincronizarCatalogoEnVivo = useCallback(
+    async (esCargaBloqueante: boolean) => {
+      if (sincronizandoRef.current) {
+        return;
+      }
+
+      sincronizandoRef.current = true;
+      if (esCargaBloqueante) {
+        setCargandoCatalogo(true);
+        setErrorCargaCatalogo(false);
+      }
+
+      let catalogoFresco = await servicioCatalogo.obtenerCatalogoEnVivo({
+        tiempoLimiteMs: TIEMPO_LIMITE_SINCRONIZACION_CLIENTE_MS,
+        evitarCacheUrl: true,
+      });
+
+      if (!catalogoFresco && esCargaBloqueante) {
+        await new Promise((resolver) => setTimeout(resolver, 2500));
+        catalogoFresco = await servicioCatalogo.obtenerCatalogoEnVivo({
+          tiempoLimiteMs: TIEMPO_LIMITE_SINCRONIZACION_CLIENTE_MS,
+          evitarCacheUrl: true,
+        });
+      }
+
+      sincronizandoRef.current = false;
+
+      if (catalogoFresco) {
+        setCatalogoActual(catalogoFresco);
+        ultimaSincronizacionRef.current = Date.now();
+        setErrorCargaCatalogo(false);
+        setCargandoCatalogo(false);
+
+        const serviciosFrescosOrdenados = [...catalogoFresco.servicios].sort(
+          (a, b) => a.ordenVisualizacion - b.ordenVisualizacion
+        );
+        const idsServiciosVigentes = new Set(
+          serviciosFrescosOrdenados.map((s) => s.id)
+        );
+        const idsAdicionalesVigentes = new Set(
+          catalogoFresco.gruposAdicionales.flatMap((g) =>
+            g.adicionales.map((a) => a.id)
+          )
+        );
+
+        setServicioBaseId((actual) =>
+          actual && idsServiciosVigentes.has(actual)
+            ? actual
+            : serviciosFrescosOrdenados[0]?.id ?? ""
+        );
+        setAdicionalesSeleccionadosIds((previos) =>
+          previos.filter((id) => idsAdicionalesVigentes.has(id))
+        );
+        return;
+      }
+
+      if (esCargaBloqueante) {
+        setCargandoCatalogo(false);
+        setErrorCargaCatalogo(true);
+      }
+    },
+    []
+  );
+
+  // Sincronización inicial garantizada en el navegador (anula cualquier caché del router cliente)
+  useEffect(() => {
+    void sincronizarCatalogoEnVivo(catalogoInicial === null);
+  }, [catalogoInicial, sincronizarCatalogoEnVivo]);
+
+  // Revalidación silenciosa al volver el foco a la pestaña si la cotización sigue abierta
+  useEffect(() => {
+    const manejarVisibilidad = () => {
+      if (document.hidden || cotizacionFinalizada) {
+        return;
+      }
+      const transcurridoMs = Date.now() - ultimaSincronizacionRef.current;
+      if (transcurridoMs >= INTERVALO_REVALIDACION_PESTANA_MS) {
+        void sincronizarCatalogoEnVivo(false);
+      }
+    };
+
+    document.addEventListener("visibilitychange", manejarVisibilidad);
+    return () => {
+      document.removeEventListener("visibilitychange", manejarVisibilidad);
+    };
+  }, [cotizacionFinalizada, sincronizarCatalogoEnVivo]);
 
   const tieneCambiosEnCotizador =
     huboCambioManual ||
@@ -147,19 +261,22 @@ export function ExperienciaCotizador({
   }, [adicionalesSeleccionadosIds, todosLosAdicionales]);
 
   const promocionActivaServicioActual = useMemo(() => {
-    if (!servicioSeleccionado || servicioSeleccionado.precioBase === 0) {
+    if (!catalogoActual || !servicioSeleccionado || servicioSeleccionado.precioBase === 0) {
       return null;
     }
     return servicioCatalogo.resolverPromocionParaServicio(
       servicioSeleccionado.id,
-      catalogo.promocionesActivas
+      catalogoActual.promocionesActivas
     );
-  }, [servicioSeleccionado, catalogo.promocionesActivas]);
+  }, [catalogoActual, servicioSeleccionado]);
 
   const reiniciarFinalizacionSiCorresponde = () => {
     if (cotizacionFinalizada) {
       setCotizacionFinalizada(false);
       setPresupuestoCreado(null);
+    }
+    if (falloEnvioServidor) {
+      setFalloEnvioServidor(false);
     }
   };
 
@@ -179,6 +296,10 @@ export function ExperienciaCotizador({
 
     if (!nuevoServicio) {
       return;
+    }
+
+    if (nuevoServicio.precioBase === 0) {
+      setCuponAplicado(null);
     }
 
     if (!nuevoServicio.permiteSeccionesExtra) {
@@ -246,10 +367,15 @@ export function ExperienciaCotizador({
     setPasoActual(pasoDestino);
   };
 
-  // Finalizar cotización y habilitar botones del Resumen
+  // Finalizar cotización y habilitar botones del Resumen solo cuando el Backend confirma el registro
   const manejarFinalizarCotizacion = async (evento: React.FormEvent) => {
     evento.preventDefault();
     setMensajeErrorFormulario(null);
+    setFalloEnvioServidor(false);
+
+    if (!servicioSeleccionado) {
+      return;
+    }
 
     const nombreLimpio = nombreCliente.trim();
     const emailLimpio = emailCliente.trim();
@@ -288,10 +414,15 @@ export function ExperienciaCotizador({
 
     setEnviandoPresupuesto(false);
 
-    if (respuesta.exito && respuesta.datos) {
-      setPresupuestoCreado(respuesta.datos);
+    if (!respuesta.exito || !respuesta.datos) {
+      setFalloEnvioServidor(true);
+      setMensajeErrorFormulario(
+        respuesta.mensaje || traducciones("errorCrearPresupuesto")
+      );
+      return;
     }
 
+    setPresupuestoCreado(respuesta.datos);
     setCotizacionFinalizada(true);
   };
 
@@ -308,8 +439,80 @@ export function ExperienciaCotizador({
     router.push("/");
   };
 
-  if (!servicioSeleccionado) {
-    return null;
+  // Pantalla de carga en vivo mientras el servidor despierta (nunca se muestran tarifas estáticas viejas)
+  if (cargandoCatalogo && !catalogoActual) {
+    return (
+      <div
+        data-v2="true"
+        className="relative min-h-screen bg-[#070606] text-neutral-100 flex items-center justify-center px-4"
+      >
+        <FondoHumoSutil />
+        <MenuFlotanteDerecho />
+        <div className="relative z-10 max-w-md w-full rounded-3xl bg-[#0c0a09]/95 border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.85)] p-7 sm:p-8 text-center flex flex-col items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-[rgb(var(--tema-acento-rgb)/0.12)] border border-[rgb(var(--tema-acento-rgb)/0.35)] flex items-center justify-center">
+            <Loader2 className="w-6 h-6 animate-spin text-[rgb(var(--tema-acento-claro-rgb))]" />
+          </div>
+          <h1 className="text-lg sm:text-xl font-bold text-white">
+            {traducciones("cargandoTarifasTitulo")}
+          </h1>
+          <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+            {traducciones("cargandoTarifasDescripcion")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Pantalla de error explícito si no hubo conexión tras reintento (prohibido cotizar con precios viejos)
+  if (!catalogoActual || !servicioSeleccionado) {
+    return (
+      <div
+        data-v2="true"
+        className="relative min-h-screen bg-[#070606] text-neutral-100 flex items-center justify-center px-4"
+      >
+        <FondoHumoSutil />
+        <MenuFlotanteDerecho />
+        <div className="relative z-10 max-w-md w-full rounded-3xl bg-[#0c0a09]/95 border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.85)] p-7 sm:p-8 text-center flex flex-col items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/35 flex items-center justify-center text-amber-400">
+            <AlertTriangle className="w-6 h-6" />
+          </div>
+          <h1 className="text-lg sm:text-xl font-bold text-white">
+            {errorCargaCatalogo
+              ? traducciones("errorCargaTarifasTitulo")
+              : traducciones("cargandoTarifasTitulo")}
+          </h1>
+          <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+            {traducciones("errorCargaTarifasDescripcion")}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-2.5 w-full pt-2">
+            <button
+              type="button"
+              onClick={() => void sincronizarCatalogoEnVivo(true)}
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-[rgb(var(--tema-acento-rgb))] text-black shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.4)] transition-all cursor-pointer"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span>{traducciones("botonReintentarCarga")}</span>
+            </button>
+            <a
+              href={CONFIGURACION_CONTACTO.urlWhatsApp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/15 transition-all"
+            >
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{traducciones("botonContactarWhatsAppDirecto")}</span>
+            </a>
+          </div>
+          <button
+            type="button"
+            onClick={() => router.push("/")}
+            className="text-xs text-neutral-400 hover:text-white transition-colors mt-1 cursor-pointer"
+          >
+            {traducciones("volverAlPortafolio")}
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -471,7 +674,7 @@ export function ExperienciaCotizador({
                         ? null
                         : servicioCatalogo.resolverPromocionParaServicio(
                             servicio.id,
-                            catalogo.promocionesActivas
+                            catalogoActual.promocionesActivas
                           );
                     const calculoPrecio =
                       servicioCatalogo.calcularPrecioConPromocion(
@@ -722,10 +925,21 @@ export function ExperienciaCotizador({
                     </div>
                   </div>
 
-                  {/* Mensaje de validación si falta algún dato */}
+                  {/* Mensaje de validación o error de servidor con alternativa explícita de WhatsApp */}
                   {mensajeErrorFormulario && (
-                    <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-300">
-                      {mensajeErrorFormulario}
+                    <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-300 flex flex-col gap-2.5">
+                      <span>{mensajeErrorFormulario}</span>
+                      {falloEnvioServidor && (
+                        <a
+                          href={CONFIGURACION_CONTACTO.urlWhatsApp}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 w-fit px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-white font-semibold transition-colors"
+                        >
+                          <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>{traducciones("enviarConsultaWhatsAppManual")}</span>
+                        </a>
+                      )}
                     </div>
                   )}
 

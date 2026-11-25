@@ -58,7 +58,6 @@ function construirEnlaceWhatsAppResumen(
   textoPromocion: string | null,
   totalPresupuestado: number,
   montoSenaSugerida: number,
-  tiempoEntregaDias: number,
   descripcionProyecto: string
 ): string {
   const encabezadoCodigo = codigoPresupuesto
@@ -85,8 +84,7 @@ function construirEnlaceWhatsAppResumen(
     lineas.push(
       "",
       `• Inversión Total Estimada: ${formatearMonedaArs(totalPresupuestado)} ARS`,
-      `• Seña sugerida (50%): ${formatearMonedaArs(montoSenaSugerida)} ARS`,
-      `• Plazo estimado: ~${tiempoEntregaDias} días hábiles`
+      `• Seña sugerida (50%): ${formatearMonedaArs(montoSenaSugerida)} ARS`
     );
   }
 
@@ -99,6 +97,31 @@ function construirEnlaceWhatsAppResumen(
   return `https://wa.me/${NUMERO_WHATSAPP_PABLO}?text=${encodeURIComponent(
     lineas.join("\n")
   )}`;
+}
+
+/**
+ * Calcula dinámicamente el monto de descuento de un cupón vigente sobre el subtotal actual,
+ * asegurando paridad exacta con el cálculo del Backend incluso si el usuario modifica ítems.
+ */
+function calcularMontoDescuentoCuponEnVivo(
+  subtotalSinDescuento: number,
+  cupon: ValidarCuponResponse
+): number {
+  if (subtotalSinDescuento <= 0 || cupon.valorDescuento <= 0) {
+    return 0;
+  }
+
+  const esPorcentaje =
+    cupon.tipoDescuento === "Porcentaje" || cupon.tipoDescuento === 1;
+
+  if (esPorcentaje) {
+    return Math.min(
+      subtotalSinDescuento,
+      Math.round((subtotalSinDescuento * cupon.valorDescuento) / 100)
+    );
+  }
+
+  return Math.min(subtotalSinDescuento, cupon.valorDescuento);
 }
 
 /**
@@ -146,25 +169,21 @@ export function ResumenCotizacionLateral({
     esCotizacionAMedida ? null : promocionAplicada
   );
 
-  // Si hay cupón aplicado válido, se prioriza el descuento del cupón
-  const tieneCupon = Boolean(cuponAplicado && cuponAplicado.esValido);
+  // Si hay cupón aplicado válido, se prioriza y recalcula dinámicamente sobre el subtotal actual
+  const tieneCupon = Boolean(
+    !esCotizacionAMedida && cuponAplicado && cuponAplicado.esValido
+  );
+  const montoDescuentoCupon = tieneCupon
+    ? calcularMontoDescuentoCuponEnVivo(subtotalSinDescuento, cuponAplicado!)
+    : 0;
   const montoDescuento = tieneCupon
-    ? cuponAplicado!.montoDescuento
+    ? montoDescuentoCupon
     : calculoPromocion.montoDescuento;
   const totalPresupuestado = tieneCupon
-    ? Math.max(0, subtotalSinDescuento - cuponAplicado!.montoDescuento)
+    ? Math.max(0, subtotalSinDescuento - montoDescuentoCupon)
     : calculoPromocion.precioFinal;
   const montoSenaSugerida = Math.round(totalPresupuestado * 0.5);
   const tieneDescuento = tieneCupon || calculoPromocion.tienePromocion;
-
-  const diasSeccionesExtra =
-    cantidadSeccionesExtra * servicioSeleccionado.diasPorSeccionExtra;
-  const diasAdicionales = adicionalesSeleccionados.reduce(
-    (acumulado, item) => acumulado + item.diasEntregaExtra,
-    0
-  );
-  const tiempoEntregaDias =
-    servicioSeleccionado.diasEntregaBase + diasSeccionesExtra + diasAdicionales;
 
   const adicionalRecurrente = adicionalesSeleccionados.find(
     (item) => item.esRecurrente
@@ -185,7 +204,7 @@ export function ResumenCotizacionLateral({
       setErrorCupon(
         respuesta.datos?.mensaje ||
           respuesta.mensaje ||
-          "El cupón ingresado no es válido o ha caducado."
+          traducciones("cuponErrorInvalido")
       );
       return;
     }
@@ -236,7 +255,6 @@ export function ResumenCotizacionLateral({
       textoPromocionResumen,
       totalPresupuestado,
       montoSenaSugerida,
-      tiempoEntregaDias,
       descripcionProyecto
     );
 

@@ -432,17 +432,31 @@
     "cotizacionListaTexto": "Ya podés descargar tu presupuesto formal en PDF o comunicarte conmigo desde los botones del resumen a la izquierda.",
     "avisoBotonesBloqueados": "Completá los pasos y finalizá para habilitar.",
     "botonEnviarDescargarPdf": "Descargar PDF",
-    "botonComunicarmeConmigo": "WhatsApp"
+    "botonComunicarmeConmigo": "WhatsApp",
+    "cuponErrorInvalido": "El cupón ingresado no es válido o venció.",
+    "cargandoTarifasTitulo": "Actualizando tarifas oficiales en vivo",
+    "cargandoTarifasDescripcion": "Estamos conectando con el servidor para garantizar que visualices los precios, módulos y promociones vigentes al instante.",
+    "errorCargaTarifasTitulo": "No pudimos cargar las tarifas vigentes",
+    "errorCargaTarifasDescripcion": "Para evitar mostrarte precios desactualizados, no se cargaron valores de respaldo. Reintentá la conexión o escribime directo por WhatsApp.",
+    "botonReintentarCarga": "Reintentar conexión",
+    "botonContactarWhatsAppDirecto": "Consultar por WhatsApp",
+    "errorCrearPresupuesto": "No pudimos registrar el presupuesto en el servidor en este momento. Por favor reintentá en unos segundos.",
+    "enviarConsultaWhatsAppManual": "Enviar consulta directa por WhatsApp"
   },
   "validadorPresupuesto": {
     "titulo": "Validador Oficial de Presupuestos",
     "subtitulo": "Certificación y autenticidad en tiempo real",
+    "insigniaValidadorSsl": "Validador SSL",
     "insigniaVigente": "Vigente",
     "insigniaVencido": "Vencido",
     "insigniaNoEncontrado": "No Encontrado",
     "descripcionVigente": "Este presupuesto es un documento formal y oficial emitido por Pablo Bejas. Se encuentra dentro de su período de validez.",
     "descripcionVencido": "El plazo formal de validez para este presupuesto ha expirado. Las tarifas y los plazos de entrega quedan sujetos a revalidación.",
     "descripcionNoEncontrado": "No pudimos encontrar ningún presupuesto formal con el código proporcionado. Verificá que el enlace o código QR coincida con el documento emitido.",
+    "presupuestoCodigoTitulo": "Presupuesto {codigo}",
+    "validezCumplidaDetalle": "(Validez de {dias} días cumplida)",
+    "codigoNoEncontradoTitulo": "Código {codigo} no encontrado",
+    "aConvenir": "A convenir",
     "diasRestantes": "{dias} días restantes",
     "diaRestante": "1 día restante (vence hoy)",
     "etiquetaCodigo": "Código Oficial",
@@ -456,5 +470,10 @@
     "botonWhatsApp": "Contactar por WhatsApp",
     "botonRecotizar": "Generar Nueva Cotización",
     "volverInicio": "Volver al Inicio"
+  },
+  "noEncontrada": {
+    "titulo": "Página no encontrada",
+    "descripcion": "La ruta que estás buscando no existe o fue movida. Podés volver al portafolio principal o abrir el cotizador en vivo.",
+    "volverInicio": "Volver al inicio"
   }
 }

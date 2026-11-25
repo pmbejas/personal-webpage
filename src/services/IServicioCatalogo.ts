@@ -9,16 +9,23 @@ import {
   ValidarCuponResponse,
 } from "@/types/Catalogo";
 
+export interface OpcionesConsultaCatalogo {
+  tiempoLimiteMs?: number;
+  evitarCacheUrl?: boolean;
+}
+
 /**
- * Contrato de la capa de servicios para la consulta del catálogo comercial y promociones vigentes.
- * Desacopla los componentes visuales de Next.js respecto de la llamada HTTP y la caché ISR.
+ * Contrato de la capa de servicios para la consulta en tiempo real del catálogo comercial,
+ * promociones vigentes, cupones y formalización de presupuestos.
  */
 export interface IServicioCatalogo {
   /**
-   * Obtiene el catálogo completo (servicios base, grupos de adicionales y promociones vigentes)
-   * utilizando Incremental Static Regeneration (ISR) con la etiqueta 'catalogo-servicios'.
+   * Obtiene el catálogo completo directamente desde el Backend en vivo sin recurrir
+   * a precios estáticos locales. Retorna null si el servidor no responde a tiempo o falla.
    */
-  obtenerCatalogoPublico(): Promise<CatalogoPublicoResponse>;
+  obtenerCatalogoEnVivo(
+    opciones?: OpcionesConsultaCatalogo
+  ): Promise<CatalogoPublicoResponse | null>;
 
   /**
    * Obtiene únicamente la lista de campañas promocionales vigentes en este momento.
@@ -58,7 +65,9 @@ export interface IServicioCatalogo {
   /**
    * Valida la vigencia y autenticidad pública de un presupuesto emitido.
    */
-  validarPresupuesto(codigo: string): Promise<ValidacionPresupuestoResponse | null>;
+  validarPresupuesto(
+    codigo: string
+  ): Promise<ValidacionPresupuestoResponse | null>;
 
   /**
    * Valida un cupón de descuento comercial con el subtotal actual de la cotización.

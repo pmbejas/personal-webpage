@@ -9,10 +9,6 @@ import {
   MessageCircle,
   Sparkles,
   ArrowRight,
-  CheckCircle2,
-  Calendar,
-  User,
-  Layers,
   ArrowUpRight,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
@@ -111,7 +107,7 @@ export default async function PaginaValidacionPresupuesto({
         </Link>
 
         <span className="text-[11px] font-mono uppercase tracking-widest text-sky-400 bg-sky-500/10 px-3 py-1 rounded-full border border-sky-500/20">
-          Validador SSL
+          {traducciones("insigniaValidadorSsl")}
         </span>
       </header>
 
@@ -206,18 +202,28 @@ export default async function PaginaValidacionPresupuesto({
                       {traducciones("etiquetaTotal")}
                     </span>
                     <span className="text-base sm:text-lg font-black text-white font-mono mt-0.5 block">
-                      {formatearMonto(presupuesto.totalPresupuestado, presupuesto.moneda)}
+                      {presupuesto.totalPresupuestado === 0
+                        ? traducciones("aConvenir")
+                        : formatearMonto(
+                            presupuesto.totalPresupuestado,
+                            presupuesto.moneda
+                          )}
                     </span>
                   </div>
 
-                  <div className="text-right">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-sky-400 block">
-                      {traducciones("etiquetaSena")}
-                    </span>
-                    <span className="text-sm sm:text-base font-bold text-sky-300 font-mono mt-0.5 block">
-                      {formatearMonto(presupuesto.montoSenaSugerida, presupuesto.moneda)}
-                    </span>
-                  </div>
+                  {presupuesto.totalPresupuestado > 0 && (
+                    <div className="text-right">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-sky-400 block">
+                        {traducciones("etiquetaSena")}
+                      </span>
+                      <span className="text-sm sm:text-base font-bold text-sky-300 font-mono mt-0.5 block">
+                        {formatearMonto(
+                          presupuesto.montoSenaSugerida,
+                          presupuesto.moneda
+                        )}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -263,7 +269,9 @@ export default async function PaginaValidacionPresupuesto({
 
               <div>
                 <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                  Presupuesto {presupuesto.codigo}
+                  {traducciones("presupuestoCodigoTitulo", {
+                    codigo: presupuesto.codigo,
+                  })}
                 </h1>
                 <p className="text-xs sm:text-sm text-neutral-300 mt-2 leading-relaxed">
                   {traducciones("descripcionVencido")}
@@ -277,7 +285,10 @@ export default async function PaginaValidacionPresupuesto({
                     {traducciones("etiquetaVencimiento")}
                   </span>
                   <span className="font-bold text-rose-300">
-                    {formatearFecha(presupuesto.fechaVencimiento)} ({presupuesto.diasValidez} días de validez cumplidos)
+                    {formatearFecha(presupuesto.fechaVencimiento)}{" "}
+                    {traducciones("validezCumplidaDetalle", {
+                      dias: presupuesto.diasValidez,
+                    })}
                   </span>
                 </p>
                 <p>
@@ -294,6 +305,7 @@ export default async function PaginaValidacionPresupuesto({
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Link
                   href="/cotizador"
+                  prefetch={false}
                   className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold bg-realce-500/20 hover:bg-realce-500/30 text-realce-300 hover:text-white border border-realce-500/50 shadow-[0_0_24px_rgb(var(--tema-realce-rgb)/0.3)] hover:scale-[1.02] active:scale-95 transition-all flex-1"
                 >
                   <Sparkles className="w-4 h-4 text-realce-400 animate-pulse" />
@@ -323,7 +335,9 @@ export default async function PaginaValidacionPresupuesto({
                   <span>{traducciones("insigniaNoEncontrado")}</span>
                 </div>
                 <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                  Código: {codigoNormalizado}
+                  {traducciones("codigoNoEncontradoTitulo", {
+                    codigo: codigoNormalizado,
+                  })}
                 </h1>
                 <p className="text-xs sm:text-sm text-neutral-400 mt-2 max-w-md mx-auto leading-relaxed">
                   {traducciones("descripcionNoEncontrado")}
@@ -333,6 +347,7 @@ export default async function PaginaValidacionPresupuesto({
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2 max-w-sm mx-auto w-full">
                 <Link
                   href="/cotizador"
+                  prefetch={false}
                   className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold bg-white text-black hover:bg-neutral-200 shadow-lg hover:scale-[1.02] active:scale-95 transition-all flex-1"
                 >
                   <Sparkles className="w-4 h-4 text-sky-600" />

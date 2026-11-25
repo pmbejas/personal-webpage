@@ -26,7 +26,7 @@ export interface ElementoStack {
 export const LISTA_TECNOLOGIAS_STACK: ElementoStack[] = [
   {
     identificador: "dotnet",
-    nombre: ".NET 9 / C#",
+    nombre: ".NET 10 / C#",
     claveCategoria: "backendRobusto",
     icono: Terminal,
   },

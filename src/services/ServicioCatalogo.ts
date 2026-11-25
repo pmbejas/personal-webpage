@@ -5,76 +5,146 @@ import {
   CrearPresupuestoResponse,
   PromocionVigenteResponse,
   RespuestaApi,
+  ServicioBaseResponse,
   ValidacionPresupuestoResponse,
   ValidarCuponResponse,
 } from "@/types/Catalogo";
-import { CATALOGO_RESPALDO_LOCAL } from "@/data/datosCatalogoRespaldo";
-import { IServicioCatalogo } from "./IServicioCatalogo";
+import {
+  IServicioCatalogo,
+  OpcionesConsultaCatalogo,
+} from "./IServicioCatalogo";
 
-export const URL_BASE_API_POR_DEFECTO = "https://pablobejas-backend-api.onrender.com";
+export const URL_BASE_API_POR_DEFECTO =
+  "https://pablobejas-backend-api.onrender.com";
 export const ETIQUETA_CACHE_CATALOGO = "catalogo-servicios";
-const TIEMPO_REVALIDACION_SEGUNDOS = 3600;
-const TIEMPO_LIMITE_PETICION_MS = 12000;
+const TIEMPO_LIMITE_PETICION_DEFECTO_MS = 12000;
 const TIEMPO_LIMITE_CREACION_PRESUPUESTO_MS = 45000;
 
 /**
- * Obtiene la URL base del Backend API Core limpia de barras finales.
+ * Obtiene la URL base del Backend API Core limpia de barras finales y sufijos /api repetidos.
  */
 export function obtenerUrlBaseApi(): string {
-  const urlConfigurada = process.env.NEXT_PUBLIC_API_URL || URL_BASE_API_POR_DEFECTO;
+  const urlConfigurada =
+    process.env.NEXT_PUBLIC_API_URL || URL_BASE_API_POR_DEFECTO;
   return urlConfigurada.replace(/\/api\/?$/, "").replace(/\/+$/, "");
 }
 
 /**
- * Implementación del servicio de catálogo comercial con consulta en tiempo real
- * y respaldo estático resiliente ante cold starts en Render Free.
+ * Normaliza la regla comercial del servicio a medida ("sistema-web-saas") en el cliente.
+ */
+function normalizarServiciosCatalogo(
+  servicios: ServicioBaseResponse[]
+): ServicioBaseResponse[] {
+  return servicios.map((servicio) =>
+    servicio.clave === "sistema-web-saas"
+      ? {
+          ...servicio,
+          precioBase: 0,
+          permiteSeccionesExtra: false,
+          precioSeccionExtra: 0,
+          adicionalesCompatiblesIds: [],
+        }
+      : servicio
+  );
+}
+
+/**
+ * Parsea de forma segura respuestas RespuestaApi<T> o ProblemDetails de ASP.NET Core.
+ */
+async function parsearRespuestaApiSegura<T>(
+  respuesta: Response,
+  mensajeErrorPorDefecto: string
+): Promise<RespuestaApi<T>> {
+  try {
+    const cuerpo = (await respuesta.json()) as Partial<RespuestaApi<T>> & {
+      title?: string;
+      detail?: string;
+      errors?: Record<string, string[]>;
+    };
+
+    if (typeof cuerpo.exito === "boolean") {
+      return {
+        exito: cuerpo.exito && respuesta.ok,
+        datos: (cuerpo.datos ?? null) as T | null,
+        mensaje: cuerpo.mensaje ?? (respuesta.ok ? null : mensajeErrorPorDefecto),
+        errores: cuerpo.errores ?? null,
+      };
+    }
+
+    const primerErrorValidacion = cuerpo.errors
+      ? Object.values(cuerpo.errors).flat()[0]
+      : null;
+
+    return {
+      exito: false,
+      datos: null,
+      mensaje:
+        primerErrorValidacion ||
+        cuerpo.detail ||
+        cuerpo.title ||
+        mensajeErrorPorDefecto,
+      errores: null,
+    };
+  } catch {
+    return {
+      exito: false,
+      datos: null,
+      mensaje: mensajeErrorPorDefecto,
+      errores: null,
+    };
+  }
+}
+
+/**
+ * Implementación del servicio de catálogo comercial con consulta estricta en tiempo real
+ * contra la API oficial (sin sustituir nunca las tarifas vigentes por precios estáticos locales).
  */
 export class ServicioCatalogo implements IServicioCatalogo {
-  async obtenerCatalogoPublico(): Promise<CatalogoPublicoResponse> {
-    const urlEndpoint = `${obtenerUrlBaseApi()}/api/public/catalogo`;
+  async obtenerCatalogoEnVivo(
+    opciones?: OpcionesConsultaCatalogo
+  ): Promise<CatalogoPublicoResponse | null> {
+    const tiempoLimite =
+      opciones?.tiempoLimiteMs ?? TIEMPO_LIMITE_PETICION_DEFECTO_MS;
+    const sufijoAntiCache = opciones?.evitarCacheUrl ? `?_t=${Date.now()}` : "";
+    const urlEndpoint = `${obtenerUrlBaseApi()}/api/public/catalogo${sufijoAntiCache}`;
 
     try {
       const respuesta = await fetch(urlEndpoint, {
         method: "GET",
-        headers: { Accept: "application/json" },
+        headers: {
+          Accept: "application/json",
+          "Cache-Control": "no-cache",
+        },
         cache: "no-store",
-        signal: AbortSignal.timeout(TIEMPO_LIMITE_PETICION_MS),
+        signal: AbortSignal.timeout(tiempoLimite),
       });
 
       if (!respuesta.ok) {
-        return CATALOGO_RESPALDO_LOCAL;
+        return null;
       }
 
-      const envoltorio = (await respuesta.json()) as RespuestaApi<CatalogoPublicoResponse>;
-      if (!envoltorio.exito || !envoltorio.datos || envoltorio.datos.servicios.length === 0) {
-        return CATALOGO_RESPALDO_LOCAL;
+      const envoltorio =
+        (await respuesta.json()) as RespuestaApi<CatalogoPublicoResponse>;
+      if (
+        !envoltorio.exito ||
+        !envoltorio.datos ||
+        envoltorio.datos.servicios.length === 0
+      ) {
+        return null;
       }
-
-      // Garantizar que "sistema-web-saas" opere como cotización a medida ($0 / sin adicionales fijos)
-      const serviciosNormalizados = envoltorio.datos.servicios.map((servicio) =>
-        servicio.clave === "sistema-web-saas"
-          ? {
-              ...servicio,
-              precioBase: 0,
-              permiteSeccionesExtra: false,
-              precioSeccionExtra: 0,
-              adicionalesCompatiblesIds: [],
-            }
-          : servicio
-      );
 
       return {
         ...envoltorio.datos,
-        servicios: serviciosNormalizados,
+        servicios: normalizarServiciosCatalogo(envoltorio.datos.servicios),
       };
     } catch {
-      return CATALOGO_RESPALDO_LOCAL;
+      return null;
     }
   }
 
   async obtenerPromocionesVigentes(): Promise<PromocionVigenteResponse[]> {
-    const catalogo = await this.obtenerCatalogoPublico();
-    return catalogo.promocionesActivas;
+    const catalogo = await this.obtenerCatalogoEnVivo();
+    return catalogo?.promocionesActivas ?? [];
   }
 
   resolverPromocionParaServicio(
@@ -118,7 +188,10 @@ export class ServicioCatalogo implements IServicioCatalogo {
       ? Math.round((precioOriginal * promocion.valorDescuento) / 100)
       : promocion.valorDescuento;
 
-    const montoDescuento = Math.min(precioOriginal, Math.max(0, descuentoCalculado));
+    const montoDescuento = Math.min(
+      precioOriginal,
+      Math.max(0, descuentoCalculado)
+    );
     const precioFinal = Math.max(0, precioOriginal - montoDescuento);
 
     return {
@@ -135,6 +208,8 @@ export class ServicioCatalogo implements IServicioCatalogo {
     peticion: CrearPresupuestoRequest
   ): Promise<RespuestaApi<CrearPresupuestoResponse>> {
     const urlEndpoint = `${obtenerUrlBaseApi()}/api/public/presupuestos`;
+    const mensajeFallo =
+      "No fue posible registrar el presupuesto en el servidor en este momento. Podés reintentar o enviarnos tu consulta por WhatsApp.";
 
     try {
       const respuesta = await fetch(urlEndpoint, {
@@ -144,18 +219,19 @@ export class ServicioCatalogo implements IServicioCatalogo {
           Accept: "application/json",
         },
         body: JSON.stringify(peticion),
+        cache: "no-store",
         signal: AbortSignal.timeout(TIEMPO_LIMITE_CREACION_PRESUPUESTO_MS),
       });
 
-      const resultado =
-        (await respuesta.json()) as RespuestaApi<CrearPresupuestoResponse>;
-      return resultado;
+      return await parsearRespuestaApiSegura<CrearPresupuestoResponse>(
+        respuesta,
+        mensajeFallo
+      );
     } catch {
       return {
         exito: false,
         datos: null,
-        mensaje:
-          "No fue posible conectar con el servidor de presupuestos en este momento. Podés enviarnos tu resumen directamente por WhatsApp.",
+        mensaje: mensajeFallo,
         errores: null,
       };
     }
@@ -198,6 +274,8 @@ export class ServicioCatalogo implements IServicioCatalogo {
     subtotal: number
   ): Promise<RespuestaApi<ValidarCuponResponse>> {
     const urlEndpoint = `${obtenerUrlBaseApi()}/api/public/cupones/validar`;
+    const mensajeFallo =
+      "No se pudo conectar con el servidor para validar el cupón.";
 
     try {
       const respuesta = await fetch(urlEndpoint, {
@@ -213,15 +291,15 @@ export class ServicioCatalogo implements IServicioCatalogo {
         cache: "no-store",
       });
 
-      const resultado =
-        (await respuesta.json()) as RespuestaApi<ValidarCuponResponse>;
-      return resultado;
+      return await parsearRespuestaApiSegura<ValidarCuponResponse>(
+        respuesta,
+        mensajeFallo
+      );
     } catch {
       return {
         exito: false,
         datos: null,
-        mensaje:
-          "No se pudo conectar con el servidor para validar el cupón.",
+        mensaje: mensajeFallo,
         errores: null,
       };
     }

@@ -4,7 +4,8 @@ import type { MetadataRoute } from "next";
  * Generador de directivas para rastreadores de motores de búsqueda (Robots.txt) en Next.js.
  */
 export default function robots(): MetadataRoute.Robots {
-  const urlBase = process.env.NEXT_PUBLIC_SITIO_URL || "https://pablodev.com";
+  const urlBase =
+    process.env.NEXT_PUBLIC_SITIO_URL || "https://pablobejas.vercel.app";
 
   return {
     rules: {

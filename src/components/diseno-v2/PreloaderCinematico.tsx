@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,6 +16,7 @@ interface PropiedadesPreloader {
 export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinalizar }) => {
   const [progreso, setProgreso] = useState<number>(0);
   const [estaCompletado, setEstaCompletado] = useState<boolean>(false);
+  const yaFinalizoRef = useRef<boolean>(false);
   const traducciones = useTranslations("preloader");
 
   useEffect(() => {
@@ -23,6 +24,8 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
     const intervaloMs = 25;
     const pasos = duracionTotal / intervaloMs;
     let pasoActual = 0;
+    let idTimeoutPausa: ReturnType<typeof setTimeout> | null = null;
+    let idTimeoutCierre: ReturnType<typeof setTimeout> | null = null;
 
     const temporizador = setInterval(() => {
       pasoActual++;
@@ -31,21 +34,31 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
 
       if (porcentajeCalculado >= 100) {
         clearInterval(temporizador);
-        setTimeout(() => {
+        idTimeoutPausa = setTimeout(() => {
           setEstaCompletado(true);
-          setTimeout(() => {
-            alFinalizar();
+          idTimeoutCierre = setTimeout(() => {
+            if (!yaFinalizoRef.current) {
+              yaFinalizoRef.current = true;
+              alFinalizar();
+            }
           }, 500);
         }, 250);
       }
     }, intervaloMs);
 
-    return () => clearInterval(temporizador);
+    return () => {
+      clearInterval(temporizador);
+      if (idTimeoutPausa) clearTimeout(idTimeoutPausa);
+      if (idTimeoutCierre) clearTimeout(idTimeoutCierre);
+    };
   }, [alFinalizar]);
 
   const saltarIntro = () => {
     setEstaCompletado(true);
-    alFinalizar();
+    if (!yaFinalizoRef.current) {
+      yaFinalizoRef.current = true;
+      alFinalizar();
+    }
   };
 
   return (

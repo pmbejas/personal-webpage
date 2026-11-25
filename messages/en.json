@@ -432,17 +432,31 @@
     "cotizacionListaTexto": "You can now download your formal PDF quote or contact me using the summary buttons on the left.",
     "avisoBotonesBloqueados": "Complete the steps and finish to unlock.",
     "botonEnviarDescargarPdf": "Download PDF",
-    "botonComunicarmeConmigo": "WhatsApp"
+    "botonComunicarmeConmigo": "WhatsApp",
+    "cuponErrorInvalido": "The entered coupon is invalid or has expired.",
+    "cargandoTarifasTitulo": "Loading live official pricing",
+    "cargandoTarifasDescripcion": "Connecting to the server to make sure you see up-to-date pricing, modules, and active promotions in real time.",
+    "errorCargaTarifasTitulo": "We couldn't load current pricing",
+    "errorCargaTarifasDescripcion": "To avoid displaying outdated prices, fallback values were not loaded. Please retry the connection or message me directly on WhatsApp.",
+    "botonReintentarCarga": "Retry connection",
+    "botonContactarWhatsAppDirecto": "Message on WhatsApp",
+    "errorCrearPresupuesto": "We couldn't register your quote on the server right now. Please try again in a few seconds.",
+    "enviarConsultaWhatsAppManual": "Send direct inquiry via WhatsApp"
   },
   "validadorPresupuesto": {
     "titulo": "Official Quote Validator",
     "subtitulo": "Real-time certification and authenticity",
+    "insigniaValidadorSsl": "SSL Validator",
     "insigniaVigente": "Valid",
     "insigniaVencido": "Expired",
     "insigniaNoEncontrado": "Not Found",
     "descripcionVigente": "This quotation is a formal and official document issued by Pablo Bejas. It is within its validity period.",
     "descripcionVencido": "The formal validity period for this quote has expired. Pricing and delivery schedules are subject to revalidation.",
     "descripcionNoEncontrado": "We couldn't find any formal quote with the provided code. Please verify that the link or QR code matches the issued document.",
+    "presupuestoCodigoTitulo": "Quote {codigo}",
+    "validezCumplidaDetalle": "({dias}-day validity expired)",
+    "codigoNoEncontradoTitulo": "Code {codigo} not found",
+    "aConvenir": "To be agreed",
     "diasRestantes": "{dias} days remaining",
     "diaRestante": "1 day remaining (expires today)",
     "etiquetaCodigo": "Official Code",
@@ -456,5 +470,10 @@
     "botonWhatsApp": "Contact via WhatsApp",
     "botonRecotizar": "Generate New Quote",
     "volverInicio": "Back to Home"
+  },
+  "noEncontrada": {
+    "titulo": "Page not found",
+    "descripcion": "The route you are looking for does not exist or was moved. You can return to the main portfolio or open the live quote builder.",
+    "volverInicio": "Back to home"
   }
 }

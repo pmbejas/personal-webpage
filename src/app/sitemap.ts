@@ -6,7 +6,8 @@ import { ruteo } from "@/i18n/routing";
  * Provee indexación canónica para todos los idiomas soportados (es, en, pt).
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const urlBase = process.env.NEXT_PUBLIC_SITIO_URL || "https://pablodev.com";
+  const urlBase =
+    process.env.NEXT_PUBLIC_SITIO_URL || "https://pablobejas.vercel.app";
   const fechaModificacion = new Date();
 
   const entradasInicio: MetadataRoute.Sitemap = ruteo.locales.map((locale) => ({
@@ -19,6 +20,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
         es: `${urlBase}/es`,
         en: `${urlBase}/en`,
         pt: `${urlBase}/pt`,
+      },
+    },
+  }));
+
+  const entradasCotizador: MetadataRoute.Sitemap = ruteo.locales.map((locale) => ({
+    url: `${urlBase}/${locale}/cotizador`,
+    lastModified: fechaModificacion,
+    changeFrequency: "weekly" as const,
+    priority: 0.9,
+    alternates: {
+      languages: {
+        es: `${urlBase}/es/cotizador`,
+        en: `${urlBase}/en/cotizador`,
+        pt: `${urlBase}/pt/cotizador`,
       },
     },
   }));
@@ -37,5 +52,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   }));
 
-  return [...entradasInicio, ...entradasProyectos];
+  return [...entradasInicio, ...entradasCotizador, ...entradasProyectos];
 }

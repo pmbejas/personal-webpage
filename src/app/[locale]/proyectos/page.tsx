@@ -5,6 +5,7 @@ import { EncabezadoPaginaProyectos } from "@/components/proyectos/EncabezadoPagi
 import { CatalogoProyectos } from "@/components/proyectos/CatalogoProyectos";
 import { BannerContacto } from "@/components/secciones/BannerContacto";
 import { PiePagina } from "@/components/layout/PiePagina";
+import { FondoHumoSutil } from "@/components/animacion/FondoHumoSutil";
 
 export async function generateMetadata({
   params,
@@ -43,12 +44,14 @@ export default async function PaginaProyectos({
   setRequestLocale(locale);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="relative flex flex-col min-h-screen bg-[#070606]">
+      <FondoHumoSutil />
+
       {/* Barra de navegación */}
       <BarraNavegacion />
 
       {/* Contenido principal */}
-      <main className="flex-grow">
+      <main className="relative z-10 flex-grow">
         <EncabezadoPaginaProyectos />
         <CatalogoProyectos />
         <BannerContacto />

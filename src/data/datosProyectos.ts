@@ -17,7 +17,6 @@ export const LISTA_PROYECTOS: ElementoProyecto[] = [
     destacado: true,
     anio: "2024",
     enlaceDemo: "https://camarafederaldetucuman.com.ar",
-    enlaceRepositorio: "https://github.com",
   },
   {
     identificador: "proyecto-finis-utn",
@@ -28,7 +27,6 @@ export const LISTA_PROYECTOS: ElementoProyecto[] = [
     destacado: true,
     anio: "2024",
     enlaceDemo: "https://finisutn.com.ar",
-    enlaceRepositorio: "https://github.com",
   },
   {
     identificador: "proyecto-guia-escalada-tucuman",
@@ -39,7 +37,6 @@ export const LISTA_PROYECTOS: ElementoProyecto[] = [
     destacado: true,
     anio: "2025",
     enlaceDemo: "https://guiaescaladatucuman.com.ar/",
-    enlaceRepositorio: "https://github.com",
   },
   {
     identificador: "proyecto-nuven-tech",
@@ -50,7 +47,6 @@ export const LISTA_PROYECTOS: ElementoProyecto[] = [
     destacado: true,
     anio: "2025",
     enlaceDemo: "https://nuventech.vercel.app",
-    enlaceRepositorio: "https://github.com",
   },
   {
     identificador: "proyecto-soluciones-proyectables",
@@ -61,7 +57,6 @@ export const LISTA_PROYECTOS: ElementoProyecto[] = [
     destacado: true,
     anio: "2025",
     enlaceDemo: "https://www.solucionesproyectables.com",
-    enlaceRepositorio: "https://github.com",
   },
   {
     identificador: "proyecto-sistema-turnos",
@@ -72,6 +67,5 @@ export const LISTA_PROYECTOS: ElementoProyecto[] = [
     destacado: false,
     anio: "2024",
     enlaceDemo: "#",
-    enlaceRepositorio: "https://github.com",
   },
 ];
