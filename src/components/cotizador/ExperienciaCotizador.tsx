@@ -69,6 +69,7 @@ export function ExperienciaCotizador({
     catalogoInicial ? Date.now() : 0
   );
   const sincronizandoRef = useRef<boolean>(false);
+  const inicioSesionCotizadorRef = useRef<number>(Date.now());
 
   const serviciosOrdenados = useMemo(
     () =>
@@ -271,20 +272,20 @@ export function ExperienciaCotizador({
     );
   }, [catalogoActual, servicioSeleccionado]);
 
-  const reiniciarFinalizacionSiCorresponde = () => {
-    if (cotizacionFinalizada) {
-      setCotizacionFinalizada(false);
-      setPresupuestoCreado(null);
-    }
+  const limpiarFalloEnvioSiCorresponde = () => {
     if (falloEnvioServidor) {
       setFalloEnvioServidor(false);
     }
   };
 
-  // Selección de producto en el Paso 01
+  // Selección de producto en el Paso 01 (bloqueada una vez emitido el presupuesto hasta recargar)
   const seleccionarServicioBase = (nuevoServicioId: string) => {
+    if (cotizacionFinalizada) {
+      return;
+    }
+
     setHuboCambioManual(true);
-    reiniciarFinalizacionSiCorresponde();
+    limpiarFalloEnvioSiCorresponde();
 
     if (nuevoServicioId === servicioBaseId) {
       return;
@@ -322,14 +323,20 @@ export function ExperienciaCotizador({
   };
 
   const cambiarSeccionesExtra = (nuevaCantidad: number) => {
+    if (cotizacionFinalizada) {
+      return;
+    }
     setHuboCambioManual(true);
-    reiniciarFinalizacionSiCorresponde();
+    limpiarFalloEnvioSiCorresponde();
     setCantidadSeccionesExtra(nuevaCantidad);
   };
 
   const alternarAdicional = (adicionalId: string) => {
+    if (cotizacionFinalizada) {
+      return;
+    }
     setHuboCambioManual(true);
-    reiniciarFinalizacionSiCorresponde();
+    limpiarFalloEnvioSiCorresponde();
     setAdicionalesSeleccionadosIds((previos) =>
       previos.includes(adicionalId)
         ? previos.filter((id) => id !== adicionalId)
@@ -368,9 +375,13 @@ export function ExperienciaCotizador({
     setPasoActual(pasoDestino);
   };
 
-  // Finalizar cotización y habilitar botones del Resumen solo cuando el Backend confirma el registro
+  // Finalizar cotización y bloquear nuevas emisiones hasta recargar la página
   const manejarFinalizarCotizacion = async (evento: React.FormEvent) => {
     evento.preventDefault();
+    if (cotizacionFinalizada || enviandoPresupuesto) {
+      return;
+    }
+
     setMensajeErrorFormulario(null);
     setFalloEnvioServidor(false);
 
@@ -411,6 +422,7 @@ export function ExperienciaCotizador({
       codigoPromocion:
         cuponAplicado?.codigo ?? promocionActivaServicioActual?.clave ?? null,
       trampaSpam: trampaSpam || undefined,
+      tiempoLlenadoMs: Math.max(0, Date.now() - inicioSesionCotizadorRef.current),
     });
 
     setEnviandoPresupuesto(false);
@@ -824,14 +836,15 @@ export function ExperienciaCotizador({
                       id="campo-descripcion-proyecto"
                       rows={3}
                       required
+                      disabled={cotizacionFinalizada}
                       value={descripcionProyecto}
                       onChange={(evento) => {
                         setHuboCambioManual(true);
-                        reiniciarFinalizacionSiCorresponde();
+                        limpiarFalloEnvioSiCorresponde();
                         setDescripcionProyecto(evento.target.value);
                       }}
                       placeholder={traducciones("campoDescripcionPlaceholder")}
-                      className="w-full rounded-2xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none px-4 py-3 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors resize-none"
+                      className="w-full rounded-2xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed px-4 py-3 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors resize-none"
                     />
                   </div>
 
@@ -849,14 +862,15 @@ export function ExperienciaCotizador({
                         id="campo-nombre-cliente"
                         type="text"
                         required
+                        disabled={cotizacionFinalizada}
                         value={nombreCliente}
                         onChange={(evento) => {
                           setHuboCambioManual(true);
-                          reiniciarFinalizacionSiCorresponde();
+                          limpiarFalloEnvioSiCorresponde();
                           setNombreCliente(evento.target.value);
                         }}
                         placeholder={traducciones("campoNombrePlaceholder")}
-                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
+                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
                       />
                     </div>
 
@@ -872,14 +886,15 @@ export function ExperienciaCotizador({
                         id="campo-email-cliente"
                         type="email"
                         required
+                        disabled={cotizacionFinalizada}
                         value={emailCliente}
                         onChange={(evento) => {
                           setHuboCambioManual(true);
-                          reiniciarFinalizacionSiCorresponde();
+                          limpiarFalloEnvioSiCorresponde();
                           setEmailCliente(evento.target.value);
                         }}
                         placeholder={traducciones("campoEmailPlaceholder")}
-                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
+                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
                       />
                     </div>
 
@@ -895,14 +910,15 @@ export function ExperienciaCotizador({
                         id="campo-whatsapp-cliente"
                         type="tel"
                         required
+                        disabled={cotizacionFinalizada}
                         value={whatsappCliente}
                         onChange={(evento) => {
                           setHuboCambioManual(true);
-                          reiniciarFinalizacionSiCorresponde();
+                          limpiarFalloEnvioSiCorresponde();
                           setWhatsappCliente(evento.target.value);
                         }}
                         placeholder={traducciones("campoWhatsappPlaceholder")}
-                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
+                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
                       />
                     </div>
                   </div>
@@ -953,13 +969,22 @@ export function ExperienciaCotizador({
 
                     <button
                       type="submit"
-                      disabled={enviandoPresupuesto}
-                      className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-xs sm:text-sm font-bold bg-[rgb(var(--tema-acento-rgb))] text-black shadow-[0_0_24px_rgba(var(--tema-acento-rgb),0.45)] hover:shadow-[0_0_32px_rgba(var(--tema-acento-rgb),0.7)] hover:scale-[1.02] active:scale-95 disabled:opacity-60 transition-all cursor-pointer"
+                      disabled={enviandoPresupuesto || cotizacionFinalizada}
+                      className={`inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all ${
+                        cotizacionFinalizada
+                          ? "bg-white/10 text-neutral-400 border border-white/15 cursor-not-allowed opacity-70"
+                          : "bg-[rgb(var(--tema-acento-rgb))] text-black shadow-[0_0_24px_rgba(var(--tema-acento-rgb),0.45)] hover:shadow-[0_0_32px_rgba(var(--tema-acento-rgb),0.7)] hover:scale-[1.02] active:scale-95 disabled:opacity-60 cursor-pointer"
+                      }`}
                     >
                       {enviandoPresupuesto ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin" />
                           <span>{traducciones("procesandoFinalizar")}</span>
+                        </>
+                      ) : cotizacionFinalizada ? (
+                        <>
+                          <CheckCircle2 className="w-4 h-4" />
+                          <span>{traducciones("botonFinalizado")}</span>
                         </>
                       ) : (
                         <>

@@ -114,6 +114,7 @@ export interface CrearPresupuestoRequest {
   adicionalesIds: string[];
   codigoPromocion?: string | null;
   trampaSpam?: string;
+  tiempoLlenadoMs?: number;
 }
 
 /**
