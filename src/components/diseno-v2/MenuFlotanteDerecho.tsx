@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
+import { useLinkStatus } from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter, usePathname } from "@/i18n/routing";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,6 +15,7 @@ import {
   HelpCircle,
   Mail,
   Calculator,
+  Loader2,
   Settings,
   ArrowUp,
   Check,
@@ -65,6 +67,34 @@ const COLORES_TEMA: OpcionColorTema[] = [
   { id: "ambar", claveTraduccion: "colores.ambar", hex: "#f59e0b" },
   { id: "rosa", claveTraduccion: "colores.rosa", hex: "#ec4899" },
 ];
+
+/**
+ * Ícono reactivo para el acceso al cotizador: muestra un indicador giratorio instantáneo
+ * si la navegación está en tránsito antes de montar el skeleton de la ruta.
+ */
+function IconoEnlaceCotizador({
+  estaEnCotizador,
+}: {
+  estaEnCotizador: boolean;
+}) {
+  const { pending } = useLinkStatus();
+
+  if (pending && !estaEnCotizador) {
+    return (
+      <Loader2 className="relative z-10 w-4 h-4 sm:w-4.5 sm:h-4.5 animate-spin text-[rgb(var(--tema-acento-claro-rgb))]" />
+    );
+  }
+
+  return (
+    <Calculator
+      className={`relative z-10 w-4 h-4 sm:w-4.5 sm:h-4.5 transition-all duration-300 ${
+        estaEnCotizador
+          ? "text-[rgb(var(--tema-acento-claro-rgb))] scale-110 drop-shadow-[0_0_12px_rgba(var(--tema-acento-claro-rgb),0.85)]"
+          : "group-hover:scale-105"
+      }`}
+    />
+  );
+}
 
 /**
  * Menú flotante lateral derecho estilo Dock minimalista.
@@ -307,7 +337,6 @@ export function MenuFlotanteDerecho() {
         {/* Acceso Directo al Cotizador Online (/[locale]/cotizador) con el Efecto Spotlight Oficial del Tema Activo */}
         <Link
           href="/cotizador"
-          prefetch={false}
           className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
           aria-label={traduccionesDock("cotizador")}
         >
@@ -365,13 +394,7 @@ export function MenuFlotanteDerecho() {
             </motion.div>
           )}
 
-          <Calculator
-            className={`relative z-10 w-4 h-4 sm:w-4.5 sm:h-4.5 transition-all duration-300 ${
-              estaEnCotizador
-                ? "text-[rgb(var(--tema-acento-claro-rgb))] scale-110 drop-shadow-[0_0_12px_rgba(var(--tema-acento-claro-rgb),0.85)]"
-                : "group-hover:scale-105"
-            }`}
-          />
+          <IconoEnlaceCotizador estaEnCotizador={estaEnCotizador} />
 
           {/* Tooltip del Cotizador */}
           <span className="pointer-events-none absolute top-full mt-2.5 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:left-auto lg:right-full lg:mr-3 px-2.5 py-1 rounded-lg text-[11px] font-mono tracking-wider font-semibold text-white bg-black/90 border border-white/10 shadow-xl opacity-0 -translate-y-1 lg:translate-y-0 lg:translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 lg:group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-20">

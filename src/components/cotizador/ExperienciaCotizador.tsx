@@ -34,6 +34,7 @@ import { MenuFlotanteDerecho } from "@/components/diseno-v2/MenuFlotanteDerecho"
 import { TarjetaServicioCotizador } from "./TarjetaServicioCotizador";
 import { SelectorAdicionalesPorGrupo } from "./SelectorAdicionalesPorGrupo";
 import { ResumenCotizacionLateral } from "./ResumenCotizacionLateral";
+import { EsqueletoCotizador } from "./EsqueletoCotizador";
 
 const TIEMPO_LIMITE_SINCRONIZACION_CLIENTE_MS = 55000;
 const INTERVALO_REVALIDACION_PESTANA_MS = 30000;
@@ -439,28 +440,9 @@ export function ExperienciaCotizador({
     router.push("/");
   };
 
-  // Pantalla de carga en vivo mientras el servidor despierta (nunca se muestran tarifas estáticas viejas)
+  // Skeleton continuo mientras el servidor despierta (nunca se muestran tarifas estáticas viejas)
   if (cargandoCatalogo && !catalogoActual) {
-    return (
-      <div
-        data-v2="true"
-        className="relative min-h-screen bg-[#070606] text-neutral-100 flex items-center justify-center px-4"
-      >
-        <FondoHumoSutil />
-        <MenuFlotanteDerecho />
-        <div className="relative z-10 max-w-md w-full rounded-3xl bg-[#0c0a09]/95 border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.85)] p-7 sm:p-8 text-center flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-[rgb(var(--tema-acento-rgb)/0.12)] border border-[rgb(var(--tema-acento-rgb)/0.35)] flex items-center justify-center">
-            <Loader2 className="w-6 h-6 animate-spin text-[rgb(var(--tema-acento-claro-rgb))]" />
-          </div>
-          <h1 className="text-lg sm:text-xl font-bold text-white">
-            {traducciones("cargandoTarifasTitulo")}
-          </h1>
-          <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-            {traducciones("cargandoTarifasDescripcion")}
-          </p>
-        </div>
-      </div>
-    );
+    return <EsqueletoCotizador />;
   }
 
   // Pantalla de error explícito si no hubo conexión tras reintento (prohibido cotizar con precios viejos)

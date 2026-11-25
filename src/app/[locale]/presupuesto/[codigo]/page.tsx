@@ -305,7 +305,6 @@ export default async function PaginaValidacionPresupuesto({
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Link
                   href="/cotizador"
-                  prefetch={false}
                   className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold bg-realce-500/20 hover:bg-realce-500/30 text-realce-300 hover:text-white border border-realce-500/50 shadow-[0_0_24px_rgb(var(--tema-realce-rgb)/0.3)] hover:scale-[1.02] active:scale-95 transition-all flex-1"
                 >
                   <Sparkles className="w-4 h-4 text-realce-400 animate-pulse" />
@@ -347,7 +346,6 @@ export default async function PaginaValidacionPresupuesto({
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2 max-w-sm mx-auto w-full">
                 <Link
                   href="/cotizador"
-                  prefetch={false}
                   className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold bg-white text-black hover:bg-neutral-200 shadow-lg hover:scale-[1.02] active:scale-95 transition-all flex-1"
                 >
                   <Sparkles className="w-4 h-4 text-sky-600" />

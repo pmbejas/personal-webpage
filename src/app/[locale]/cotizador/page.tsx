@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { servicioCatalogo } from "@/services/ServicioCatalogo";
 import { ExperienciaCotizador } from "@/components/cotizador/ExperienciaCotizador";
+import { EsqueletoCotizador } from "@/components/cotizador/EsqueletoCotizador";
 
 export async function generateMetadata({
   params,
@@ -37,10 +39,21 @@ export const revalidate = 0;
 const TIEMPO_LIMITE_SSR_CATALOGO_MS = 6000;
 
 /**
+ * Subcomponente servidor que consulta el catálogo en vivo dentro de un límite Suspense,
+ * evitando bloquear el primer render del skeleton al navegar hacia /cotizador.
+ */
+async function CargadorCotizadorServidor() {
+  const catalogoInicial = await servicioCatalogo.obtenerCatalogoEnVivo({
+    tiempoLimiteMs: TIEMPO_LIMITE_SSR_CATALOGO_MS,
+  });
+
+  return <ExperienciaCotizador catalogoInicial={catalogoInicial} />;
+}
+
+/**
  * Página dedicada del Cotizador Online (/[locale]/cotizador).
- * Obtiene las tarifas oficiales en vivo desde el Backend; si el contenedor de Render
- * está despertando, delega la espera al cliente para mostrar siempre precios reales
- * sin recurrir jamás a valores estáticos desactualizados.
+ * Transmite el skeleton de inmediato vía Suspense y consulta las tarifas oficiales en vivo
+ * desde el Backend sin recurrir jamás a valores estáticos desactualizados.
  */
 export default async function PaginaCotizador({
   params,
@@ -50,9 +63,9 @@ export default async function PaginaCotizador({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const catalogoInicial = await servicioCatalogo.obtenerCatalogoEnVivo({
-    tiempoLimiteMs: TIEMPO_LIMITE_SSR_CATALOGO_MS,
-  });
-
-  return <ExperienciaCotizador catalogoInicial={catalogoInicial} />;
+  return (
+    <Suspense fallback={<EsqueletoCotizador />}>
+      <CargadorCotizadorServidor />
+    </Suspense>
+  );
 }
