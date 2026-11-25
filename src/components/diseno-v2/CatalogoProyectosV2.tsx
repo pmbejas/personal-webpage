@@ -33,10 +33,11 @@ export function CatalogoProyectosV2() {
   }, [filtroActivo, todosLosProyectos]);
 
   return (
-    <section id="proyectos" className="py-24 sm:py-32 relative overflow-hidden">
+    /* [MEJORA-VISUAL-04] Espaciado vertical equilibrado */
+    <section id="proyectos" className="py-12 sm:py-16 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Cabecera */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
           <motion.span
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -50,7 +51,7 @@ export function CatalogoProyectosV2() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-5xl font-black text-white tracking-tight"
+            className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"
           >
             {traducciones("tituloV2")}
           </motion.h2>
@@ -65,8 +66,8 @@ export function CatalogoProyectosV2() {
           </motion.p>
         </div>
 
-        {/* Barra de filtros minimalista en azul */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+        {/* [MEJORA-VISUAL-01] Barra de filtros con sombra reactiva al tema activo */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
           {CLAVES_FILTRO.map((filtro) => {
             const estaActivo = filtroActivo === filtro.clave;
             return (
@@ -74,9 +75,9 @@ export function CatalogoProyectosV2() {
                 key={filtro.clave}
                 onClick={() => setFiltroActivo(filtro.clave)}
                 type="button"
-                className={`px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb))] ${
                   estaActivo
-                    ? "bg-gradient-to-r from-blue-600 via-blue-500 to-sky-400 text-white shadow-[0_0_15px_rgba(14,165,233,0.4)]"
+                    ? "bg-gradient-to-r from-[rgb(var(--tema-acento-oscuro-rgb))] via-[rgb(var(--tema-acento-rgb))] to-[rgb(var(--tema-acento-claro-rgb))] text-white shadow-[0_0_15px_rgb(var(--tema-acento-rgb)/0.4)]"
                     : "bg-white/[0.03] text-neutral-400 hover:text-white hover:bg-white/[0.06] border border-white/5"
                 }`}
               >

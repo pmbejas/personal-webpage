@@ -12,7 +12,8 @@ export function CintaStack() {
   const traducciones = useTranslations("stack");
 
   return (
-    <section id="stack" className="relative py-12 overflow-hidden">
+    /* [MEJORA-VISUAL-04] Espaciado vertical balanceado */
+    <section id="stack" className="relative py-8 sm:py-10 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <motion.p
           initial={{ opacity: 0, y: 15 }}

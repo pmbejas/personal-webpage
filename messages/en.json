@@ -25,7 +25,7 @@
     "tituloV2Conector": "&",
     "tituloV2Pildora2": "scalable",
     "tituloV2Parte2": "architectures",
-    "descripcionV2": "Specialized in backend services with .NET 9 (C#) and Clean Architecture, reactive frontend interfaces in Next.js 15, and relational databases in PostgreSQL.",
+    "descripcionV2": "Specialized in backend services with .NET 10 (C#) and Clean Architecture, reactive frontend interfaces in Next.js 15, and relational databases in PostgreSQL.",
     "rotarCubo": "Drag with your mouse to rotate the cube freely",
     "cotizarEnUnMinuto": "Quote your project in 1 minute"
   },
@@ -206,7 +206,7 @@
     "tarjeta1": {
       "categoria": "01 / BACKEND",
       "titulo": "Architecture & Tools",
-      "descripcion": "Development of scalable services with ASP.NET Core (.NET 9), Clean Architecture, Repository Pattern, and PostgreSQL to ensure stability and high concurrency."
+      "descripcion": "Development of scalable services with ASP.NET Core (.NET 10), Clean Architecture, Repository Pattern, and PostgreSQL to ensure stability and high concurrency."
     },
     "tarjeta2": {
       "categoria": "02 / FRONTEND",
@@ -253,17 +253,32 @@
     "paso1": {
       "numero": "01",
       "titulo": "Vision & Architecture",
-      "descripcion": "We define business objectives, technical requirements, and the optimal architecture (.NET 9, Next.js, PostgreSQL) with zero ambiguity."
+      "descripcion": "We define business objectives, technical requirements, and the optimal architecture (.NET 10, Next.js, PostgreSQL) with zero ambiguity.",
+      "entregables": [
+        "Functional discovery & scope definition",
+        "Database & API architecture blueprint",
+        "Sprint roadmap & formal estimate"
+      ]
     },
     "paso2": {
       "numero": "02",
       "titulo": "Agile Development & Testing",
-      "descripcion": "I build the solution step-by-step using Clean Architecture, clean code, secure APIs, and reactive UI components with continuous iterative delivery."
+      "descripcion": "I build the solution step-by-step using Clean Architecture, clean code, secure APIs, and reactive UI components with continuous iterative delivery.",
+      "entregables": [
+        "Weekly live staging demos",
+        "Clean, strongly typed & documented code",
+        "Automated testing on critical flows"
+      ]
     },
     "paso3": {
       "numero": "03",
       "titulo": "Deployment & Scaling",
-      "descripcion": "Automated quality testing, Docker containerized CI/CD pipelines, and cloud deployment with proactive monitoring for high availability."
+      "descripcion": "Automated quality testing, Docker containerized CI/CD pipelines, and cloud deployment with proactive monitoring for high availability.",
+      "entregables": [
+        "Production deployment with SSL & domain",
+        "Handover, repositories & training",
+        "Post-launch technical warranty & support"
+      ]
     }
   },
   "faq": {
@@ -272,7 +287,7 @@
     "descripcion": "Key information and answers to the most common inquiries regarding software development and engineering services.",
     "q1": {
       "pregunta": "What are the primary technologies used for Full Stack development?",
-      "respuesta": "Development is built upon the Microsoft .NET ecosystem (.NET 9, C#, ASP.NET Core Web API, EF Core, Dapper) for robust, high-concurrency backend architectures, complemented by Next.js 15, TypeScript, and Tailwind CSS on the frontend for modern, fluid, and SEO-optimized web interfaces."
+      "respuesta": "Development is built upon the Microsoft .NET ecosystem (.NET 10, C#, ASP.NET Core Web API, EF Core, Dapper) for robust, high-concurrency backend architectures, complemented by Next.js 15, TypeScript, and Tailwind CSS on the frontend for modern, fluid, and SEO-optimized web interfaces."
     },
     "q2": {
       "pregunta": "How is the project workflow and communication structured?",

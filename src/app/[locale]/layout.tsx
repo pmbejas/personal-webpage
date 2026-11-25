@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Oswald, Montserrat, Plus_Jakarta_Sans } from "next/font/google";
+/* [MEJORA-VISUAL-03] Carga exclusiva de las 2 familias tipográficas en uso (Inter + Plus Jakarta Sans) */
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale, getTranslations } from "next-intl/server";
@@ -17,23 +18,10 @@ const inter = Inter({
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-plus-jakarta",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
-
-const oswald = Oswald({
-  subsets: ["latin"],
-  variable: "--font-oswald",
-  weight: ["700"],
-  display: "swap",
-});
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  weight: ["800"],
-  display: "swap",
-});
+/* [/MEJORA-VISUAL-03] */
 
 export function generateStaticParams() {
   return ruteo.locales.map((locale) => ({ locale }));
@@ -111,7 +99,7 @@ export default async function LayoutLocalizado({
   return (
     <html
       lang={locale}
-      className={`dark ${inter.variable} ${oswald.variable} ${montserrat.variable} ${plusJakarta.variable}`}
+      className={`dark ${inter.variable} ${plusJakarta.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -122,7 +110,8 @@ export default async function LayoutLocalizado({
           }}
         />
       </head>
-      <body className="bg-[#1c171b] text-slate-100 min-h-screen flex flex-col font-sans">
+      {/* [MEJORA-VISUAL-02] Fondo base del documento alineado a #070606 */}
+      <body className="bg-[#070606] text-slate-100 min-h-screen flex flex-col font-sans">
         <WarmUpBackend />
         <NextIntlClientProvider locale={locale} messages={mensajes}>
           {/* Desactiva las animaciones cuando el usuario activa "reducir movimiento" en su sistema */}

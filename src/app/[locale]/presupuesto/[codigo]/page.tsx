@@ -15,6 +15,7 @@ import { Link } from "@/i18n/routing";
 import { servicioCatalogo } from "@/services/ServicioCatalogo";
 import { WordmarkLogo } from "@/components/layout/WordmarkLogo";
 import { IsotipoLogo } from "@/components/layout/IsotipoLogo";
+import { FondoHumoSutil } from "@/components/animacion/FondoHumoSutil";
 
 interface ParametrosPagina {
   params: Promise<{
@@ -93,9 +94,14 @@ export default async function PaginaValidacionPresupuesto({
   };
 
   return (
-    <main className="min-h-screen bg-[#080706] text-white flex flex-col justify-between py-10 px-4 sm:px-6 relative overflow-hidden">
-      {/* Resplandor ambiental de fondo */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] rounded-full bg-blue-600/10 blur-[130px] pointer-events-none" />
+    /* [MEJORA-VISUAL-02] Validador unificado con data-v2, fondo #070606 y ambiente sutil */
+    <main
+      data-v2="true"
+      className="min-h-screen bg-[#070606] text-white flex flex-col justify-between py-10 px-4 sm:px-6 relative overflow-hidden"
+    >
+      <FondoHumoSutil />
+      {/* Resplandor ambiental de fondo reactivo al tema */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] rounded-full bg-[rgb(var(--tema-acento-oscuro-rgb)/0.1)] blur-[130px] pointer-events-none" />
 
       {/* Cabecera con Marca Oficial */}
       <header className="max-w-2xl mx-auto w-full flex items-center justify-between pb-8 border-b border-white/10 relative z-10">
@@ -201,7 +207,7 @@ export default async function PaginaValidacionPresupuesto({
                     <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block">
                       {traducciones("etiquetaTotal")}
                     </span>
-                    <span className="text-base sm:text-lg font-black text-white font-mono mt-0.5 block">
+                    <span className="text-base sm:text-lg font-extrabold text-white font-mono tabular-nums mt-0.5 block">
                       {presupuesto.totalPresupuestado === 0
                         ? traducciones("aConvenir")
                         : formatearMonto(
@@ -216,7 +222,7 @@ export default async function PaginaValidacionPresupuesto({
                       <span className="text-[10px] font-mono uppercase tracking-wider text-sky-400 block">
                         {traducciones("etiquetaSena")}
                       </span>
-                      <span className="text-sm sm:text-base font-bold text-sky-300 font-mono mt-0.5 block">
+                      <span className="text-sm sm:text-base font-bold text-sky-300 font-mono tabular-nums mt-0.5 block">
                         {formatearMonto(
                           presupuesto.montoSenaSugerida,
                           presupuesto.moneda

@@ -50,8 +50,8 @@ export function PaginaDisenoV2() {
       {/* 2. Fondo Ambiental de Humo Sutil (Estilo Vapor / Cigarrillo) */}
       <FondoHumoSutil />
 
-      {/* 3. Disposición espacial Split-Screen */}
-      <div className="relative z-10 max-w-[1700px] mx-auto p-3 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-8 lg:gap-10 xl:gap-14">
+      {/* [MEJORA-VISUAL-06] Aire superior en móvil para que el dock fijo no superponga la Tarjeta Lateral */}
+      <div className="relative z-10 max-w-[1700px] mx-auto px-3 pb-3 pt-16 sm:px-6 sm:pb-6 sm:pt-20 lg:p-8 flex flex-col lg:flex-row gap-8 lg:gap-10 xl:gap-14">
         {/* Tarjeta Lateral Izquierda Fija / Sticky */}
         <TarjetaLateralFija />
 

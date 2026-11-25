@@ -53,10 +53,11 @@ export function TarjetaServicioCotizador({
           alSeleccionar(servicio.id);
         }
       }}
-      className={`group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden border text-left ${
+      /* [MEJORA-VISUAL-05] Superficie neutra en tarjetas no seleccionadas; glow exclusivo en la elegida */
+      className={`group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden border text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb))] ${
         estaSeleccionado
-          ? "bg-[rgb(var(--tema-acento-rgb)/0.18)] border-[rgb(var(--tema-acento-rgb))] shadow-[0_0_32px_rgba(var(--tema-acento-rgb),0.35)]"
-          : "bg-[rgb(var(--tema-acento-rgb)/0.08)] border-[rgb(var(--tema-acento-rgb)/0.3)] hover:border-[rgb(var(--tema-acento-rgb)/0.6)] hover:bg-[rgb(var(--tema-acento-rgb)/0.14)] shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.08)]"
+          ? "bg-[rgb(var(--tema-acento-rgb)/0.16)] border-[rgb(var(--tema-acento-rgb))] shadow-[0_0_32px_rgb(var(--tema-acento-rgb)/0.32)]"
+          : "bg-[#0c0a09]/90 border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.5)] hover:bg-white/[0.04]"
       }`}
     >
       {/* 1. Banner Cruzado (Ribbon) si tiene precio > 0 y promoción activa */}
@@ -150,10 +151,10 @@ export function TarjetaServicioCotizador({
         ) : calculoPrecio.tienePromocion ? (
           <div className="flex flex-col gap-0.5">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-mono text-neutral-500 line-through decoration-neutral-500/80 decoration-2">
+              <span className="text-xs font-mono tabular-nums text-neutral-500 line-through decoration-neutral-500/80 decoration-2">
                 {formatearMonedaArs(calculoPrecio.precioOriginal)}
               </span>
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-realce-500/15 text-realce-300 border border-realce-500/35">
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono tabular-nums font-bold bg-realce-500/15 text-realce-300 border border-realce-500/35">
                 <Sparkles className="w-2.5 h-2.5 text-realce-400" />
                 <span>
                   {traducciones("ahorro")}{" "}
@@ -163,7 +164,7 @@ export function TarjetaServicioCotizador({
             </div>
 
             <div className="flex items-baseline gap-1.5">
-              <span className="text-xl sm:text-2xl font-extrabold font-mono text-realce-400 drop-shadow-[0_0_12px_rgb(var(--tema-realce-rgb)/0.25)]">
+              <span className="text-xl sm:text-2xl font-extrabold font-mono tabular-nums text-realce-400 drop-shadow-[0_0_12px_rgb(var(--tema-realce-rgb)/0.25)]">
                 {formatearMonedaArs(calculoPrecio.precioFinal)}
               </span>
               <span className="text-[11px] font-mono text-neutral-400">
@@ -173,7 +174,7 @@ export function TarjetaServicioCotizador({
           </div>
         ) : (
           <div className="flex items-baseline gap-1.5">
-            <span className="text-xl sm:text-2xl font-extrabold font-mono text-white">
+            <span className="text-xl sm:text-2xl font-extrabold font-mono tabular-nums text-white">
               {formatearMonedaArs(servicio.precioBase)}
             </span>
             <span className="text-[11px] font-mono text-neutral-400">ARS</span>

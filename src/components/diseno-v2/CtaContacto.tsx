@@ -35,9 +35,10 @@ export function CtaContacto() {
   };
 
   return (
-    <section id="contacto" className="relative py-24 sm:py-32 overflow-hidden">
-      {/* Resplandor de horizonte curvado inferior en azul eléctrico */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] rounded-[100%] bg-gradient-to-b from-blue-600/15 via-sky-500/5 to-transparent blur-3xl pointer-events-none" />
+    /* [MEJORA-VISUAL-04] Ritmo vertical equilibrado */
+    <section id="contacto" className="relative py-12 sm:py-16 overflow-hidden">
+      {/* Resplandor de horizonte curvado inferior reactivo al tema */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] rounded-[100%] bg-gradient-to-b from-[rgb(var(--tema-acento-oscuro-rgb)/0.15)] via-[rgb(var(--tema-acento-rgb)/0.05)] to-transparent blur-3xl pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 text-center">
         {/* Badge */}
@@ -161,22 +162,22 @@ export function CtaContacto() {
             </div>
           </a>
 
-          {/* Llamada Telefónica Directa */}
+          {/* [MEJORA-VISUAL-01] Llamada Telefónica Directa alineada al tema activo */}
           <a
             href={`tel:${CONFIGURACION_CONTACTO.telefonoFormatoLlamada}`}
-            className="group p-5 rounded-2xl bg-[#0c0a09]/90 border border-white/10 hover:border-cyan-500/40 hover:bg-cyan-950/10 transition-all flex flex-col justify-between"
+            className="group p-5 rounded-2xl bg-[#0c0a09]/90 border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.45)] hover:bg-[rgb(var(--tema-acento-rgb)/0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb))] transition-all flex flex-col justify-between"
           >
             <div className="flex items-center justify-between mb-4">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-[rgb(var(--tema-acento-rgb)/0.12)] border border-[rgb(var(--tema-acento-rgb)/0.25)] flex items-center justify-center text-[rgb(var(--tema-acento-claro-rgb))] group-hover:scale-110 transition-transform">
                 <Phone className="w-5 h-5" />
               </div>
-              <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-cyan-400 transition-colors" />
+              <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-[rgb(var(--tema-acento-claro-rgb))] transition-colors" />
             </div>
             <div>
               <span className="text-xs text-neutral-400 font-mono uppercase tracking-wider block">
                 {traduccionesContacto("llamar")}
               </span>
-              <span className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
+              <span className="text-sm font-bold text-white group-hover:text-[rgb(var(--tema-acento-claro-rgb))] transition-colors">
                 {CONFIGURACION_CONTACTO.telefono}
               </span>
             </div>

@@ -27,7 +27,8 @@ export function TarjetaLateralFija() {
   const traduccionesTarjeta = useTranslations("tarjetaLateral");
 
   return (
-    <aside className="relative w-full h-[calc(100dvh-1.5rem)] min-h-[540px] sm:h-[calc(100dvh-3rem)] lg:min-h-0 lg:w-[380px] xl:w-[420px] lg:sticky lg:top-6 lg:self-start lg:h-[calc(100vh-3rem)] rounded-[32px] overflow-hidden bg-[#0c0a09]/95 border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.85)] flex flex-col justify-between p-6 sm:p-7 flex-shrink-0 group">
+    /* [MEJORA-VISUAL-06] Altura móvil calibrada bajo el dock superior para no recortar la tarjeta */
+    <aside className="relative w-full h-[calc(100dvh-5rem)] min-h-[500px] sm:h-[calc(100dvh-6.5rem)] lg:min-h-0 lg:w-[380px] xl:w-[420px] lg:sticky lg:top-6 lg:self-start lg:h-[calc(100vh-3rem)] rounded-[32px] overflow-hidden bg-[#0c0a09]/95 border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.85)] flex flex-col justify-between p-6 sm:p-7 flex-shrink-0 group">
       {/* 1. Fotografía de fondo difusa con gradiente cinematográfico */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <Image

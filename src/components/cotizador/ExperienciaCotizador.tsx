@@ -831,7 +831,7 @@ export function ExperienciaCotizador({
                         setDescripcionProyecto(evento.target.value);
                       }}
                       placeholder={traducciones("campoDescripcionPlaceholder")}
-                      className="w-full rounded-2xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus:outline-none px-4 py-3 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors resize-none"
+                      className="w-full rounded-2xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none px-4 py-3 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors resize-none"
                     />
                   </div>
 
@@ -856,7 +856,7 @@ export function ExperienciaCotizador({
                           setNombreCliente(evento.target.value);
                         }}
                         placeholder={traducciones("campoNombrePlaceholder")}
-                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus:outline-none px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
+                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
                       />
                     </div>
 
@@ -879,7 +879,7 @@ export function ExperienciaCotizador({
                           setEmailCliente(evento.target.value);
                         }}
                         placeholder={traducciones("campoEmailPlaceholder")}
-                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus:outline-none px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
+                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
                       />
                     </div>
 
@@ -902,7 +902,7 @@ export function ExperienciaCotizador({
                           setWhatsappCliente(evento.target.value);
                         }}
                         placeholder={traducciones("campoWhatsappPlaceholder")}
-                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus:outline-none px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
+                        className="w-full rounded-xl bg-black/60 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] focus:outline-none px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder:text-neutral-500 transition-colors"
                       />
                     </div>
                   </div>

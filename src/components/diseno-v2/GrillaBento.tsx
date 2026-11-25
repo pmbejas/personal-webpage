@@ -3,23 +3,37 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { Cpu, Zap, ShieldCheck } from "lucide-react";
+import {
+  Cpu,
+  Database,
+  Gauge,
+  Layers,
+  ShieldCheck,
+  Zap,
+} from "lucide-react";
+
+const METRICAS_RENDIMIENTO = [
+  { etiqueta: "Performance", valor: "99", ancho: "w-[99%]" },
+  { etiqueta: "LCP", valor: "<0.8s", ancho: "w-[92%]" },
+  { etiqueta: "SEO", valor: "100", ancho: "w-full" },
+];
 
 /**
  * Grilla Bento 2x2 de alta gama.
- * Presenta 4 módulos con ilustraciones tecnológicas.
+ * [MEJORA-VISUAL-01] Todos los glows y patrones responden al tema cromático activo.
+ * [MEJORA-VISUAL-04] Ritmo vertical equilibrado y micro-visualizaciones reales en las 4 tarjetas.
  */
 export function GrillaBento() {
   const traducciones = useTranslations("bento");
 
   return (
-    <section id="servicios" className="py-24 sm:py-32 relative overflow-hidden">
-      {/* Luz ambiental azul en el centro */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-blue-600/15 via-sky-500/5 to-transparent blur-[140px] pointer-events-none" />
+    <section id="servicios" className="py-12 sm:py-16 relative overflow-hidden">
+      {/* Luz ambiental reactiva al tema activo */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-[rgb(var(--tema-acento-oscuro-rgb)/0.14)] via-[rgb(var(--tema-acento-rgb)/0.05)] to-transparent blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Cabecera de la sección */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
           <motion.span
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -33,7 +47,7 @@ export function GrillaBento() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-5xl font-black text-white tracking-tight"
+            className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"
           >
             {traducciones("titulo")}
           </motion.h2>
@@ -50,14 +64,13 @@ export function GrillaBento() {
 
         {/* Grilla Bento 2x2 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-          {/* Tarjeta 1: Backend - Arquitectura & Herramientas */}
+          {/* Tarjeta 1: Backend - Diagrama de capas reales */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="relative p-7 sm:p-8 rounded-3xl bg-[#0c0a09]/90 border border-white/10 hover:border-sky-500/40 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all duration-300 overflow-hidden group shadow-xl"
+            className="relative p-7 sm:p-8 rounded-3xl bg-[#0c0a09]/90 border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.45)] hover:shadow-[0_0_30px_rgb(var(--tema-acento-rgb)/0.16)] transition-all duration-300 overflow-hidden group shadow-xl"
           >
             <div className="flex flex-col h-full justify-between">
               <div>
@@ -72,24 +85,62 @@ export function GrillaBento() {
                 </p>
               </div>
 
-              {/* Cápsula de CPU con circuitos */}
-              <div className="mt-8 relative h-44 rounded-2xl bg-black/60 border border-white/5 flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
-                <div className="absolute w-28 h-28 rounded-full bg-sky-500/20 blur-xl group-hover:scale-125 transition-transform duration-500" />
-                <div className="relative w-16 h-16 rounded-full bg-gradient-to-b from-neutral-800 to-neutral-950 border border-sky-500/40 flex items-center justify-center shadow-[0_0_25px_rgba(56,189,248,0.35)] group-hover:border-sky-400 transition-colors">
-                  <Cpu className="w-8 h-8 text-sky-400" />
+              {/* [MEJORA-VISUAL-04] Micro-diagrama arquitectónico real reactivo al tema [MEJORA-VISUAL-01] */}
+              <div className="mt-7 relative h-44 rounded-2xl bg-black/60 border border-white/5 p-4 sm:p-5 flex flex-col justify-between overflow-hidden">
+                <div
+                  className="absolute inset-0 opacity-15 pointer-events-none"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(var(--tema-color-hex) 1px, transparent 1px)",
+                    backgroundSize: "16px 16px",
+                  }}
+                />
+                <div className="relative z-10 flex items-center justify-between text-[10px] font-mono text-neutral-400">
+                  <span className="inline-flex items-center gap-1.5 text-[rgb(var(--tema-acento-claro-rgb))]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[rgb(var(--tema-acento-claro-rgb))]" />
+                    <span>REST API · Clean Arch</span>
+                  </span>
+                  <span className="tabular-nums text-neutral-500">99.9% SLA</span>
+                </div>
+
+                <div className="relative z-10 flex items-center justify-between gap-2 my-auto">
+                  <div className="flex-1 rounded-xl bg-neutral-950/90 border border-[rgb(var(--tema-acento-rgb)/0.35)] px-2.5 py-2.5 text-center shadow-[0_0_16px_rgb(var(--tema-acento-rgb)/0.16)]">
+                    <Cpu className="w-4 h-4 text-[rgb(var(--tema-acento-claro-rgb))] mx-auto mb-1" />
+                    <span className="text-[10px] font-mono font-semibold text-white block">
+                      .NET 10
+                    </span>
+                  </div>
+                  <div className="h-[1px] w-4 sm:w-6 bg-gradient-to-r from-[rgb(var(--tema-acento-rgb)/0.3)] via-[rgb(var(--tema-acento-claro-rgb))] to-[rgb(var(--tema-acento-rgb)/0.3)] shrink-0" />
+                  <div className="flex-1 rounded-xl bg-neutral-950/90 border border-white/10 px-2.5 py-2.5 text-center">
+                    <Layers className="w-4 h-4 text-neutral-300 mx-auto mb-1" />
+                    <span className="text-[10px] font-mono font-semibold text-neutral-200 block">
+                      Services
+                    </span>
+                  </div>
+                  <div className="h-[1px] w-4 sm:w-6 bg-gradient-to-r from-[rgb(var(--tema-acento-rgb)/0.3)] via-[rgb(var(--tema-acento-claro-rgb))] to-[rgb(var(--tema-acento-rgb)/0.3)] shrink-0" />
+                  <div className="flex-1 rounded-xl bg-neutral-950/90 border border-[rgb(var(--tema-acento-rgb)/0.35)] px-2.5 py-2.5 text-center shadow-[0_0_16px_rgb(var(--tema-acento-rgb)/0.16)]">
+                    <Database className="w-4 h-4 text-[rgb(var(--tema-acento-claro-rgb))] mx-auto mb-1" />
+                    <span className="text-[10px] font-mono font-semibold text-white block">
+                      PostgreSQL
+                    </span>
+                  </div>
+                </div>
+
+                <div className="relative z-10 flex items-center justify-between text-[10px] font-mono text-neutral-500">
+                  <span>EF Core + Dapper</span>
+                  <span>JWT · RBAC</span>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Tarjeta 2: Frontend - Alto Rendimiento & UX */}
+          {/* Tarjeta 2: Frontend - Panel Core Web Vitals */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative p-7 sm:p-8 rounded-3xl bg-[#0c0a09]/90 border border-white/10 hover:border-sky-500/40 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all duration-300 overflow-hidden group shadow-xl"
+            className="relative p-7 sm:p-8 rounded-3xl bg-[#0c0a09]/90 border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.45)] hover:shadow-[0_0_30px_rgb(var(--tema-acento-rgb)/0.16)] transition-all duration-300 overflow-hidden group shadow-xl"
           >
             <div className="flex flex-col h-full justify-between">
               <div>
@@ -104,12 +155,36 @@ export function GrillaBento() {
                 </p>
               </div>
 
-              {/* Cápsula con rayo de velocidad */}
-              <div className="mt-8 relative h-44 rounded-2xl bg-black/60 border border-white/5 flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-sky-500/5 to-transparent" />
-                <div className="absolute w-32 h-32 rounded-full bg-sky-500/20 blur-2xl group-hover:scale-125 transition-transform duration-500" />
-                <div className="relative w-16 h-16 rounded-full bg-gradient-to-b from-neutral-800 to-neutral-950 border border-sky-500/40 flex items-center justify-center shadow-[0_0_25px_rgba(14,165,233,0.4)] group-hover:border-sky-400 transition-colors">
-                  <Zap className="w-8 h-8 text-sky-400" />
+              {/* [MEJORA-VISUAL-04] Micro-panel Core Web Vitals reactivo al tema [MEJORA-VISUAL-01] */}
+              <div className="mt-7 relative h-44 rounded-2xl bg-black/60 border border-white/5 p-4 sm:p-5 flex flex-col justify-between overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-[rgb(var(--tema-acento-oscuro-rgb)/0.1)] via-[rgb(var(--tema-acento-rgb)/0.04)] to-transparent pointer-events-none" />
+                <div className="relative z-10 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-[rgb(var(--tema-acento-claro-rgb))]">
+                    <Gauge className="w-3.5 h-3.5" />
+                    <span>Core Web Vitals</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[10px] font-mono text-neutral-400">
+                    <Zap className="w-3 h-3 text-[rgb(var(--tema-acento-claro-rgb))]" />
+                    <span>Next.js 15 SSR</span>
+                  </span>
+                </div>
+
+                <div className="relative z-10 flex flex-col gap-2.5 my-auto">
+                  {METRICAS_RENDIMIENTO.map((metrica) => (
+                    <div key={metrica.etiqueta} className="space-y-1">
+                      <div className="flex items-center justify-between text-[11px] font-mono">
+                        <span className="text-neutral-300">{metrica.etiqueta}</span>
+                        <span className="font-bold text-[rgb(var(--tema-acento-claro-rgb))] tabular-nums">
+                          {metrica.valor}
+                        </span>
+                      </div>
+                      <div className="h-1.5 w-full rounded-full bg-white/[0.06] overflow-hidden">
+                        <div
+                          className={`h-full ${metrica.ancho} rounded-full bg-gradient-to-r from-[rgb(var(--tema-acento-oscuro-rgb))] to-[rgb(var(--tema-acento-claro-rgb))] shadow-[0_0_10px_rgb(var(--tema-acento-rgb)/0.5)]`}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -121,7 +196,7 @@ export function GrillaBento() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative p-7 sm:p-8 rounded-3xl bg-[#0c0a09]/90 border border-white/10 hover:border-sky-500/40 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all duration-300 overflow-hidden group shadow-xl"
+            className="relative p-7 sm:p-8 rounded-3xl bg-[#0c0a09]/90 border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.45)] hover:shadow-[0_0_30px_rgb(var(--tema-acento-rgb)/0.16)] transition-all duration-300 overflow-hidden group shadow-xl"
           >
             <div className="flex flex-col h-full justify-between">
               <div>
@@ -136,10 +211,10 @@ export function GrillaBento() {
                 </p>
               </div>
 
-              {/* Gráfico ascendente con métrica porcentual */}
-              <div className="mt-8 relative h-44 rounded-2xl bg-black/60 border border-white/5 p-5 flex flex-col justify-end overflow-hidden">
+              {/* Gráfico ascendente con métrica porcentual reactivo al tema */}
+              <div className="mt-7 relative h-44 rounded-2xl bg-black/60 border border-white/5 p-5 flex flex-col justify-end overflow-hidden">
                 <div className="absolute top-4 left-5 flex items-baseline gap-2">
-                  <span className="text-2xl font-extrabold text-white font-mono">
+                  <span className="text-2xl font-extrabold text-white font-mono tabular-nums">
                     {traducciones("tarjeta3.metrica")}
                   </span>
                   <span className="text-xs text-neutral-400 uppercase tracking-wider">
@@ -152,7 +227,7 @@ export function GrillaBento() {
                   <div className="flex-1 h-[45%] bg-neutral-800 rounded-lg" />
                   <div className="flex-1 h-[65%] bg-blue-700/50 rounded-lg" />
                   <div className="flex-1 h-[85%] bg-blue-600/80 rounded-lg" />
-                  <div className="flex-1 h-[100%] bg-gradient-to-t from-blue-600 to-sky-400 rounded-lg shadow-[0_0_15px_rgba(56,189,248,0.5)]" />
+                  <div className="flex-1 h-[100%] bg-gradient-to-t from-[rgb(var(--tema-acento-oscuro-rgb))] to-[rgb(var(--tema-acento-claro-rgb))] rounded-lg shadow-[0_0_15px_rgb(var(--tema-acento-claro-rgb)/0.5)]" />
                 </div>
               </div>
             </div>
@@ -164,7 +239,7 @@ export function GrillaBento() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="relative p-7 sm:p-8 rounded-3xl bg-[#0c0a09]/90 border border-white/10 hover:border-sky-500/40 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all duration-300 overflow-hidden group shadow-xl"
+            className="relative p-7 sm:p-8 rounded-3xl bg-[#0c0a09]/90 border border-white/10 hover:border-[rgb(var(--tema-acento-rgb)/0.45)] hover:shadow-[0_0_30px_rgb(var(--tema-acento-rgb)/0.16)] transition-all duration-300 overflow-hidden group shadow-xl"
           >
             <div className="flex flex-col h-full justify-between">
               <div>
@@ -179,13 +254,13 @@ export function GrillaBento() {
                 </p>
               </div>
 
-              {/* Escalera iluminada con sello de garantía */}
-              <div className="mt-8 relative h-44 rounded-2xl bg-black/60 border border-white/5 flex flex-col items-center justify-center overflow-hidden">
-                <div className="absolute w-28 h-28 rounded-full bg-sky-500/15 blur-xl" />
+              {/* Escalera iluminada con sello de garantía reactivo al tema */}
+              <div className="mt-7 relative h-44 rounded-2xl bg-black/60 border border-white/5 flex flex-col items-center justify-center overflow-hidden">
+                <div className="absolute w-28 h-28 rounded-full bg-[rgb(var(--tema-acento-rgb)/0.15)] blur-xl" />
                 <div className="relative flex flex-col items-center gap-1.5 w-44">
-                  <div className="w-16 h-2 rounded-full bg-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.7)]" />
-                  <div className="w-24 h-2 rounded-full bg-sky-500/70" />
-                  <div className="w-32 h-2 rounded-full bg-blue-600/50" />
+                  <div className="w-16 h-2 rounded-full bg-[rgb(var(--tema-acento-claro-rgb))] shadow-[0_0_15px_rgb(var(--tema-acento-claro-rgb)/0.7)]" />
+                  <div className="w-24 h-2 rounded-full bg-[rgb(var(--tema-acento-rgb)/0.7)]" />
+                  <div className="w-32 h-2 rounded-full bg-[rgb(var(--tema-acento-oscuro-rgb)/0.5)]" />
                   <div className="w-40 h-2 rounded-full bg-neutral-800" />
                 </div>
                 <div className="mt-3 flex items-center gap-1.5 text-xs text-sky-300 font-mono">
@@ -195,7 +270,6 @@ export function GrillaBento() {
               </div>
             </div>
           </motion.div>
-
         </div>
       </div>
     </section>

@@ -37,19 +37,20 @@ export function HeroContenidoV2() {
             <span>{traduccionesHero("insigniaV2")}</span>
           </div>
 
-          {/* Título Principal con cápsulas refinadas y tipografía moderna */}
-          <h1 className="fuente-titular text-2xl sm:text-4xl xl:text-[3.25rem] font-normal text-white tracking-tight leading-[1.22]">
+          {/* [MEJORA-VISUAL-03] Título Principal con jerarquía tipográfica real y píldoras con ritmo vertical parejo */}
+          <h1 className="fuente-titular text-2xl sm:text-4xl xl:text-[3.25rem] font-bold text-white tracking-tight leading-[1.3]">
             {traduccionesHero("tituloV2Parte1")}{" "}
-            <span className="inline-block bg-[rgb(var(--tema-acento-rgb))] text-black px-3.5 py-0.5 rounded-full font-medium align-middle shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.35)] my-0.5">
+            <span className="inline-block bg-[rgb(var(--tema-acento-rgb))] text-black px-3.5 py-0.5 rounded-full font-bold align-middle shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.35)] my-1">
               {traduccionesHero("tituloV2Pildora1")}
             </span>
             <br className="hidden sm:inline" />
             {" "}{traduccionesHero("tituloV2Conector")}{" "}
-            <span className="inline-block bg-white/10 text-[rgb(var(--tema-acento-claro-rgb))] px-3.5 py-0.5 rounded-full font-medium align-middle border border-white/15 my-5">
+            <span className="inline-block bg-white/10 text-[rgb(var(--tema-acento-claro-rgb))] px-3.5 py-0.5 rounded-full font-semibold align-middle border border-white/15 my-1">
               {traduccionesHero("tituloV2Pildora2")}
             </span>{" "}
             {traduccionesHero("tituloV2Parte2")}
           </h1>
+          {/* [/MEJORA-VISUAL-03] */}
 
           <p className="mt-4 text-sm sm:text-base text-neutral-300 max-w-2xl leading-relaxed">
             {traduccionesHero("descripcionV2")}
@@ -74,8 +75,9 @@ export function HeroContenidoV2() {
 
           {/* Métricas destacadas en columna derecha */}
           <div className="md:col-span-5 flex flex-col gap-4 border-t md:border-t-0 md:border-l border-white/10 pt-4 md:pt-0 md:pl-6">
+            {/* [MEJORA-VISUAL-03] Cifras con tabular-nums y CTAs con foco de teclado visible [MEJORA-VISUAL-08] */}
             <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-              <span className="text-3xl sm:text-4xl font-extrabold text-white font-mono block">
+              <span className="text-3xl sm:text-4xl font-extrabold text-white font-mono tabular-nums block">
                 5+
               </span>
               <span className="text-xs text-neutral-400 tracking-wider uppercase mt-1 block">
@@ -84,7 +86,7 @@ export function HeroContenidoV2() {
             </div>
 
             <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-              <span className="text-3xl sm:text-4xl font-extrabold text-[rgb(var(--tema-acento-claro-rgb))] font-mono block">
+              <span className="text-3xl sm:text-4xl font-extrabold text-[rgb(var(--tema-acento-claro-rgb))] font-mono tabular-nums block">
                 50+
               </span>
               <span className="text-xs text-neutral-400 tracking-wider uppercase mt-1 block">
@@ -94,7 +96,7 @@ export function HeroContenidoV2() {
 
             <Link
               href="/cotizador"
-              className="relative inline-flex items-center justify-between px-5 py-3.5 rounded-2xl text-xs font-bold bg-realce-500/15 hover:bg-realce-500/25 text-realce-300 hover:text-white border border-realce-500/50 shadow-[0_0_24px_rgb(var(--tema-realce-rgb)/0.3)] hover:shadow-[0_0_32px_rgb(var(--tema-realce-rgb)/0.55)] hover:scale-[1.02] active:scale-95 transition-all group"
+              className="relative inline-flex items-center justify-between px-5 py-3.5 rounded-2xl text-xs font-bold bg-realce-500/15 hover:bg-realce-500/25 text-realce-300 hover:text-white border border-realce-500/50 shadow-[0_0_24px_rgb(var(--tema-realce-rgb)/0.3)] hover:shadow-[0_0_32px_rgb(var(--tema-realce-rgb)/0.55)] hover:scale-[1.02] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-realce-rgb))] transition-all group"
             >
               <span className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-realce-400 animate-pulse shrink-0" />
@@ -105,7 +107,7 @@ export function HeroContenidoV2() {
 
             <a
               href="#proyectos"
-              className="inline-flex items-center justify-between px-5 py-3 rounded-2xl text-xs font-semibold bg-[rgb(var(--tema-acento-rgb))] text-black shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.35)] hover:shadow-[0_0_25px_rgba(var(--tema-acento-rgb),0.55)] hover:scale-[1.02] active:scale-95 transition-all group"
+              className="inline-flex items-center justify-between px-5 py-3 rounded-2xl text-xs font-semibold bg-[rgb(var(--tema-acento-rgb))] text-black shadow-[0_0_20px_rgba(var(--tema-acento-rgb),0.35)] hover:shadow-[0_0_25px_rgba(var(--tema-acento-rgb),0.55)] hover:scale-[1.02] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-all group"
             >
               <span>{traduccionesHero("verProyectos")}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

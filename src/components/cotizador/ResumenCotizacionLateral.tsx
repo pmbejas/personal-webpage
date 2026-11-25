@@ -461,7 +461,7 @@ export function ResumenCotizacionLateral({
                         }
                       }}
                       placeholder={traducciones("cuponPlaceholder")}
-                      className="w-full min-w-0 bg-white/5 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] rounded-xl px-2.5 py-1.5 text-xs font-mono text-white placeholder:text-neutral-500 focus:outline-none transition-colors uppercase tracking-wider"
+                      className="w-full min-w-0 bg-white/5 border border-white/15 focus:border-[rgb(var(--tema-acento-rgb))] focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb)/0.5)] rounded-xl px-2.5 py-1.5 text-xs font-mono text-white placeholder:text-neutral-500 focus:outline-none transition-colors uppercase tracking-wider"
                     />
                     <button
                       type="button"
@@ -502,13 +502,14 @@ export function ResumenCotizacionLateral({
               </span>
             ) : (
               <>
+                {/* [MEJORA-VISUAL-03] Cifras dinámicas con tabular-nums para evitar saltos horizontales */}
                 {tieneDescuento && (
-                  <span className="text-xs font-mono text-neutral-500 line-through block">
+                  <span className="text-xs font-mono tabular-nums text-neutral-500 line-through block">
                     {formatearMonedaArs(subtotalSinDescuento)}
                   </span>
                 )}
                 <span
-                  className={`text-xl sm:text-2xl font-extrabold font-mono ${
+                  className={`text-xl sm:text-2xl font-extrabold font-mono tabular-nums ${
                     tieneCupon
                       ? "text-emerald-400 drop-shadow-[0_0_16px_rgba(16,185,129,0.3)]"
                       : calculoPromocion.tienePromocion
@@ -532,7 +533,7 @@ export function ResumenCotizacionLateral({
             <span className="text-neutral-400">
               {traducciones("senaSugerida")}
             </span>
-            <span className="font-mono font-bold text-[rgb(var(--tema-acento-claro-rgb))]">
+            <span className="font-mono font-bold tabular-nums text-[rgb(var(--tema-acento-claro-rgb))]">
               {formatearMonedaArs(montoSenaSugerida)}
             </span>
           </div>

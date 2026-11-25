@@ -25,7 +25,7 @@
     "tituloV2Conector": "&",
     "tituloV2Pildora2": "arquiteturas",
     "tituloV2Parte2": "escaláveis",
-    "descripcionV2": "Especializado em serviços backend em .NET 9 (C#) com Clean Architecture, interfaces reativas em Next.js 15 e bancos de dados relacionais em PostgreSQL.",
+    "descripcionV2": "Especializado em serviços backend em .NET 10 (C#) com Clean Architecture, interfaces reativas em Next.js 15 e bancos de dados relacionais em PostgreSQL.",
     "rotarCubo": "Arraste com o mouse para girar o cubo livremente",
     "cotizarEnUnMinuto": "Orce seu projeto em 1 minuto"
   },
@@ -206,7 +206,7 @@
     "tarjeta1": {
       "categoria": "01 / BACKEND",
       "titulo": "Arquitetura & Ferramentas",
-      "descripcion": "Desenvolvimento de serviços escaláveis com ASP.NET Core (.NET 9), Clean Architecture, Repository Pattern e PostgreSQL para garantir estabilidade e alta concorrência."
+      "descripcion": "Desenvolvimento de serviços escaláveis com ASP.NET Core (.NET 10), Clean Architecture, Repository Pattern e PostgreSQL para garantir estabilidade e alta concorrência."
     },
     "tarjeta2": {
       "categoria": "02 / FRONTEND",
@@ -253,17 +253,32 @@
     "paso1": {
       "numero": "01",
       "titulo": "Visão & Arquitetura",
-      "descripcion": "Mapeamos detalhadamente os objetivos do negócio, requisitos técnicos e definimos a arquitetura ideal (.NET 9, Next.js, PostgreSQL) sem ambiguidades."
+      "descripcion": "Mapeamos detalhadamente os objetivos do negócio, requisitos técnicos e definimos a arquitetura ideal (.NET 10, Next.js, PostgreSQL) sem ambiguidades.",
+      "entregables": [
+        "Levantamento funcional e escopo",
+        "Modelagem de banco de dados e APIs",
+        "Cronograma de sprints e orçamento"
+      ]
     },
     "paso2": {
       "numero": "02",
       "titulo": "Desenvolvimento Ágil & Testes",
-      "descripcion": "Construo a solução passo a passo aplicando Clean Architecture, código limpo, APIs seguras e componentes visuais reativos com entregas contínuas."
+      "descripcion": "Construo a solução passo a passo aplicando Clean Architecture, código limpo, APIs seguras e componentes visuais reativos com entregas contínuas.",
+      "entregables": [
+        "Demos semanais em homologação",
+        "Código limpo tipado e documentado",
+        "Testes automatizados em fluxos críticos"
+      ]
     },
     "paso3": {
       "numero": "03",
       "titulo": "Implantação & Escala",
-      "descripcion": "Testes de qualidade automatizados, pipelines de CI/CD em contêineres Docker e publicação na nuvem com monitoramento para máxima estabilidade."
+      "descripcion": "Testes de qualidade automatizados, pipelines de CI/CD em contêineres Docker e publicação na nuvem com monitoramento para máxima estabilidade.",
+      "entregables": [
+        "Deploy em produção com SSL e domínio",
+        "Treinamento e entrega dos repositórios",
+        "Garantia técnica e suporte pós-lançamento"
+      ]
     }
   },
   "faq": {
@@ -272,7 +287,7 @@
     "descripcion": "Informações essenciais e respostas às dúvidas mais frequentes sobre os serviços de desenvolvimento de software e arquitetura.",
     "q1": {
       "pregunta": "Quais são as principais tecnologias utilizadas para o desenvolvimento Full Stack?",
-      "respuesta": "O desenvolvimento fundamenta-se no ecossistema Microsoft .NET (.NET 9, C#, ASP.NET Core Web API, EF Core, Dapper) para arquiteturas de backend robustas e de alta concorrência, aliado ao Next.js 15, TypeScript e Tailwind CSS no frontend para interfaces web modernas, fluidas e otimizadas para SEO."
+      "respuesta": "O desenvolvimento fundamenta-se no ecossistema Microsoft .NET (.NET 10, C#, ASP.NET Core Web API, EF Core, Dapper) para arquiteturas de backend robustas e de alta concorrência, aliado ao Next.js 15, TypeScript e Tailwind CSS no frontend para interfaces web modernas, fluidas e otimizadas para SEO."
     },
     "q2": {
       "pregunta": "Como se estrutura a metodologia de trabalho e a comunicação no projeto?",

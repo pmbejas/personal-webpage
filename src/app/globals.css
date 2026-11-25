@@ -63,24 +63,15 @@ html[data-efecto="sin-fondo"] .lienzo-efecto-ambiental {
   display: none !important;
 }
 
-/* Clase de tipografía geométrica refinada para la Versión 2 */
+/* [MEJORA-VISUAL-03] Jerarquía tipográfica real con Plus Jakarta Sans sin aplanar pesos a 600 */
 .fuente-titular,
 [data-v2="true"] h1,
 [data-v2="true"] h2,
 [data-v2="true"] h3 {
-  font-family: var(--font-plus-jakarta), var(--font-inter), sans-serif !important;
-  font-weight: 600 !important;
+  font-family: var(--font-plus-jakarta), var(--font-inter), sans-serif;
   letter-spacing: -0.025em;
 }
-
-[data-v2="true"] .font-black {
-  font-weight: 600 !important;
-}
-
-[data-v2="true"] .font-extrabold {
-  font-weight: 600 !important;
-}
-
+/* [/MEJORA-VISUAL-03] */
 
 @layer base {
   html {
@@ -90,8 +81,9 @@ html[data-efecto="sin-fondo"] .lienzo-efecto-ambiental {
     overflow-x: clip;
   }
 
+  /* [MEJORA-VISUAL-02] Fondo base y scrollbar unificados en carbón #070606 */
   body {
-    background-color: #1c171b;
+    background-color: #070606;
     color: #F8FAFC;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
@@ -106,17 +98,18 @@ html[data-efecto="sin-fondo"] .lienzo-efecto-ambiental {
   }
 
   ::-webkit-scrollbar-track {
-    background: #1c171b;
+    background: #070606;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #1E293B;
+    background: #232020;
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #383333;
   }
+  /* [/MEJORA-VISUAL-02] */
 
   /* Respetar la preferencia de movimiento reducido también en animaciones CSS */
   @media (prefers-reduced-motion: reduce) {

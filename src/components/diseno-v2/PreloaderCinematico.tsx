@@ -101,8 +101,8 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
               className="absolute w-28 h-28 rounded-full bg-gradient-to-r from-blue-500/35 to-sky-400/35 blur-2xl"
             />
 
-            {/* Isotipo Dark renderizado */}
-            <div className="relative w-20 h-20 drop-shadow-[0_0_20px_rgba(56,189,248,0.7)] flex items-center justify-center">
+            {/* [MEJORA-VISUAL-01] Isotipo Dark con brillo adaptado al tema activo */}
+            <div className="relative w-20 h-20 drop-shadow-[0_0_20px_rgb(var(--tema-acento-claro-rgb)/0.7)] flex items-center justify-center">
               <Image
                 src="/isotipo-dark.svg"
                 alt={traducciones("altIsotipo")}
@@ -129,11 +129,11 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
             </p>
           </motion.div>
 
-          {/* Barra de progreso y haz de luz azul */}
+          {/* [MEJORA-VISUAL-01] Barra de progreso y haz de luz reactivos al tema cromático activo */}
           <div className="relative w-64 max-w-[80vw] mt-8">
             <div className="h-[2px] w-full bg-neutral-900 rounded-full overflow-hidden relative">
               <motion.div
-                className="h-full bg-gradient-to-r from-blue-600 via-sky-400 to-cyan-300 shadow-[0_0_12px_rgba(56,189,248,0.8)]"
+                className="h-full bg-gradient-to-r from-[rgb(var(--tema-acento-oscuro-rgb))] via-[rgb(var(--tema-acento-rgb))] to-[rgb(var(--tema-acento-claro-rgb))] shadow-[0_0_12px_rgb(var(--tema-acento-claro-rgb)/0.8)]"
                 style={{ width: `${progreso}%` }}
                 transition={{ ease: "easeOut" }}
               />

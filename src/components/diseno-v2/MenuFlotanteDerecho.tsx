@@ -117,6 +117,10 @@ export function MenuFlotanteDerecho() {
   const pathname = usePathname();
   const estaEnCotizador =
     pathname === "/cotizador" || pathname.endsWith("/cotizador");
+  /* [MEJORA-VISUAL-02] Soporte completo del dock también en /proyectos */
+  const estaEnProyectos =
+    pathname === "/proyectos" || pathname.endsWith("/proyectos");
+  const estaFueraDeInicio = estaEnCotizador || estaEnProyectos;
 
   // 1. Sincroniza el tema y efecto ambiental leyendo la propiedad en el DOM o en localStorage
   useEffect(() => {
@@ -212,19 +216,21 @@ export function MenuFlotanteDerecho() {
   };
 
   return (
-    <div className="fixed top-3 sm:top-4 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:left-auto lg:right-4 xl:right-6 lg:translate-x-0 z-40 pointer-events-none max-w-[calc(100vw-1.5rem)]">
+    /* [MEJORA-VISUAL-06] Contenedor móvil con margen seguro y foco visible */
+    <div className="fixed top-2.5 sm:top-4 left-1/2 -translate-x-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:left-auto lg:right-4 xl:right-6 lg:translate-x-0 z-40 pointer-events-none max-w-[calc(100vw-1rem)]">
       {/* Dock Principal de Navegación: Horizontal superior en móvil, vertical a la derecha en escritorio */}
       <nav
         aria-label="Navegación de secciones de la página"
-        className="pointer-events-auto relative flex flex-row lg:flex-col items-center gap-0.5 sm:gap-1 p-1 sm:p-2 rounded-full bg-[#0c0a09]/90 backdrop-blur-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.7)]"
+        className="pointer-events-auto relative flex flex-row lg:flex-col items-center gap-0.5 sm:gap-1 px-1.5 py-1 sm:p-2 rounded-full bg-[#0c0a09]/90 backdrop-blur-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.7)]"
       >
         {/* Enlaces de secciones con ScrollSpy y deslizamiento suave continuo */}
         {SECCIONES_MENU.map((seccion) => {
           const Icono = seccion.icono;
-          const estaActiva =
-            !estaEnCotizador && seccionActiva === seccion.identificador;
+          const estaActiva = estaEnProyectos
+            ? seccion.identificador === "proyectos"
+            : !estaEnCotizador && seccionActiva === seccion.identificador;
           const etiquetaTraducida = traduccionesDock(seccion.claveTraduccion);
-          const destinoSeccion = estaEnCotizador
+          const destinoSeccion = estaFueraDeInicio
             ? `/#${seccion.identificador}`
             : `#${seccion.identificador}`;
           const contenidoEnlace = (
@@ -309,12 +315,12 @@ export function MenuFlotanteDerecho() {
             </>
           );
 
-          if (estaEnCotizador) {
+          if (estaFueraDeInicio) {
             return (
               <Link
                 key={seccion.identificador}
                 href={destinoSeccion}
-                className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
+                className="group relative p-1.5 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb))]"
                 aria-label={etiquetaTraducida}
               >
                 {contenidoEnlace}
@@ -326,7 +332,7 @@ export function MenuFlotanteDerecho() {
             <a
               key={seccion.identificador}
               href={destinoSeccion}
-              className="group relative p-2 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white"
+              className="group relative p-1.5 sm:p-2.5 lg:p-3 rounded-full transition-colors duration-200 flex items-center justify-center text-neutral-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--tema-acento-rgb))]"
               aria-label={etiquetaTraducida}
             >
               {contenidoEnlace}

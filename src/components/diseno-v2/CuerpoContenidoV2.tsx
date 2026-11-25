@@ -19,7 +19,8 @@ export function CuerpoContenidoV2() {
   const traducciones = useTranslations("piePagina");
 
   return (
-    <div className="flex flex-col gap-16 sm:gap-24">
+    /* [MEJORA-VISUAL-04] Ritmo vertical equilibrado evitando doble vacío entre secciones */
+    <div className="flex flex-col gap-10 sm:gap-14">
       {/* 1. Hero con Cubo 3D y métricas */}
       <HeroContenidoV2 />
 
