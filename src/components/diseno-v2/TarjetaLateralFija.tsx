@@ -36,8 +36,9 @@ export function TarjetaLateralFija() {
           alt="Pablo Bejas"
           fill
           priority
+          fetchPriority="high"
           className="object-cover object-top opacity-65 filter grayscale contrast-115 blur-[0.5px] scale-105 group-hover:scale-110 group-hover:opacity-80 transition-all duration-700"
-          sizes="(max-width: 1024px) 100vw, 420px"
+          sizes="(max-width: 1024px) 92vw, 420px"
         />
         {/* Máscara de gradiente oscuro con resplandor cyan en la cabecera */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0c0a09] via-[#0c0a09]/80 to-transparent" />

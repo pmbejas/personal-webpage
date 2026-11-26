@@ -17,9 +17,9 @@ export async function generateMetadata({
     title: t("titulo"),
     description: t("descripcion"),
     alternates: {
-      canonical: `/${locale}/cotizador`,
+      canonical: locale === "es" ? "/cotizador" : `/${locale}/cotizador`,
       languages: {
-        es: "/es/cotizador",
+        es: "/cotizador",
         en: "/en/cotizador",
         pt: "/pt/cotizador",
       },

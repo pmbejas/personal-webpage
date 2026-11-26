@@ -999,11 +999,11 @@ export function ExperienciaCotizador({
             )}
           </AnimatePresence>
 
-          {/* Pie de página sutil */}
-          <footer className="mt-4 pt-6 border-t border-white/5 text-center text-xs text-neutral-500 font-mono flex items-center justify-center gap-2">
+          {/* Pie de página sutil con contraste WCAG AA/AAA verificado */}
+          <footer className="mt-4 pt-6 border-t border-white/5 text-center text-xs text-neutral-400 font-mono flex items-center justify-center gap-2">
             <span>{traduccionesPie("derechos")}</span>
-            <span>·</span>
-            <span className="text-neutral-400 font-semibold">
+            <span aria-hidden="true">·</span>
+            <span className="text-neutral-300 font-semibold">
               v{VERSION_SITIO}
             </span>
           </footer>

@@ -43,9 +43,12 @@ export async function generateMetadata({
       follow: false,
     },
     alternates: {
-      canonical: `/${locale}/presupuesto/${codigoLimpio}`,
+      canonical:
+        locale === "es"
+          ? `/presupuesto/${codigoLimpio}`
+          : `/${locale}/presupuesto/${codigoLimpio}`,
       languages: {
-        es: `/es/presupuesto/${codigoLimpio}`,
+        es: `/presupuesto/${codigoLimpio}`,
         en: `/en/presupuesto/${codigoLimpio}`,
         pt: `/pt/presupuesto/${codigoLimpio}`,
       },

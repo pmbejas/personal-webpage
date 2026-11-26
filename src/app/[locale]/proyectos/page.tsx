@@ -19,9 +19,9 @@ export async function generateMetadata({
     title: t("titulo"),
     description: t("descripcion"),
     alternates: {
-      canonical: `/${locale}/proyectos`,
+      canonical: locale === "es" ? "/proyectos" : `/${locale}/proyectos`,
       languages: {
-        es: "/es/proyectos",
+        es: "/proyectos",
         en: "/en/proyectos",
         pt: "/pt/proyectos",
       },
@@ -63,10 +63,10 @@ export default async function PaginaProyectos({
         <CtaContacto />
       </main>
 
-      <footer className="relative z-10 max-w-6xl mx-auto w-full px-4 sm:px-6 pt-8 pb-12 border-t border-white/5 text-center text-xs text-neutral-500 font-mono flex items-center justify-center gap-2">
+      <footer className="relative z-10 max-w-6xl mx-auto w-full px-4 sm:px-6 pt-8 pb-12 border-t border-white/5 text-center text-xs text-neutral-400 font-mono flex items-center justify-center gap-2">
         <span>{traduccionesPie("derechos")}</span>
-        <span>·</span>
-        <span className="text-neutral-400 font-semibold">v{VERSION_SITIO}</span>
+        <span aria-hidden="true">·</span>
+        <span className="text-neutral-300 font-semibold">v{VERSION_SITIO}</span>
       </footer>
     </div>
   );

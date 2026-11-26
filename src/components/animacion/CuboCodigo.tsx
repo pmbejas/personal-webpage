@@ -27,7 +27,7 @@ function BarraVentana({ etiquetaArchivo }: PropiedadesCabeceraVentana) {
         <i className="h-1.5 w-1.5 rounded-full bg-amber-400/90" />
         <i className="h-1.5 w-1.5 rounded-full bg-emerald-400/90" />
       </div>
-      <span className="text-[8.5px] uppercase tracking-wider text-neutral-500 truncate">
+      <span className="text-[8.5px] uppercase tracking-wider text-neutral-400 truncate">
         {etiquetaArchivo}
       </span>
     </div>
@@ -234,7 +234,7 @@ export function CuboCodigo() {
               </span>
               <span>{"};"}</span>
             </div>
-            <span className="text-[8.5px] text-neutral-500">SOLID · DDD</span>
+            <span className="text-[8.5px] text-neutral-400">SOLID · DDD</span>
           </div>
 
           {/* Atrás: stack real actualizado */}
@@ -249,7 +249,7 @@ export function CuboCodigo() {
               <span className="pl-2 text-amber-300">&quot;PostgreSQL&quot;</span>
               <span className="text-neutral-400">]</span>
             </div>
-            <span className="text-[8.5px] text-neutral-500">EF Core · Dapper</span>
+            <span className="text-[8.5px] text-neutral-400">EF Core · Dapper</span>
           </div>
 
           {/* Derecha: terminal de compilación */}
@@ -263,7 +263,7 @@ export function CuboCodigo() {
               <span className="text-emerald-400">✓ 0 warnings · 0 err</span>
               <span className="text-neutral-400">▲ Next.js SSR ready</span>
             </div>
-            <span className="text-[8.5px] text-neutral-500">prod · ssl</span>
+            <span className="text-[8.5px] text-neutral-400">prod · ssl</span>
           </div>
 
           {/* Izquierda: disponibilidad */}
@@ -278,7 +278,7 @@ export function CuboCodigo() {
               </span>
               <span className="text-neutral-400 mt-1">{"// remoto global"}</span>
             </div>
-            <span className="text-[8.5px] text-neutral-500">ES · EN · PT</span>
+            <span className="text-[8.5px] text-neutral-400">ES · EN · PT</span>
           </div>
 
           {/* Arriba: marca oficial con isotipo robot + JSX */}
@@ -295,7 +295,7 @@ export function CuboCodigo() {
                 Software Architecture
               </span>
             </div>
-            <span className="text-[8.5px] text-neutral-500 text-center">v3 · 2026</span>
+            <span className="text-[8.5px] text-neutral-400 text-center">v3 · 2026</span>
           </div>
 
           {/* Abajo: infraestructura */}
@@ -308,7 +308,7 @@ export function CuboCodigo() {
               </span>
               <span className="text-emerald-400">status: healthy</span>
             </div>
-            <span className="text-[8.5px] text-neutral-500">Vercel · Render</span>
+            <span className="text-[8.5px] text-neutral-400">Vercel · Render</span>
           </div>
         </div>
       </div>

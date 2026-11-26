@@ -11,7 +11,7 @@ export default function PaginaNoEncontrada() {
             La página que buscas no existe o ha sido movida.
           </p>
           <Link
-            href="/es"
+            href="/"
             className="inline-flex items-center px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium transition-colors"
           >
             Volver al inicio

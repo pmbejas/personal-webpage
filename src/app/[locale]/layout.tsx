@@ -53,9 +53,9 @@ export async function generateMetadata({
       "PostgreSQL",
     ],
     alternates: {
-      canonical: `/${locale}`,
+      canonical: locale === "es" ? "/" : `/${locale}`,
       languages: {
-        es: "/es",
+        es: "/",
         en: "/en",
         pt: "/pt",
       },

@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   ColoresTemaHumo,
+  EFECTO_FONDO_POR_DEFECTO,
   EVENTO_CAMBIO_EFECTO_FONDO,
   obtenerEfectoFondoAlmacenado,
   TipoEfectoFondo,
@@ -20,6 +21,9 @@ import {
   NodoConstelacion,
   PulsoDatosReticula,
 } from "./renderizadoresEfectosFondo";
+
+const RETARDO_ARRANQUE_LIENZO_MS = 1200;
+const INTERVALO_MOVIL_30FPS_MS = 33.3;
 
 interface VeloHumoEspiral {
   origenBaseX: number;
@@ -152,9 +156,9 @@ function trazarMicroFibraVelo(
   velo: VeloHumoEspiral,
   fibraNormalizadaU: number,
   altoLienzo: number,
-  tiempo: number
+  tiempo: number,
+  pasosVerticales: number
 ): void {
-  const pasosVerticales = 52;
   contexto.beginPath();
 
   const puntoInicial = calcularCoordenadaVeloEspiral(velo, fibraNormalizadaU, 0, altoLienzo, tiempo);
@@ -179,9 +183,11 @@ function dibujarVeloHumoContraluz(
   altoLienzo: number,
   tiempo: number,
   coloresTema: ColoresTemaHumo,
-  multiplicadorIntensidad: number
+  multiplicadorIntensidad: number,
+  esMovil: boolean
 ): void {
-  const cantidadFibras = 28;
+  const cantidadFibras = esMovil ? 12 : 28;
+  const pasosVerticales = esMovil ? 24 : 52;
   const opacidadEscalada = velo.opacidadVelo * multiplicadorIntensidad;
 
   const gradienteGasa = contextoNitido.createLinearGradient(0, altoLienzo + 40, 0, -40);
@@ -201,7 +207,7 @@ function dibujarVeloHumoContraluz(
   contextoDifuso.strokeStyle = `rgba(${coloresTema.acentoRgb}, ${0.065 * opacidadEscalada})`;
   contextoDifuso.lineWidth = 34;
   contextoDifuso.lineCap = "round";
-  trazarMicroFibraVelo(contextoDifuso, velo, 0, altoLienzo, tiempo);
+  trazarMicroFibraVelo(contextoDifuso, velo, 0, altoLienzo, tiempo, pasosVerticales);
   contextoDifuso.stroke();
 
   contextoNitido.save();
@@ -213,7 +219,7 @@ function dibujarVeloHumoContraluz(
     const fibraU = (indice / (cantidadFibras - 1)) * 2 - 1;
     const esBordeRizo = Math.abs(fibraU) > 0.72;
 
-    trazarMicroFibraVelo(contextoNitido, velo, fibraU, altoLienzo, tiempo);
+    trazarMicroFibraVelo(contextoNitido, velo, fibraU, altoLienzo, tiempo, pasosVerticales);
     contextoNitido.strokeStyle = gradienteGasa;
     contextoNitido.lineWidth = 4.2;
     contextoNitido.stroke();
@@ -227,26 +233,29 @@ function dibujarVeloHumoContraluz(
 }
 
 /**
- * Orquestador de los 5 efectos ambientales futuristas sobre doble lienzo (difuso + nítido).
+ * Orquestador de los 5 efectos ambientales sobre doble lienzo (difuso + nítido).
+ * - Inicializa con el valor por defecto en SSR y lee localStorage en useEffect (0 errores de hidratación).
+ * - Difiere el arranque de animación tras la hidratación y limita densidad/FPS en móvil para proteger TBT/LCP.
  */
 export function FondoHumoSutil({ multiplicadorIntensidad = 1 }: PropiedadesFondoHumoSutil) {
-  const [efectoActivo, setEfectoActivo] = useState<TipoEfectoFondo>(obtenerEfectoFondoAlmacenado);
+  const [efectoActivo, setEfectoActivo] = useState<TipoEfectoFondo>(EFECTO_FONDO_POR_DEFECTO);
   const referenciaLienzoDifuso = useRef<HTMLCanvasElement>(null);
   const referenciaLienzoNitido = useRef<HTMLCanvasElement>(null);
 
-  // 1. Sincroniza reactivamente el efecto activo ante eventos de cambio
+  // 1. Lee la preferencia almacenada tras hidratar y escucha cambios dinámicos
   useEffect(() => {
     const sincronizarEfecto = () => {
       setEfectoActivo(obtenerEfectoFondoAlmacenado());
     };
 
+    sincronizarEfecto();
     window.addEventListener(EVENTO_CAMBIO_EFECTO_FONDO, sincronizarEfecto);
     return () => {
       window.removeEventListener(EVENTO_CAMBIO_EFECTO_FONDO, sincronizarEfecto);
     };
   }, []);
 
-  // 2. Orquestador de animación sobre los lienzos cuando hay un efecto activo
+  // 2. Orquestador diferido de animación sobre los lienzos cuando hay un efecto activo
   useEffect(() => {
     if (efectoActivo === "sin-fondo") {
       return;
@@ -263,8 +272,11 @@ export function FondoHumoSutil({ multiplicadorIntensidad = 1 }: PropiedadesFondo
     const prefiereReducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let ancho = 0;
     let alto = 0;
+    let esMovil = false;
     let idAnimacion = 0;
+    let idTemporizadorInicio: ReturnType<typeof setTimeout> | null = null;
     let tiempo = 0;
+    let ultimoCuadroMs = 0;
     let coloresTema = leerColoresTemaDocumento();
     const posicionMouse = { x: -9999, y: -9999 };
 
@@ -276,6 +288,7 @@ export function FondoHumoSutil({ multiplicadorIntensidad = 1 }: PropiedadesFondo
     const inicializarEscena = () => {
       ancho = lienzoDifuso.width = lienzoNitido.width = window.innerWidth;
       alto = lienzoDifuso.height = lienzoNitido.height = window.innerHeight;
+      esMovil = ancho < 768;
       listaVelosEspiral = crearListaVelosHumoEspiral(ancho);
       listaMotasBokeh = crearListaMotasBokeh(ancho, alto);
       listaPulsosReticula = crearListaPulsosReticula(ancho, alto);
@@ -286,11 +299,20 @@ export function FondoHumoSutil({ multiplicadorIntensidad = 1 }: PropiedadesFondo
       contextoDifuso.clearRect(0, 0, ancho, alto);
       contextoNitido.clearRect(0, 0, ancho, alto);
 
-      tiempo += 0.012;
+      tiempo += esMovil ? 0.022 : 0.012;
 
       if (efectoActivo === "humo-bokeh") {
         for (const velo of listaVelosEspiral) {
-          dibujarVeloHumoContraluz(contextoDifuso, contextoNitido, velo, alto, tiempo, coloresTema, multiplicadorIntensidad);
+          dibujarVeloHumoContraluz(
+            contextoDifuso,
+            contextoNitido,
+            velo,
+            alto,
+            tiempo,
+            coloresTema,
+            multiplicadorIntensidad,
+            esMovil
+          );
         }
         actualizarYDibujarMotasBokeh(contextoDifuso, contextoNitido, listaMotasBokeh, ancho, alto, tiempo, coloresTema);
       } else if (efectoActivo === "aurora-seda") {
@@ -306,8 +328,11 @@ export function FondoHumoSutil({ multiplicadorIntensidad = 1 }: PropiedadesFondo
       }
     };
 
-    const ejecutarBucle = () => {
-      renderizarFotograma();
+    const ejecutarBucle = (tiempoActualMs: number) => {
+      if (!esMovil || tiempoActualMs - ultimoCuadroMs >= INTERVALO_MOVIL_30FPS_MS) {
+        ultimoCuadroMs = tiempoActualMs;
+        renderizarFotograma();
+      }
       idAnimacion = requestAnimationFrame(ejecutarBucle);
     };
 
@@ -327,23 +352,32 @@ export function FondoHumoSutil({ multiplicadorIntensidad = 1 }: PropiedadesFondo
       if (document.hidden) {
         cancelAnimationFrame(idAnimacion);
       } else if (!prefiereReducirMovimiento) {
+        ultimoCuadroMs = performance.now();
         idAnimacion = requestAnimationFrame(ejecutarBucle);
       }
     };
 
-    inicializarEscena();
-    if (prefiereReducirMovimiento) {
-      renderizarFotograma();
-    } else {
-      idAnimacion = requestAnimationFrame(ejecutarBucle);
-      window.addEventListener("mousemove", manejarMouseMove, { passive: true });
-    }
+    const iniciarAnimacionAmbiental = () => {
+      inicializarEscena();
+      if (prefiereReducirMovimiento) {
+        renderizarFotograma();
+      } else {
+        ultimoCuadroMs = performance.now();
+        idAnimacion = requestAnimationFrame(ejecutarBucle);
+        window.addEventListener("mousemove", manejarMouseMove, { passive: true });
+      }
+      window.addEventListener("resize", inicializarEscena);
+      window.addEventListener("cambio-tema", manejarCambioTema);
+      document.addEventListener("visibilitychange", manejarVisibilidad);
+    };
 
-    window.addEventListener("resize", inicializarEscena);
-    window.addEventListener("cambio-tema", manejarCambioTema);
-    document.addEventListener("visibilitychange", manejarVisibilidad);
+    // Difiere el arranque del lienzo para no competir con la hidratación ni el LCP inicial
+    idTemporizadorInicio = setTimeout(iniciarAnimacionAmbiental, RETARDO_ARRANQUE_LIENZO_MS);
 
     return () => {
+      if (idTemporizadorInicio) {
+        clearTimeout(idTemporizadorInicio);
+      }
       cancelAnimationFrame(idAnimacion);
       window.removeEventListener("mousemove", manejarMouseMove);
       window.removeEventListener("resize", inicializarEscena);
@@ -352,7 +386,6 @@ export function FondoHumoSutil({ multiplicadorIntensidad = 1 }: PropiedadesFondo
     };
   }, [efectoActivo, multiplicadorIntensidad]);
 
-  // Si el usuario selecciona sin fondo, desmontamos por completo los lienzos (0% GPU/CPU)
   if (efectoActivo === "sin-fondo") {
     return null;
   }

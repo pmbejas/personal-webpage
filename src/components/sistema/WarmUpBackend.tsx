@@ -5,6 +5,7 @@ import { obtenerUrlBaseApi } from "@/services/ServicioCatalogo";
 
 const CLAVE_STORAGE_ULTIMO_WARMUP = "pb_ultimo_warmup_backend_ts";
 const INTERVALO_MINIMO_WARMUP_MS = 10 * 60 * 1000;
+const RETARDO_WARMUP_INICIAL_MS = 3500;
 
 /**
  *Verifica si corresponde disparar un nuevo ping de calentamiento en la sesión actual.
@@ -49,16 +50,23 @@ export function WarmUpBackend() {
       return;
     }
 
-    registrarEjecucionWarmUp();
-    const urlHealthcheck = `${obtenerUrlBaseApi()}/health`;
+    // Difiere el ping de calentamiento para no competir con el LCP ni los recursos críticos iniciales
+    const idTemporizador = setTimeout(() => {
+      registrarEjecucionWarmUp();
+      const urlHealthcheck = `${obtenerUrlBaseApi()}/health`;
 
-    fetch(urlHealthcheck, {
-      method: "GET",
-      mode: "cors",
-      cache: "no-store",
-    }).catch(() => {
-      // Silencio intencional: si el backend está despertando, no ensucia la consola del usuario
-    });
+      fetch(urlHealthcheck, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-store",
+      }).catch(() => {
+        // Silencio intencional: si el backend está despertando, no ensucia la consola del usuario
+      });
+    }, RETARDO_WARMUP_INICIAL_MS);
+
+    return () => {
+      clearTimeout(idTemporizador);
+    };
   }, []);
 
   return null;
