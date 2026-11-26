@@ -5,9 +5,9 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 
-const DURACION_PRELOADER_MS = 950;
-const PAUSA_FINAL_MS = 120;
-const DURACION_CIERRE_MS = 320;
+const DURACION_PRELOADER_MS = 1400;
+const PAUSA_FINAL_MS = 180;
+const DURACION_CIERRE_MS = 400;
 
 interface PropiedadesPreloader {
   alFinalizar: () => void;
@@ -33,12 +33,6 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
         alFinalizar();
       }
     };
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setEstaCompletado(true);
-      finalizarUnaSolaVez();
-      return;
-    }
 
     const tiempoInicioMs = performance.now();
     let idAnimacion = 0;
@@ -98,8 +92,8 @@ export const PreloaderCinematico: React.FC<PropiedadesPreloader> = ({ alFinaliza
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            y: -16,
-            transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
+            y: -20,
+            transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
           }}
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#070606] text-white select-none overflow-hidden"
         >
